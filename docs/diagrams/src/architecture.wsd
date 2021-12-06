@@ -1,0 +1,81 @@
+@startuml demo
+Package VKGroupBot {
+    Agent VKGroupBotSendMessage as "Send message"
+    Agent VKGroupBotReceiveMessage as "Receive message"
+    Agent VKGroupBotReceiveBadAnswer as "Receive bad answer"
+}
+
+Package TelegramSupportBot {
+    Agent TelegramSupportBotSend as "Send"
+    Agent TelegramSupportBotReceiveQuestionAnswer as "Receive quesion\nanswer"
+    Agent TelegramSupportBotReceiveParsedAddress as "Receive parsed\naddress"
+    Agent TelegramSupportBotReceiveParsedEntity as "Receive parsed\nentity"
+}
+
+Agent TelegramOrdersInfo
+
+Agent MessageClassifier
+
+Database QuestionAnswerDatabase as "Questions and\nanswers database"
+
+Queue AnswerQueue #A9DCDF
+Queue VkAnswerQueue #A9DCDF
+Queue OperatorQuestionQueue #A9DCDF
+Queue MessageQueue #A9DCDF
+
+Queue QuestionQueue #A9DCDF
+Queue AddressQueue #A9DCDF
+Queue EntityQueue #A9DCDF
+
+AnswerQueue --> VkAnswerQueue
+VkAnswerQueue --> VKGroupBotSendMessage
+
+Package NeuralQuestionProcessor {
+    Agent QuestionAnswerer
+    Agent QuestionAdder
+}
+
+Package NeuralAddressProcessor {
+    Agent AddressParser
+    Agent AddressAdder
+}
+
+Package NeuralEntityProcessor {
+    Agent EntityParser
+    Agent EntityAdder
+}
+
+QuestionAnswerer --> AnswerQueue : "answer exists"
+QuestionAnswerer --> OperatorQuestionQueue : "no answer"
+
+NeuralQuestionProcessor -l-> QuestionAnswerDatabase
+
+VKGroupBotReceiveMessage --> MessageQueue
+MessageQueue --> MessageClassifier
+
+
+MessageClassifier -d-> QuestionQueue
+QuestionQueue -d-> QuestionAnswerer
+MessageClassifier -d-> AddressQueue
+AddressQueue -d-> AddressParser
+MessageClassifier -d-> EntityQueue
+EntityQueue -d-> EntityParser
+
+OperatorQuestionQueue --> TelegramSupportBotSend
+
+Queue OperatorQuestionAnswerQueue #A9DCDF
+TelegramSupportBotReceiveQuestionAnswer --> OperatorQuestionAnswerQueue
+OperatorQuestionAnswerQueue --> QuestionAdder
+QuestionAdder --> AnswerQueue
+
+Queue OperatorParsedAddressQueue #A9DCDF
+TelegramSupportBotReceiveParsedAddress--> OperatorParsedAddressQueue
+OperatorParsedAddressQueue --> AddressAdder
+
+Queue OperatorParsedEntityQueue #A9DCDF
+TelegramSupportBotReceiveParsedEntity--> OperatorParsedEntityQueue
+OperatorParsedEntityQueue --> EntityAdder
+
+Database RedisClientStateStorage #OrangeRed
+
+@enduml
