@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/golang/protobuf/jsonpb"
 	"github.com/hashicorp/consul/api"
 	"github.com/nikhovas/diploma/proto/data/userActions"
 	pb "github.com/nikhovas/diploma/proto/servers/VkServer"
@@ -32,10 +33,14 @@ func callback(groupId int, update VkLongPullServer.UpdateObject) {
 	switch v := ro.(type) {
 	case *VkLongPullServer.NewMessageObject:
 		userAction := UserActions.UserAction{
-			ActionType: "",
-			Object:     nil,
+			ActionType: "new_message",
+			Object: &UserActions.UserAction_NewMessage{
+				NewMessage: &UserActions.NewMessage{Text: v.Body},
+			},
 		}
-		fmt.Println(v.Body)
+		m := jsonpb.Marshaler{}
+		s, _ := m.MarshalToString(&userAction)
+		fmt.Println(s)
 	default:
 		fmt.Println("Unsupported message type")
 	}
