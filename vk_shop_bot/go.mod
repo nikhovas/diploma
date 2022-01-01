@@ -5,8 +5,8 @@ go 1.17
 require (
 	github.com/cornelk/hashmap v1.0.1
 	github.com/hashicorp/consul/api v1.12.0
+	github.com/nikhovas/diploma v0.0.0-20220101191115-4e16cbbfaf2e
 	google.golang.org/grpc v1.43.0
-	google.golang.org/protobuf v1.27.1
 )
 
 require (
@@ -28,4 +28,5 @@ require (
 	golang.org/x/sys v0.0.0-20210330210617-4fbd30eecc44 // indirect
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 )

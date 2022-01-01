@@ -15,10 +15,9 @@ message Typing {}
 
 
 message UserAction {
-	string actionType = 1;
     oneof object {
-        Typing typing = 2;
-        NewMessage newMessage = 3;
-        NewMessageBatch newMessageBatch = 4;
+        Typing typing = 1;
+        NewMessage newMessage = 2;
+        NewMessageBatch newMessageBatch = 3;
     }
 }

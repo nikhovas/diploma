@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"github.com/hashicorp/consul/api"
+	"github.com/nikhovas/diploma/proto/data/userActions"
+	pb "github.com/nikhovas/diploma/proto/servers/VkServer"
 	"google.golang.org/grpc"
 	"net"
 	"sync"
 	"time"
 	"vk_shop_bot/bots"
-	grpcDefine "vk_shop_bot/proto"
 	"vk_shop_bot/server"
 	"vk_shop_bot/vkApi/VkApiServer"
 	"vk_shop_bot/vkApi/VkLongPullServer"
@@ -30,6 +31,10 @@ func callback(groupId int, update VkLongPullServer.UpdateObject) {
 	ro := update.Object
 	switch v := ro.(type) {
 	case *VkLongPullServer.NewMessageObject:
+		userAction := UserActions.UserAction{
+			ActionType: "",
+			Object:     nil,
+		}
 		fmt.Println(v.Body)
 	default:
 		fmt.Println("Unsupported message type")
@@ -40,7 +45,7 @@ func grpcServer(bot *bots.CombinedBot) {
 	lis, _ := net.Listen("tcp", fmt.Sprintf("localhost:5555"))
 
 	grpcServer := grpc.NewServer()
-	grpcDefine.RegisterVkServerServer(grpcServer, server.NewServer(bot))
+	pb.RegisterVkServerServer(grpcServer, server.NewServer(bot))
 	grpcServer.Serve(lis)
 }
 

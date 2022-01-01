@@ -3,21 +3,21 @@ package server
 import (
 	"context"
 	"vk_shop_bot/bots"
-	"vk_shop_bot/proto"
-	grpcDefine "vk_shop_bot/proto"
+
+	pb "github.com/nikhovas/diploma/proto/servers/VkServer"
 )
 
 type Server struct {
-	grpcDefine.UnimplementedVkServerServer
+	pb.UnimplementedVkServerServer
 	Bot *bots.CombinedBot
 }
 
-func (s *Server) SendMessage(ctx context.Context, request *proto.SendMessageRequest) (*proto.EmptyResponse, error) {
+func (s *Server) SendMessage(ctx context.Context, request *pb.SendMessageRequest) (*pb.EmptyResponse, error) {
 	s.Bot.SendMessage(int(request.GroupId), int(request.UserId), request.Text)
-	return &proto.EmptyResponse{}, nil
+	return &pb.EmptyResponse{}, nil
 }
 
-func (s *Server) AddBot(ctx context.Context, request *proto.BotsActionRequest) (*proto.EmptyResponse, error) {
+func (s *Server) AddBot(ctx context.Context, request *pb.BotsActionRequest) (*pb.EmptyResponse, error) {
 	tokenPointer := request.Token
 	token := ""
 	if tokenPointer != nil {
@@ -25,15 +25,15 @@ func (s *Server) AddBot(ctx context.Context, request *proto.BotsActionRequest) (
 	}
 
 	if err := s.Bot.AddBot(int(request.GroupId), token); err != nil {
-		return &proto.EmptyResponse{}, err
+		return &pb.EmptyResponse{}, err
 	}
 
-	return &proto.EmptyResponse{}, nil
+	return &pb.EmptyResponse{}, nil
 }
 
-func (s *Server) RemoveBot(ctx context.Context, request *proto.BotsActionRequest) (*proto.EmptyResponse, error) {
+func (s *Server) RemoveBot(ctx context.Context, request *pb.BotsActionRequest) (*pb.EmptyResponse, error) {
 	s.Bot.RemoveBot(int(request.GroupId))
-	return &proto.EmptyResponse{}, nil
+	return &pb.EmptyResponse{}, nil
 }
 
 func NewServer(bot *bots.CombinedBot) *Server {
