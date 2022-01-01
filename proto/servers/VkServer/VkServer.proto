@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "github.com/nikhovas/diploma/proto/servers/VkServer";
+
+
+message SendMessageRequest {
+  int64 groupId = 1;
+  int64 userId = 2;
+  string text = 3;
+}
+
+message EmptyResponse {
+}
+
+enum BotActionEnum {
+  ADD = 0;
+  REMOVE = 1;
+}
+
+message BotsActionRequest {
+  int64 groupId = 1;
+  optional string token = 2;
+}
+
+
+service VkServer {
+  rpc SendMessage(SendMessageRequest) returns (EmptyResponse) {}
+  rpc AddBot(BotsActionRequest) returns (EmptyResponse) {}
+  rpc RemoveBot(BotsActionRequest) returns (EmptyResponse) {}
+}

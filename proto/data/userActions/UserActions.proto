@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "github.com/nikhovas/diploma/proto/data/UserActions";
+
+
+message NewMessage {
+	string text = 1;
+}
+
+message NewMessageBatch {
+    repeated NewMessage newMessages = 1;
+}
+
+message Typing {}
+
+
+message UserAction {
+	string actionType = 1;
+    oneof object {
+        Typing typing = 2;
+        NewMessage newMessage = 3;
+        NewMessageBatch newMessageBatch = 4;
+    }
+}

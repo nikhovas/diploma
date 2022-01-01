@@ -1,4 +1,4 @@
-package vkDistributedWrapper
+package bots
 
 import (
 	"fmt"
@@ -11,25 +11,24 @@ import (
 	"vk_shop_bot/vkApi/VkLongPullServer"
 )
 
-type Bot struct {
+type DistributedBot struct {
 	vkApi.VkBot
-	//coordinator coordinator.ICoordinator
 	coordinator *consulApi.KV
 }
 
-func (bot *Bot) GetCoordinatorBasePath() string {
+func (bot *DistributedBot) GetCoordinatorBasePath() string {
 	return fmt.Sprintf("services/vk-shop-bot/%d", bot.GroupId)
 }
 
-func (bot *Bot) GetStKvKey() string {
+func (bot *DistributedBot) GetStKvKey() string {
 	return fmt.Sprintf("%s/ts", bot.GetCoordinatorBasePath())
 }
 
-func (bot *Bot) GetToken() string {
+func (bot *DistributedBot) GetToken() string {
 	return fmt.Sprintf("%s/token", bot.GetCoordinatorBasePath())
 }
 
-func (bot *Bot) GetTokenValue() (string, error) {
+func (bot *DistributedBot) GetTokenValue() (string, error) {
 	kv, _, err := bot.coordinator.Get(bot.GetToken(), nil)
 	if err != nil {
 		return "", err
@@ -41,7 +40,7 @@ func (bot *Bot) GetTokenValue() (string, error) {
 	return string(kv.Value), err
 }
 
-func (bot *Bot) Init(token string, groupId int, vkApiServer *VkApiServer.VkApiServer, coordinator *consulApi.KV) error {
+func (bot *DistributedBot) Init(token string, groupId int, vkApiServer *VkApiServer.VkApiServer, coordinator *consulApi.KV) error {
 	bot.GroupId = groupId
 	bot.coordinator = coordinator
 	var err error
@@ -58,7 +57,7 @@ func (bot *Bot) Init(token string, groupId int, vkApiServer *VkApiServer.VkApiSe
 	return bot.VkBot.Init(token, groupId, vkApiServer)
 }
 
-func (bot *Bot) Authorize() (err error) {
+func (bot *DistributedBot) Authorize() (err error) {
 	err = bot.VkBot.Authorize()
 	if err != nil {
 		return
@@ -78,7 +77,7 @@ func CleanKv(kv *consulApi.KVPair) *consulApi.KVPair {
 	return &consulApi.KVPair{Key: kv.Key, Value: kv.Value, ModifyIndex: kv.ModifyIndex}
 }
 
-func (bot *Bot) GetUpdates() (updates []VkLongPullServer.UpdateObject, err error) {
+func (bot *DistributedBot) GetUpdates() (updates []VkLongPullServer.UpdateObject, err error) {
 	stValueNodeKey := fmt.Sprintf("services/vk-shop-bot/%d/ts", bot.GroupId)
 	stKv, _, err := bot.coordinator.Get(stValueNodeKey, nil)
 	if err != nil {

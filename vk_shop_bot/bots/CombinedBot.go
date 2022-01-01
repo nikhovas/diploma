@@ -1,4 +1,4 @@
-package main
+package bots
 
 import (
 	"github.com/cornelk/hashmap"
@@ -9,11 +9,11 @@ import (
 	"sync/atomic"
 	"time"
 	"vk_shop_bot/vkApi/VkApiServer"
-	"vk_shop_bot/vkDistributedWrapper"
+	"vk_shop_bot/vkApi/VkLongPullServer"
 )
 
 type BotWrapper struct {
-	Bot        *vkDistributedWrapper.Bot
+	Bot        *DistributedBot
 	StopSignal int64
 	Finished   int64
 }
@@ -24,11 +24,11 @@ type CombinedBot struct {
 	wg          sync.WaitGroup
 	globalStop  int64
 	vkApiServer *VkApiServer.VkApiServer
-	callback    func(groupId int, update interface{})
+	callback    func(groupId int, update VkLongPullServer.UpdateObject)
 	stopped     int64
 }
 
-func (cb *CombinedBot) Init(coordinator *api.KV, vkApiServer *VkApiServer.VkApiServer, callback func(groupId int, update interface{})) {
+func (cb *CombinedBot) Init(coordinator *api.KV, vkApiServer *VkApiServer.VkApiServer, callback func(groupId int, update VkLongPullServer.UpdateObject)) {
 	cb.coordinator = coordinator
 	cb.vkApiServer = vkApiServer
 	cb.callback = callback
@@ -67,7 +67,7 @@ func (cb *CombinedBot) Stop() {
 	atomic.StoreInt64(&cb.stopped, 1)
 }
 
-func (cb *CombinedBot) AddBot(groupId int) error {
+func (cb *CombinedBot) AddBot(groupId int, token string) error {
 	botWrapper := &BotWrapper{
 		Bot:        nil,
 		StopSignal: 0,
@@ -81,11 +81,13 @@ func (cb *CombinedBot) AddBot(groupId int) error {
 
 	botWrapper = actual.(*BotWrapper)
 
-	var vkBot vkDistributedWrapper.Bot
-	vkBot.Init(groupId, cb.vkApiServer, cb.coordinator)
+	var vkBot DistributedBot
+	vkBot.Init(token, groupId, cb.vkApiServer, cb.coordinator)
 	if err := vkBot.Authorize(); err != nil {
 		return err
 	}
+
+	botWrapper.Bot = &vkBot
 
 	cb.wg.Add(1)
 	go cb.botWorker(botWrapper)
@@ -106,6 +108,8 @@ func (cb *CombinedBot) RemoveBot(groupId int) {
 	for atomic.LoadInt64(&botWrapper.Finished) == 0 {
 		time.Sleep(2 * time.Second)
 	}
+
+	cb.bots.Del(groupId)
 }
 
 func (cb *CombinedBot) SendMessage(groupId int, userId int, text string) (int, error) {
