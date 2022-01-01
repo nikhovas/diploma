@@ -1,0 +1,1 @@
+package vk_shop_bot
