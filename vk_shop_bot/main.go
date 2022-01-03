@@ -50,9 +50,8 @@ func callback(groupId int, ts int, update VkLongPullServer.UpdateObject) {
 		Time:   uint64(ts),
 	}
 	userAction := UserActions.UserAction{
-		Time:       uint64(ts),
-		ActionType: "new_message",
-		Object:     nil,
+		Time:   uint64(ts),
+		Object: nil,
 	}
 
 	switch v := ro.(type) {
@@ -68,6 +67,7 @@ func callback(groupId int, ts int, update VkLongPullServer.UpdateObject) {
 	}
 
 	ae.UserId = strconv.Itoa(userId)
+	ae.ServiceName = "vk-shop-bot"
 
 	m := jsonpb.Marshaler{}
 	userActionString, _ := m.MarshalToString(&userAction)

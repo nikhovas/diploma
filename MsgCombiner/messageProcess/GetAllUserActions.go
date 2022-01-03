@@ -45,11 +45,7 @@ func (aep *ActionEventProcessor) GetAllUserActions(messagesKey string) (newestTs
 			if err = jsonpb.Unmarshal(bytes.NewReader(kv.Value), &userAction); err != nil {
 				return
 			}
-			shortKey := "2345" // TODO: here
-			var ts int
-			if ts, err = strconv.Atoi(shortKey); err != nil {
-				return
-			}
+			ts := int(userAction.Time)
 
 			if ts < startFrom {
 				_, _ = aep.Application.ConsulClient.KV().Delete(kv.Key, nil)

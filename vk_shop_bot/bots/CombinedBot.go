@@ -67,7 +67,7 @@ func (cb *CombinedBot) Stop() {
 	atomic.StoreInt64(&cb.stopped, 1)
 }
 
-func (cb *CombinedBot) AddBot(groupId int, token string) error {
+func (cb *CombinedBot) AddBotInternal(groupId int, token string) error {
 	botWrapper := &BotWrapper{
 		Bot:        nil,
 		StopSignal: 0,
@@ -82,7 +82,9 @@ func (cb *CombinedBot) AddBot(groupId int, token string) error {
 	botWrapper = actual.(*BotWrapper)
 
 	var vkBot DistributedBot
-	vkBot.Init(token, groupId, cb.vkApiServer, cb.coordinator)
+	if err := vkBot.Init(token, groupId, cb.vkApiServer, cb.coordinator); err != nil {
+		return err
+	}
 	if err := vkBot.Authorize(); err != nil {
 		return err
 	}
@@ -91,6 +93,15 @@ func (cb *CombinedBot) AddBot(groupId int, token string) error {
 
 	cb.wg.Add(1)
 	go cb.botWorker(botWrapper)
+
+	return nil
+}
+
+func (cb *CombinedBot) AddBot(groupId int, token string) error {
+	if err := cb.AddBotInternal(groupId, token); err != nil {
+		cb.RemoveBot(groupId)
+		return err
+	}
 
 	return nil
 }

@@ -3,8 +3,9 @@ module MsgCombiner
 go 1.17
 
 require (
+	github.com/golang/protobuf v1.5.0
 	github.com/hashicorp/consul/api v1.12.0
-	github.com/nikhovas/diploma v0.0.0-20220101201807-5f6301bb9674
+	github.com/nikhovas/diploma v0.0.0-20220103135432-86b4594f9485
 	github.com/rabbitmq/amqp091-go v1.2.0
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )

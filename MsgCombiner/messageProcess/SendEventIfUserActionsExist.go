@@ -6,7 +6,6 @@ import (
 	UserActions "github.com/nikhovas/diploma/proto/data/userActions"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"log"
-	"strconv"
 )
 
 func (aep *ActionEventProcessor) SendEventIfUserActionsExist(messagesKey string, newestTs int) {
@@ -22,11 +21,7 @@ func (aep *ActionEventProcessor) SendEventIfUserActionsExist(messagesKey string,
 		if err = jsonpb.Unmarshal(bytes.NewReader(kv.Value), &userAction); err != nil {
 			return
 		}
-		shortKey := "2345" // TODO: here
-		var ts int
-		if ts, err = strconv.Atoi(shortKey); err != nil {
-			return
-		}
+		ts := int(userAction.Time)
 
 		if ts <= newestTs {
 			_, _ = aep.Application.ConsulClient.KV().Delete(kv.Key, nil)
