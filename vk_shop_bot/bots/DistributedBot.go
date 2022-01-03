@@ -77,7 +77,7 @@ func CleanKv(kv *consulApi.KVPair) *consulApi.KVPair {
 	return &consulApi.KVPair{Key: kv.Key, Value: kv.Value, ModifyIndex: kv.ModifyIndex}
 }
 
-func (bot *DistributedBot) GetUpdates() (updates []VkLongPullServer.UpdateObject, err error) {
+func (bot *DistributedBot) GetUpdates() (updTs int, updates []VkLongPullServer.UpdateObject, err error) {
 	stValueNodeKey := fmt.Sprintf("services/vk-shop-bot/%d/ts", bot.GroupId)
 	stKv, _, err := bot.coordinator.Get(stValueNodeKey, nil)
 	if err != nil {
@@ -112,10 +112,11 @@ func (bot *DistributedBot) GetUpdates() (updates []VkLongPullServer.UpdateObject
 		var newTsValue int
 		newTsValue, err = strconv.Atoi(string(stKv.Value))
 		if bot.CurrentTs <= newTsValue {
-			return []VkLongPullServer.UpdateObject{}, nil
+			return 0, []VkLongPullServer.UpdateObject{}, nil
 		}
 	}
 
 	updates = updates[(realStartFromTs - startedFromTs):]
+	updTs = realStartFromTs
 	return
 }

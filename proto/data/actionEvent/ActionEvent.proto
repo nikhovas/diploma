@@ -7,4 +7,5 @@ message ActionEvent {
     string userId = 1;
     string botId  = 2;
     uint64 time   = 3;
+    string serviceName = 4;
 }

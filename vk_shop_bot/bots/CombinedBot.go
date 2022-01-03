@@ -24,11 +24,11 @@ type CombinedBot struct {
 	wg          sync.WaitGroup
 	globalStop  int64
 	vkApiServer *VkApiServer.VkApiServer
-	callback    func(groupId int, update VkLongPullServer.UpdateObject)
+	callback    func(groupId int, ts int, update VkLongPullServer.UpdateObject)
 	stopped     int64
 }
 
-func (cb *CombinedBot) Init(coordinator *api.KV, vkApiServer *VkApiServer.VkApiServer, callback func(groupId int, update VkLongPullServer.UpdateObject)) {
+func (cb *CombinedBot) Init(coordinator *api.KV, vkApiServer *VkApiServer.VkApiServer, callback func(groupId int, ts int, update VkLongPullServer.UpdateObject)) {
 	cb.coordinator = coordinator
 	cb.vkApiServer = vkApiServer
 	cb.callback = callback
@@ -44,9 +44,9 @@ func (cb *CombinedBot) botWorker(bw *BotWrapper) {
 		}
 
 		log.Printf("Getting updates for %d", bw.Bot.GroupId)
-		updates, _ := bw.Bot.GetUpdates()
+		ts, updates, _ := bw.Bot.GetUpdates()
 		for _, update := range updates {
-			cb.callback(bw.Bot.GroupId, update)
+			cb.callback(bw.Bot.GroupId, ts, update)
 		}
 
 		time.Sleep(1 * time.Second)

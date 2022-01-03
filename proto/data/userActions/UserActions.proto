@@ -20,4 +20,5 @@ message UserAction {
         NewMessage newMessage = 2;
         NewMessageBatch newMessageBatch = 3;
     }
+    uint64 time = 4;
 }
