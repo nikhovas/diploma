@@ -1,6 +1,6 @@
 package longPullServer
 
-import "vk/utils"
+import "github.com/nikhovas/diploma/lib/go/vk/utils"
 
 type VkLongPullServer struct {
 	BaseUrl string

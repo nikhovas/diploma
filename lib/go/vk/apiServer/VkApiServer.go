@@ -1,6 +1,6 @@
 package apiServer
 
-import "vk/utils"
+import "github.com/nikhovas/diploma/lib/go/vk/utils"
 
 type VkApiServer struct {
 	Host    string
