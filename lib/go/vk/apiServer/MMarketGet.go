@@ -1,12 +1,8 @@
-package VkApiServer
+package apiServer
 
 import "strconv"
 
-type mMessagesSendResponse struct {
-	response int `json:"response"`
-}
-
-func (vkApiServer *VkApiServer) MMessagesSend(accessToken string, groupId int, peerId int, message string) (int, error) {
+func (vkApiServer *VkApiServer) MMarketGet(accessToken string, groupId int, peerId int, message string) (int, error) {
 	var resp mMessagesSendResponse
 	err := vkApiServer.SendMethodRequest(
 		"messages",

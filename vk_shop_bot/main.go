@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/hashicorp/consul/api"
-	"github.com/nikhovas/diploma/proto/data/actionEvent"
-	"github.com/nikhovas/diploma/proto/data/userActions"
+	"github.com/nikhovas/diploma/lib/go/vk/apiServer"
+	"github.com/nikhovas/diploma/lib/go/vk/longPullServer"
+	actions "github.com/nikhovas/diploma/proto/data/actionEvent"
+	UserActions "github.com/nikhovas/diploma/proto/data/userActions"
 	pb "github.com/nikhovas/diploma/proto/servers/VkServer"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"google.golang.org/grpc"
@@ -16,8 +18,6 @@ import (
 	"time"
 	"vk_shop_bot/bots"
 	"vk_shop_bot/server"
-	"vk_shop_bot/vkApi/VkApiServer"
-	"vk_shop_bot/vkApi/VkLongPullServer"
 )
 
 var coordinator *api.KV
@@ -40,7 +40,7 @@ func GetMessagePath(groupId int, userId int, messageTs int) string {
 	return fmt.Sprintf("%s/%d", GetMessagesKey(groupId, userId), messageTs)
 }
 
-func callback(groupId int, ts int, update VkLongPullServer.UpdateObject) {
+func callback(groupId int, ts int, update longPullServer.UpdateObject) {
 	ro := update.Object
 
 	var userId int
@@ -55,7 +55,7 @@ func callback(groupId int, ts int, update VkLongPullServer.UpdateObject) {
 	}
 
 	switch v := ro.(type) {
-	case *VkLongPullServer.NewMessageObject:
+	case *longPullServer.NewMessageObject:
 		userAction.Object = &UserActions.UserAction_NewMessage{
 			NewMessage: &UserActions.NewMessage{Text: v.Body},
 		}
@@ -137,7 +137,7 @@ func main() {
 	client, _ := api.NewClient(api.DefaultConfig())
 	coordinator = client.KV()
 
-	vkApiServer := VkApiServer.VkApiServer{
+	vkApiServer := apiServer.VkApiServer{
 		Host:    vkApiHost,
 		Version: vkApiVersion,
 	}

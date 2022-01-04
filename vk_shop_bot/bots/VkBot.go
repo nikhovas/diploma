@@ -1,9 +1,9 @@
-package vkApi
+package bots
 
 import (
+	"github.com/nikhovas/diploma/lib/go/vk/apiServer"
+	"github.com/nikhovas/diploma/lib/go/vk/longPullServer"
 	"strconv"
-	"vk_shop_bot/vkApi/VkApiServer"
-	"vk_shop_bot/vkApi/VkLongPullServer"
 )
 
 type VkBot struct {
@@ -12,11 +12,11 @@ type VkBot struct {
 
 	CurrentTs int
 
-	VkLongPullServer *VkLongPullServer.VkLongPullServer
-	VkApiServer      *VkApiServer.VkApiServer
+	VkLongPullServer *longPullServer.VkLongPullServer
+	VkApiServer      *apiServer.VkApiServer
 }
 
-func (vkBot *VkBot) Init(token string, groupId int, vkApiServer *VkApiServer.VkApiServer) error {
+func (vkBot *VkBot) Init(token string, groupId int, vkApiServer *apiServer.VkApiServer) error {
 	vkBot.AccessToken = token
 	vkBot.GroupId = groupId
 	vkBot.VkApiServer = vkApiServer
@@ -36,15 +36,15 @@ func (vkBot *VkBot) Authorize() (err error) {
 	}
 	vkBot.CurrentTs = currentTs
 
-	vkBot.VkLongPullServer = &VkLongPullServer.VkLongPullServer{
+	vkBot.VkLongPullServer = &longPullServer.VkLongPullServer{
 		BaseUrl: resp.Response.Server,
 		Key:     resp.Response.Key,
 	}
 	return
 }
 
-func (vkBot *VkBot) GetUpdates() (objects []VkLongPullServer.UpdateObject, err error) {
-	var resp VkLongPullServer.ACheckResponse
+func (vkBot *VkBot) GetUpdates() (objects []longPullServer.UpdateObject, err error) {
+	var resp longPullServer.ACheckResponse
 	resp, err = vkBot.VkLongPullServer.ACheck(vkBot.CurrentTs, 25)
 	objects = resp.Updates
 

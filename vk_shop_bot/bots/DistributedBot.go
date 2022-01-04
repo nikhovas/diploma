@@ -6,13 +6,12 @@ import (
 	"log"
 	"math/big"
 	"strconv"
-	"vk_shop_bot/vkApi"
 	"vk_shop_bot/vkApi/VkApiServer"
 	"vk_shop_bot/vkApi/VkLongPullServer"
 )
 
 type DistributedBot struct {
-	vkApi.VkBot
+	VkBot
 	coordinator *consulApi.KV
 }
 
