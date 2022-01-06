@@ -2,6 +2,7 @@ package main
 
 import (
 	"MsgCombiner/Application"
+	"MsgCombiner/grpcClient"
 	"MsgCombiner/messageProcess"
 	"bytes"
 	"github.com/golang/protobuf/jsonpb"
@@ -31,8 +32,7 @@ func ReadQueue(a *Application.Application) error {
 			}
 			a.ReadQueueWg.Add(1)
 			go func() {
-				if aep.Process(&a.ReadQueueWg) != nil {
-				}
+				aep.Process(&a.ReadQueueWg)
 			}()
 		}
 	}
@@ -40,6 +40,9 @@ func ReadQueue(a *Application.Application) error {
 
 func main() {
 	var app Application.Application
+
+	grpcClient.GrpcClientSingletone = grpcClient.GrpcClient{}
+	grpcClient.GrpcClientSingletone.Init()
 
 	app.Init()
 

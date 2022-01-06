@@ -6,7 +6,7 @@ import (
 	"github.com/hashicorp/consul/api"
 )
 
-func (aep *ActionEventProcessor) ProcessLockedPart(messagesKey string) (int, error) {
+func (aep *ActionEventProcessor) ProcessLockedPart(messagesKey string) int {
 	lockKey := utils.GetLockKey(vkShopBot, aep.ActionEvent.BotId, aep.ActionEvent.UserId)
 
 	lock, err := aep.Application.ConsulClient.LockOpts(&api.LockOptions{
@@ -14,17 +14,17 @@ func (aep *ActionEventProcessor) ProcessLockedPart(messagesKey string) (int, err
 		LockTryOnce: true,
 	})
 	if err != nil {
-		return 0, err
+		panic(err)
 	}
 
 	ch, err := lock.Lock(nil)
 	if err != nil {
-		return 0, err
+		panic(err)
 	}
 
 	// no lock
 	if ch == nil {
-		return 0, nil
+		return 0
 	}
 
 	defer func(lock *api.Lock) {
@@ -36,19 +36,16 @@ func (aep *ActionEventProcessor) ProcessLockedPart(messagesKey string) (int, err
 
 	newestTs, userActionList, err := aep.GetAllUserActions(messagesKey)
 	if err != nil {
-		return 0, err
+		panic(err)
 	}
 
-	// TODO: neuroprocess messages
-
-	messages, _ := MessageGenerator(userActionList)
+	messages := MessageGenerator(userActionList)
 
 	for _, msg := range messages {
 		fmt.Println(msg)
 	}
 
-	// main part: call state machine
-	//stateManager(messages, vkShopBot, ae.GetBotId(), ae.GetUserId())
+	aep.RunStateMachine(messages)
 
-	return newestTs, nil
+	return newestTs
 }

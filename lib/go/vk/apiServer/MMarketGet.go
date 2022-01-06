@@ -5,8 +5,8 @@ import "strconv"
 func (vkApiServer *VkApiServer) MMarketGet(accessToken string, groupId int, peerId int, message string) (int, error) {
 	var resp mMessagesSendResponse
 	err := vkApiServer.SendMethodRequest(
-		"messages",
-		"send",
+		"market",
+		"get",
 		map[string]string{
 			"access_token": accessToken,
 			"message":      message,

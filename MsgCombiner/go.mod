@@ -3,11 +3,13 @@ module MsgCombiner
 go 1.17
 
 require (
+	github.com/gammazero/deque v0.1.0
 	github.com/golang/protobuf v1.5.0
 	github.com/hashicorp/consul/api v1.12.0
 	github.com/nikhovas/diploma v0.0.0-20220103135432-86b4594f9485
 	github.com/rabbitmq/amqp091-go v1.2.0
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	google.golang.org/grpc v1.43.0
 )
 
 require (
@@ -23,6 +25,9 @@ require (
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
+	golang.org/x/net v0.0.0-20210410081132-afb366fc7cd1 // indirect
 	golang.org/x/sys v0.0.0-20210330210617-4fbd30eecc44 // indirect
+	golang.org/x/text v0.3.6 // indirect
+	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )

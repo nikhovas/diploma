@@ -5,6 +5,7 @@ option go_package = "github.com/nikhovas/diploma/proto/data/UserActions";
 
 message NewMessage {
 	string text = 1;
+    optional int64 replied = 2;
 }
 
 message NewMessageBatch {

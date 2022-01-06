@@ -5,17 +5,9 @@ import (
 	"sync"
 )
 
-func (aep *ActionEventProcessor) Process(wg *sync.WaitGroup) error {
+func (aep *ActionEventProcessor) Process(wg *sync.WaitGroup) {
 	defer wg.Done()
-
 	messagesKey := utils.GetMessagesKey(vkShopBot, aep.ActionEvent.BotId, aep.ActionEvent.UserId)
-
-	newestTs, err := aep.ProcessLockedPart(messagesKey)
-	if err != nil {
-		return err
-	}
-
+	newestTs := aep.ProcessLockedPart(messagesKey)
 	aep.SendEventIfUserActionsExist(messagesKey, newestTs)
-
-	return nil
 }

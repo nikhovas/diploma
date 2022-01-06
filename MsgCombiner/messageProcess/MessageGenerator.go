@@ -2,7 +2,7 @@ package messageProcess
 
 import UserActions "github.com/nikhovas/diploma/proto/data/userActions"
 
-func MessageGenerator(userActionList []*UserActions.UserAction) ([]string, error) {
+func MessageGenerator(userActionList []*UserActions.UserAction) []string {
 	var messages []string
 
 	// TODO: advavnced message generator
@@ -13,5 +13,5 @@ func MessageGenerator(userActionList []*UserActions.UserAction) ([]string, error
 		}
 	}
 
-	return messages, nil
+	return messages
 }
