@@ -1,6 +1,7 @@
 package actions
 
 import (
+	"MsgCombiner/Application"
 	"MsgCombiner/grpcClient"
 	"MsgCombiner/stateMachine/localStorage"
 	"context"
@@ -17,7 +18,7 @@ func NewSendMessage(genericAction *GenericAction) ActionInterface {
 	return &SendMessage{GenericAction: *genericAction}
 }
 
-func (a *SendMessage) Run(storage *localStorage.Storage) {
+func (a *SendMessage) Run(ctx context.Context, application *Application.Application, storage *localStorage.Storage) {
 	SendMessageFunc(storage, a.Arguments, a.Return)
 }
 

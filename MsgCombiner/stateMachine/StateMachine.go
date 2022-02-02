@@ -22,6 +22,7 @@ func (sm *StateMachine) Init(
 	states map[string]states.IState,
 	botService string,
 	groupId string,
+	shopId int,
 	userId string,
 	storageDescription map[string]localStorage.DataElement,
 	externalStorage storageInterfaces.IStorage,
@@ -32,10 +33,11 @@ func (sm *StateMachine) Init(
 	sm.dataBasePath = fmt.Sprintf("%s/state-machine", utils.GetDataBasePath(botService, groupId, userId))
 
 	storageDescription["botService"] = localStorage.DataElement{Memory: "const", Type: "string", Default: botService}
-	storageDescription["groupId"] = localStorage.DataElement{Memory: "const", Type: "string", Default: groupId}
+	storageDescription["shopId"] = localStorage.DataElement{Memory: "const", Type: "int", Default: shopId}
 	storageDescription["userId"] = localStorage.DataElement{Memory: "const", Type: "string", Default: userId}
 	storageDescription["state"] = localStorage.DataElement{Memory: "long", Type: "string", Default: "initial"}
 	storageDescription["message"] = localStorage.DataElement{Memory: "short", Type: "string", Default: ""}
+	storageDescription["groupId"] = localStorage.DataElement{Memory: "const", Type: "string", Default: groupId}
 	sm.storage.KvStorage.Init(storageDescription, externalStorage)
 
 	sm.externalStorage = externalStorage

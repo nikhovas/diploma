@@ -58,6 +58,10 @@ func (aep *ActionEventProcessor) GetAllUserActions(messagesKey string) (newestTs
 			}
 		}
 
+		if !aep.ActionEvent.NeedOrder {
+			break
+		}
+
 		time.Sleep(5 * time.Second)
 	}
 

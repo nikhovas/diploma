@@ -1,6 +1,8 @@
 package Application
 
 import (
+	ctrl "MsgCombiner/grpc/control"
+	qw "MsgCombiner/grpc/questionWorker"
 	"context"
 	consulApi "github.com/hashicorp/consul/api"
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -15,6 +17,9 @@ type Application struct {
 	Semaphore        *semaphore.Weighted
 	Context          context.Context
 	ReadQueueWg      sync.WaitGroup
+
+	ControlClient ctrl.ControlClient
+	QwClient      qw.QuestionWorkerClient
 }
 
 func (a *Application) Init() {

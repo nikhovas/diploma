@@ -1,7 +1,11 @@
 package actions
 
-import "MsgCombiner/stateMachine/localStorage"
+import (
+	"MsgCombiner/Application"
+	"MsgCombiner/stateMachine/localStorage"
+	"context"
+)
 
 type ActionInterface interface {
-	Run(storage *localStorage.Storage)
+	Run(ctx context.Context, application *Application.Application, storage *localStorage.Storage)
 }

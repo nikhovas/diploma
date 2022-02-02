@@ -24,6 +24,7 @@ func (aep *ActionEventProcessor) RunStateMachine(messages []string) {
 		configExamples.QuestionsOnlyInternal.States,
 		aep.ActionEvent.ServiceName,
 		aep.ActionEvent.BotId,
+		int(aep.ActionEvent.ShopId),
 		aep.ActionEvent.UserId,
 		configExamples.QuestionsOnlyInternal.Data,
 		&externalStorage,
