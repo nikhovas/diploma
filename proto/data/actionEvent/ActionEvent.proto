@@ -6,7 +6,8 @@ option go_package = "github.com/nikhovas/diploma/proto/data/actions";
 message ActionEvent {
     string userId = 1;
     string botId  = 2;
-    uint64 time   = 3;
-    string serviceName = 4;
-    bool needOrder = 5;
+    int64 shopId  = 3;
+    uint64 time   = 4;
+    string serviceName = 5;
+    bool needOrder = 6;
 }
