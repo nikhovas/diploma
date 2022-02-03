@@ -1,0 +1,180 @@
+syntax = "proto3";
+package controller;
+option go_package = "github.com/nikhovas/diploma/go/lib/proto/controller";
+
+
+message TelegramMessageInfo {
+    int64 chatId = 1;
+    bool isChatPrivate = 2;
+    int64 userId = 3;
+    optional string botName = 4;
+}
+
+message MessageInformation {
+    oneof info {
+        TelegramMessageInfo telegram = 1;
+    }
+}
+
+message CommonBotInfo {
+    string name = 1;
+    string token = 2;
+    int64 groupId = 3;
+}
+
+message OptionalCommonBotInfo {
+    optional string name = 1;
+    optional string token = 2;
+    optional int64 groupId = 3;
+}
+
+message TelegramBotInfo {
+    int64 chatId = 1;
+}
+
+message OptionalTelegramBotInfo {
+    optional int64 chatId = 1;
+}
+
+message PlatformBotInfo {
+    oneof platform {
+        TelegramBotInfo telegram = 1;
+    }
+}
+
+message OptionalPlatformBotInfo {
+    oneof platform {
+        OptionalTelegramBotInfo telegram = 1;
+    }
+}
+
+message BotInfo {
+    CommonBotInfo commonBotInfo = 1;
+    PlatformBotInfo platformBotInfo = 2;
+}
+
+message OptionalBotInfo {
+    optional OptionalCommonBotInfo commonBotInfo = 1;
+    optional OptionalPlatformBotInfo platformBotInfo = 2;
+}
+
+message CommonShopKey {
+    oneof commonKey {
+        int64 id = 1;
+        string name = 2;
+        int64 vkGroupId = 3;
+    };
+}
+
+message TelegramStaffShopKey {
+    oneof telegramKey {
+        int64 groupId = 1;
+    }
+}
+
+message ShopKey {
+    oneof key {
+        CommonShopKey common = 1;
+        TelegramStaffShopKey telegramStaff = 2;
+    }
+}
+
+message EmptyOkResponse {}
+
+message NoRoleResponse {
+    repeated string requiredOneOf = 1;
+}
+
+message BadChatType {
+    bool shouldBePrivate = 1;
+}
+
+message DefaultResponse {
+    oneof resp {
+        EmptyOkResponse success = 1;
+        NoRoleResponse noRoleError = 2;
+        BadChatType badChatType = 3;
+    }
+}
+
+message AddQuestionAnswerRequest {
+    MessageInformation messageInfo = 1;
+    ShopKey key = 2;
+    string question = 3;
+    string answer = 4;
+    bool checkQuestionInSet = 5;
+}
+
+message ChangeBotStateRequest {
+    MessageInformation messageInfo = 1;
+    ShopKey key = 2;
+    bool toEnabled = 3;
+}
+
+message AddShopRequest {
+    MessageInformation messageInfo = 1;
+    BotInfo bot = 2;
+}
+
+message DeleteShopRequest {
+    MessageInformation messageInfo = 1;
+    ShopKey key = 2;
+}
+
+message ModifyShopRequest {
+    MessageInformation messageInfo = 1;
+    ShopKey key = 2;
+    OptionalBotInfo bot = 4;
+}
+
+message ListShopsRequest {
+    MessageInformation messageInfo = 1;
+}
+
+message ListBotSuccessResponse {
+    repeated CommonBotInfo bots = 1;
+}
+
+message ListShopsResponse {
+    oneof resp {
+        ListBotSuccessResponse success = 1;
+        NoRoleResponse noRoleError = 2;
+        BadChatType badChatType = 3;
+    }
+}
+
+message ChangeUserRoleRequest {
+    MessageInformation messageInfo = 1;
+    int64 modifyUserId = 2;
+    string role = 3;
+    bool isAddAction = 4;
+}
+
+message AddQuestionRequest {
+    ShopKey key = 1;
+    string question = 2;
+}
+
+message NotifyBotStatusChangeRequest {
+    ShopKey key = 1;
+    bool toEnabled = 2;
+}
+
+message GetShopIdByKeyResponse {
+    int64 shopId = 1;
+}
+
+service Controller {
+    rpc ListShops(ListShopsRequest) returns (ListShopsResponse) {}
+    rpc AddShop(AddShopRequest) returns (DefaultResponse) {}
+    rpc ModifyShop(ModifyShopRequest) returns (DefaultResponse) {}
+    rpc DeleteShop(DeleteShopRequest) returns (DefaultResponse) {}
+
+    rpc AddQuestionAnswer(AddQuestionAnswerRequest) returns (DefaultResponse) {}
+    rpc AddQuestion(AddQuestionRequest) returns (DefaultResponse) {}
+
+    rpc ChangeBotState(ChangeBotStateRequest) returns (DefaultResponse) {}
+    rpc ChangeUserRole(ChangeUserRoleRequest) returns (DefaultResponse) {}
+    rpc NotifyBotStatusChange(NotifyBotStatusChangeRequest) returns (DefaultResponse) {}
+    rpc GetShopIdByKey(ShopKey) returns(GetShopIdByKeyResponse) {}
+}

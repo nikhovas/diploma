@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "proto"
+version = "0.1.0"
+description = ""
+authors = ["Nikolay Vasilev <vasilev.nk@phystech.edu>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+protobuf = "^3.19.4"
+poetry-grpc-plugin = "^0.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

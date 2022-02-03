@@ -1,0 +1,5 @@
+syntax = "proto3";
+package common;
+option go_package = "github.com/nikhovas/diploma/go/lib/proto/common";
+
+message EmptyResponse {}
