@@ -1,0 +1,30 @@
+syntax = "proto3";
+package question_worker;
+option go_package = "github.com/nikhovas/diploma/go/lib/proto/question_worker";
+
+
+message GetQuestionAnswerRequest {
+    string question = 1;
+    repeated string previousQuestions = 2;
+    string basePath = 3;
+}
+
+message GetQuestionAnswerResponse {
+    string answer = 1;
+    float repeatedDistance = 2;
+    float answerDistance = 3;
+}
+
+message AddQuestionRequest {
+    string question = 1;
+    string answer = 2;
+    string basePath = 3;
+}
+
+message AddQuestionResponse {}
+
+
+service QuestionWorker {
+  rpc GetQuestionAnswer(GetQuestionAnswerRequest) returns (GetQuestionAnswerResponse) {}
+  rpc AddQuestion(AddQuestionRequest) returns (AddQuestionResponse) {}
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+package comsumer_actions;
+option go_package = "github.com/nikhovas/diploma/go/lib/proto/comsumer_actions";
+
+
+message ActionEvent {
+    string userId = 1;
+    string botId  = 2;
+    int64 shopId  = 3;
+    uint64 time   = 4;
+    string serviceName = 5;
+    bool needOrder = 6;
+}
+
+message NewMessage {
+	string text = 1;
+    optional int64 replied = 2;
+}
+
+message NewMessageBatch {
+    repeated NewMessage newMessages = 1;
+}
+
+message Typing {}
+
+
+message UserAction {
+    oneof object {
+        Typing typing = 1;
+        NewMessage newMessage = 2;
+        NewMessageBatch newMessageBatch = 3;
+    }
+    uint64 time = 4;
+}

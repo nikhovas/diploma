@@ -1,0 +1,20 @@
+syntax = "proto3";
+package staff_bot;
+import "common.proto";
+option go_package = "github.com/nikhovas/diploma/go/lib/proto/staff_bot";
+
+
+message NewQuestionRequest {
+    int64 groupId = 1;
+    string question = 2;
+}
+
+message NotifyBotStatusChangeTelegramRequest {
+    int64 groupId = 1;
+    bool enabled = 2;
+}
+
+service TelegramStaffBot {
+    rpc SendNewQuestion(NewQuestionRequest) returns (common.EmptyResponse) {}
+    rpc NotifyBotStatusTelegramChange(NotifyBotStatusChangeTelegramRequest) returns (common.EmptyResponse) {}
+}
