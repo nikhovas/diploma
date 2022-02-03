@@ -10,7 +10,7 @@ joined=$(join_by_char "${proto_files[@]}")
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 project_base_dir=$script_dir/..
-proto_path=$script_dir
+proto_path=$script_dir/../proto
 
 cd $proto_path
 for file_name in ${proto_files[@]}
