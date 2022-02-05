@@ -2,6 +2,7 @@ import logging
 
 from aiogram import Bot
 from proto.staff_bot import staff_bot_pb2, staff_bot_pb2_grpc
+from proto.common import common_pb2
 from grpc import aio
 
 
@@ -12,16 +13,15 @@ class TelegramStaffBotServer(staff_bot_pb2_grpc.TelegramStaffBotServicer):
     async def SendNewQuestion(self, request: staff_bot_pb2.NewQuestionRequest, context):
         text = '❓ Вопрос\n' + request.question
         await self.bot.send_message(request.groupId, text)
-        return staff_bot_pb2.EmptyResponse()
+        return common_pb2.EmptyResponse()
 
     async def NotifyBotStatusTelegramChange(self, request: staff_bot_pb2.NotifyBotStatusChangeTelegramRequest, context):
-        text = '!!! Бот '
         if request.enabled:
-            text += 'Включен'
+            text = '🟩 Бот включен'
         else:
-            text += 'Выключен'
+            text = '🟥 Бот выключен'
         await self.bot.send_message(request.groupId, text)
-        return staff_bot_pb2.EmptyResponse()
+        return common_pb2.EmptyResponse()
 
 
 async def grpc_server(bot: Bot):

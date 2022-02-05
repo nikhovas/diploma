@@ -25,16 +25,6 @@ class VkServerStub(object):
                 request_serializer=consumer__bot__pb2.ReplyMessageInformation.SerializeToString,
                 response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
-        self.AddBot = channel.unary_unary(
-                '/consumer_bot.VkServer/AddBot',
-                request_serializer=consumer__bot__pb2.BotsActionRequest.SerializeToString,
-                response_deserializer=common__pb2.EmptyResponse.FromString,
-                )
-        self.RemoveBot = channel.unary_unary(
-                '/consumer_bot.VkServer/RemoveBot',
-                request_serializer=consumer__bot__pb2.BotsActionRequest.SerializeToString,
-                response_deserializer=common__pb2.EmptyResponse.FromString,
-                )
 
 
 class VkServerServicer(object):
@@ -52,18 +42,6 @@ class VkServerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def AddBot(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def RemoveBot(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_VkServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -75,16 +53,6 @@ def add_VkServerServicer_to_server(servicer, server):
             'SendReplyMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.SendReplyMessage,
                     request_deserializer=consumer__bot__pb2.ReplyMessageInformation.FromString,
-                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
-            ),
-            'AddBot': grpc.unary_unary_rpc_method_handler(
-                    servicer.AddBot,
-                    request_deserializer=consumer__bot__pb2.BotsActionRequest.FromString,
-                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
-            ),
-            'RemoveBot': grpc.unary_unary_rpc_method_handler(
-                    servicer.RemoveBot,
-                    request_deserializer=consumer__bot__pb2.BotsActionRequest.FromString,
                     response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
     }
@@ -127,40 +95,6 @@ class VkServer(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/consumer_bot.VkServer/SendReplyMessage',
             consumer__bot__pb2.ReplyMessageInformation.SerializeToString,
-            common__pb2.EmptyResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def AddBot(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/consumer_bot.VkServer/AddBot',
-            consumer__bot__pb2.BotsActionRequest.SerializeToString,
-            common__pb2.EmptyResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def RemoveBot(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/consumer_bot.VkServer/RemoveBot',
-            consumer__bot__pb2.BotsActionRequest.SerializeToString,
             common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

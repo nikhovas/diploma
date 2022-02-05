@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from proto.common import common_pb2 as common__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,8 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z3github.com/nikhovas/diploma/go/lib/proto/controller',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10\x63ontroller.proto\x12\ncontroller\"n\n\x13TelegramMessageInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\x12\x15\n\risChatPrivate\x18\x02 \x01(\x08\x12\x0e\n\x06userId\x18\x03 \x01(\x03\x12\x14\n\x07\x62otName\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\n\n\x08_botName\"Q\n\x12MessageInformation\x12\x33\n\x08telegram\x18\x01 \x01(\x0b\x32\x1f.controller.TelegramMessageInfoH\x00\x42\x06\n\x04info\"=\n\rCommonBotInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12\x0f\n\x07groupId\x18\x03 \x01(\x03\"s\n\x15OptionalCommonBotInfo\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05token\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07groupId\x18\x03 \x01(\x03H\x02\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_tokenB\n\n\x08_groupId\"!\n\x0fTelegramBotInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\"9\n\x17OptionalTelegramBotInfo\x12\x13\n\x06\x63hatId\x18\x01 \x01(\x03H\x00\x88\x01\x01\x42\t\n\x07_chatId\"N\n\x0fPlatformBotInfo\x12/\n\x08telegram\x18\x01 \x01(\x0b\x32\x1b.controller.TelegramBotInfoH\x00\x42\n\n\x08platform\"^\n\x17OptionalPlatformBotInfo\x12\x37\n\x08telegram\x18\x01 \x01(\x0b\x32#.controller.OptionalTelegramBotInfoH\x00\x42\n\n\x08platform\"q\n\x07\x42otInfo\x12\x30\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32\x19.controller.CommonBotInfo\x12\x34\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32\x1b.controller.PlatformBotInfo\"\xb9\x01\n\x0fOptionalBotInfo\x12=\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32!.controller.OptionalCommonBotInfoH\x00\x88\x01\x01\x12\x41\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32#.controller.OptionalPlatformBotInfoH\x01\x88\x01\x01\x42\x10\n\x0e_commonBotInfoB\x12\n\x10_platformBotInfo\"O\n\rCommonShopKey\x12\x0c\n\x02id\x18\x01 \x01(\x03H\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x12\x13\n\tvkGroupId\x18\x03 \x01(\x03H\x00\x42\x0b\n\tcommonKey\"8\n\x14TelegramStaffShopKey\x12\x11\n\x07groupId\x18\x01 \x01(\x03H\x00\x42\r\n\x0btelegramKey\"x\n\x07ShopKey\x12+\n\x06\x63ommon\x18\x01 \x01(\x0b\x32\x19.controller.CommonShopKeyH\x00\x12\x39\n\rtelegramStaff\x18\x02 \x01(\x0b\x32 .controller.TelegramStaffShopKeyH\x00\x42\x05\n\x03key\"\x11\n\x0f\x45mptyOkResponse\"\'\n\x0eNoRoleResponse\x12\x15\n\rrequiredOneOf\x18\x01 \x03(\t\"&\n\x0b\x42\x61\x64\x43hatType\x12\x17\n\x0fshouldBePrivate\x18\x01 \x01(\x08\"\xac\x01\n\x0f\x44\x65\x66\x61ultResponse\x12.\n\x07success\x18\x01 \x01(\x0b\x32\x1b.controller.EmptyOkResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"\xaf\x01\n\x18\x41\x64\x64QuestionAnswerRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12\x10\n\x08question\x18\x03 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x04 \x01(\t\x12\x1a\n\x12\x63heckQuestionInSet\x18\x05 \x01(\x08\"\x81\x01\n\x15\x43hangeBotStateRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x03 \x01(\x08\"g\n\x0e\x41\x64\x64ShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03\x62ot\x18\x02 \x01(\x0b\x32\x13.controller.BotInfo\"j\n\x11\x44\x65leteShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\"\x94\x01\n\x11ModifyShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12(\n\x03\x62ot\x18\x04 \x01(\x0b\x32\x1b.controller.OptionalBotInfo\"G\n\x10ListShopsRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\"A\n\x16ListBotSuccessResponse\x12\'\n\x04\x62ots\x18\x01 \x03(\x0b\x32\x19.controller.CommonBotInfo\"\xb5\x01\n\x11ListShopsResponse\x12\x35\n\x07success\x18\x01 \x01(\x0b\x32\".controller.ListBotSuccessResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"\x85\x01\n\x15\x43hangeUserRoleRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12\x14\n\x0cmodifyUserId\x18\x02 \x01(\x03\x12\x0c\n\x04role\x18\x03 \x01(\t\x12\x13\n\x0bisAddAction\x18\x04 \x01(\x08\"H\n\x12\x41\x64\x64QuestionRequest\x12 \n\x03key\x18\x01 \x01(\x0b\x32\x13.controller.ShopKey\x12\x10\n\x08question\x18\x02 \x01(\t\"S\n\x1cNotifyBotStatusChangeRequest\x12 \n\x03key\x18\x01 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x02 \x01(\x08\"(\n\x16GetShopIdByKeyResponse\x12\x0e\n\x06shopId\x18\x01 \x01(\x03\x32\xb5\x06\n\nController\x12J\n\tListShops\x12\x1c.controller.ListShopsRequest\x1a\x1d.controller.ListShopsResponse\"\x00\x12\x44\n\x07\x41\x64\x64Shop\x12\x1a.controller.AddShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nModifyShop\x12\x1d.controller.ModifyShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nDeleteShop\x12\x1d.controller.DeleteShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12X\n\x11\x41\x64\x64QuestionAnswer\x12$.controller.AddQuestionAnswerRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12L\n\x0b\x41\x64\x64Question\x12\x1e.controller.AddQuestionRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeBotState\x12!.controller.ChangeBotStateRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeUserRole\x12!.controller.ChangeUserRoleRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12`\n\x15NotifyBotStatusChange\x12(.controller.NotifyBotStatusChangeRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12K\n\x0eGetShopIdByKey\x12\x13.controller.ShopKey\x1a\".controller.GetShopIdByKeyResponse\"\x00\x42\x35Z3github.com/nikhovas/diploma/go/lib/proto/controllerb\x06proto3'
-)
+  serialized_pb=b'\n\x10\x63ontroller.proto\x12\ncontroller\x1a\x0c\x63ommon.proto\"n\n\x13TelegramMessageInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\x12\x15\n\risChatPrivate\x18\x02 \x01(\x08\x12\x0e\n\x06userId\x18\x03 \x01(\x03\x12\x14\n\x07\x62otName\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\n\n\x08_botName\"Q\n\x12MessageInformation\x12\x33\n\x08telegram\x18\x01 \x01(\x0b\x32\x1f.controller.TelegramMessageInfoH\x00\x42\x06\n\x04info\"=\n\rCommonBotInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12\x0f\n\x07groupId\x18\x03 \x01(\x03\"s\n\x15OptionalCommonBotInfo\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05token\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07groupId\x18\x03 \x01(\x03H\x02\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_tokenB\n\n\x08_groupId\"!\n\x0fTelegramBotInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\"9\n\x17OptionalTelegramBotInfo\x12\x13\n\x06\x63hatId\x18\x01 \x01(\x03H\x00\x88\x01\x01\x42\t\n\x07_chatId\"N\n\x0fPlatformBotInfo\x12/\n\x08telegram\x18\x01 \x01(\x0b\x32\x1b.controller.TelegramBotInfoH\x00\x42\n\n\x08platform\"^\n\x17OptionalPlatformBotInfo\x12\x37\n\x08telegram\x18\x01 \x01(\x0b\x32#.controller.OptionalTelegramBotInfoH\x00\x42\n\n\x08platform\"q\n\x07\x42otInfo\x12\x30\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32\x19.controller.CommonBotInfo\x12\x34\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32\x1b.controller.PlatformBotInfo\"\xb9\x01\n\x0fOptionalBotInfo\x12=\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32!.controller.OptionalCommonBotInfoH\x00\x88\x01\x01\x12\x41\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32#.controller.OptionalPlatformBotInfoH\x01\x88\x01\x01\x42\x10\n\x0e_commonBotInfoB\x12\n\x10_platformBotInfo\"O\n\rCommonShopKey\x12\x0c\n\x02id\x18\x01 \x01(\x03H\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x12\x13\n\tvkGroupId\x18\x03 \x01(\x03H\x00\x42\x0b\n\tcommonKey\"8\n\x14TelegramStaffShopKey\x12\x11\n\x07groupId\x18\x01 \x01(\x03H\x00\x42\r\n\x0btelegramKey\"x\n\x07ShopKey\x12+\n\x06\x63ommon\x18\x01 \x01(\x0b\x32\x19.controller.CommonShopKeyH\x00\x12\x39\n\rtelegramStaff\x18\x02 \x01(\x0b\x32 .controller.TelegramStaffShopKeyH\x00\x42\x05\n\x03key\"\x11\n\x0f\x45mptyOkResponse\"\'\n\x0eNoRoleResponse\x12\x15\n\rrequiredOneOf\x18\x01 \x03(\t\"&\n\x0b\x42\x61\x64\x43hatType\x12\x17\n\x0fshouldBePrivate\x18\x01 \x01(\x08\"\xac\x01\n\x0f\x44\x65\x66\x61ultResponse\x12.\n\x07success\x18\x01 \x01(\x0b\x32\x1b.controller.EmptyOkResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"\xaf\x01\n\x18\x41\x64\x64QuestionAnswerRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12\x10\n\x08question\x18\x03 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x04 \x01(\t\x12\x1a\n\x12\x63heckQuestionInSet\x18\x05 \x01(\x08\"\x81\x01\n\x15\x43hangeBotStateRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x03 \x01(\x08\"g\n\x0e\x41\x64\x64ShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03\x62ot\x18\x02 \x01(\x0b\x32\x13.controller.BotInfo\"j\n\x11\x44\x65leteShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\"\x94\x01\n\x11ModifyShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12(\n\x03\x62ot\x18\x04 \x01(\x0b\x32\x1b.controller.OptionalBotInfo\"G\n\x10ListShopsRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\"A\n\x16ListBotSuccessResponse\x12\'\n\x04\x62ots\x18\x01 \x03(\x0b\x32\x19.controller.CommonBotInfo\"\xb5\x01\n\x11ListShopsResponse\x12\x35\n\x07success\x18\x01 \x01(\x0b\x32\".controller.ListBotSuccessResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"\x85\x01\n\x15\x43hangeUserRoleRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12\x14\n\x0cmodifyUserId\x18\x02 \x01(\x03\x12\x0c\n\x04role\x18\x03 \x01(\t\x12\x13\n\x0bisAddAction\x18\x04 \x01(\x08\"p\n\x12\x41\x64\x64QuestionRequest\x12 \n\x03key\x18\x01 \x01(\x0b\x32\x13.controller.ShopKey\x12&\n\tmsgSource\x18\x02 \x01(\x0b\x32\x13.common.MsgLocation\x12\x10\n\x08question\x18\x03 \x01(\t\"S\n\x1cNotifyBotStatusChangeRequest\x12 \n\x03key\x18\x01 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x02 \x01(\x08\"(\n\x16GetShopIdByKeyResponse\x12\x0e\n\x06shopId\x18\x01 \x01(\x03\x32\xb5\x06\n\nController\x12J\n\tListShops\x12\x1c.controller.ListShopsRequest\x1a\x1d.controller.ListShopsResponse\"\x00\x12\x44\n\x07\x41\x64\x64Shop\x12\x1a.controller.AddShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nModifyShop\x12\x1d.controller.ModifyShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nDeleteShop\x12\x1d.controller.DeleteShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12X\n\x11\x41\x64\x64QuestionAnswer\x12$.controller.AddQuestionAnswerRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12L\n\x0b\x41\x64\x64Question\x12\x1e.controller.AddQuestionRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeBotState\x12!.controller.ChangeBotStateRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeUserRole\x12!.controller.ChangeUserRoleRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12`\n\x15NotifyBotStatusChange\x12(.controller.NotifyBotStatusChangeRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12K\n\x0eGetShopIdByKey\x12\x13.controller.ShopKey\x1a\".controller.GetShopIdByKeyResponse\"\x00\x42\x35Z3github.com/nikhovas/diploma/go/lib/proto/controllerb\x06proto3'
+  ,
+  dependencies=[common__pb2.DESCRIPTOR,])
 
 
 
@@ -78,8 +80,8 @@ _TELEGRAMMESSAGEINFO = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=32,
-  serialized_end=142,
+  serialized_start=46,
+  serialized_end=156,
 )
 
 
@@ -115,8 +117,8 @@ _MESSAGEINFORMATION = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=144,
-  serialized_end=225,
+  serialized_start=158,
+  serialized_end=239,
 )
 
 
@@ -161,8 +163,8 @@ _COMMONBOTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=227,
-  serialized_end=288,
+  serialized_start=241,
+  serialized_end=302,
 )
 
 
@@ -222,8 +224,8 @@ _OPTIONALCOMMONBOTINFO = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=290,
-  serialized_end=405,
+  serialized_start=304,
+  serialized_end=419,
 )
 
 
@@ -254,8 +256,8 @@ _TELEGRAMBOTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=407,
-  serialized_end=440,
+  serialized_start=421,
+  serialized_end=454,
 )
 
 
@@ -291,8 +293,8 @@ _OPTIONALTELEGRAMBOTINFO = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=442,
-  serialized_end=499,
+  serialized_start=456,
+  serialized_end=513,
 )
 
 
@@ -328,8 +330,8 @@ _PLATFORMBOTINFO = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=501,
-  serialized_end=579,
+  serialized_start=515,
+  serialized_end=593,
 )
 
 
@@ -365,8 +367,8 @@ _OPTIONALPLATFORMBOTINFO = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=581,
-  serialized_end=675,
+  serialized_start=595,
+  serialized_end=689,
 )
 
 
@@ -404,8 +406,8 @@ _BOTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=677,
-  serialized_end=790,
+  serialized_start=691,
+  serialized_end=804,
 )
 
 
@@ -453,8 +455,8 @@ _OPTIONALBOTINFO = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=793,
-  serialized_end=978,
+  serialized_start=807,
+  serialized_end=992,
 )
 
 
@@ -504,8 +506,8 @@ _COMMONSHOPKEY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=980,
-  serialized_end=1059,
+  serialized_start=994,
+  serialized_end=1073,
 )
 
 
@@ -541,8 +543,8 @@ _TELEGRAMSTAFFSHOPKEY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1061,
-  serialized_end=1117,
+  serialized_start=1075,
+  serialized_end=1131,
 )
 
 
@@ -585,8 +587,8 @@ _SHOPKEY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1119,
-  serialized_end=1239,
+  serialized_start=1133,
+  serialized_end=1253,
 )
 
 
@@ -610,8 +612,8 @@ _EMPTYOKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1241,
-  serialized_end=1258,
+  serialized_start=1255,
+  serialized_end=1272,
 )
 
 
@@ -642,8 +644,8 @@ _NOROLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1260,
-  serialized_end=1299,
+  serialized_start=1274,
+  serialized_end=1313,
 )
 
 
@@ -674,8 +676,8 @@ _BADCHATTYPE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1301,
-  serialized_end=1339,
+  serialized_start=1315,
+  serialized_end=1353,
 )
 
 
@@ -725,8 +727,8 @@ _DEFAULTRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1342,
-  serialized_end=1514,
+  serialized_start=1356,
+  serialized_end=1528,
 )
 
 
@@ -785,8 +787,8 @@ _ADDQUESTIONANSWERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1517,
-  serialized_end=1692,
+  serialized_start=1531,
+  serialized_end=1706,
 )
 
 
@@ -831,8 +833,8 @@ _CHANGEBOTSTATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1695,
-  serialized_end=1824,
+  serialized_start=1709,
+  serialized_end=1838,
 )
 
 
@@ -870,8 +872,8 @@ _ADDSHOPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1826,
-  serialized_end=1929,
+  serialized_start=1840,
+  serialized_end=1943,
 )
 
 
@@ -909,8 +911,8 @@ _DELETESHOPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1931,
-  serialized_end=2037,
+  serialized_start=1945,
+  serialized_end=2051,
 )
 
 
@@ -955,8 +957,8 @@ _MODIFYSHOPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2040,
-  serialized_end=2188,
+  serialized_start=2054,
+  serialized_end=2202,
 )
 
 
@@ -987,8 +989,8 @@ _LISTSHOPSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2190,
-  serialized_end=2261,
+  serialized_start=2204,
+  serialized_end=2275,
 )
 
 
@@ -1019,8 +1021,8 @@ _LISTBOTSUCCESSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2263,
-  serialized_end=2328,
+  serialized_start=2277,
+  serialized_end=2342,
 )
 
 
@@ -1070,8 +1072,8 @@ _LISTSHOPSRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2331,
-  serialized_end=2512,
+  serialized_start=2345,
+  serialized_end=2526,
 )
 
 
@@ -1123,8 +1125,8 @@ _CHANGEUSERROLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2515,
-  serialized_end=2648,
+  serialized_start=2529,
+  serialized_end=2662,
 )
 
 
@@ -1144,8 +1146,15 @@ _ADDQUESTIONREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='question', full_name='controller.AddQuestionRequest.question', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='msgSource', full_name='controller.AddQuestionRequest.msgSource', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='question', full_name='controller.AddQuestionRequest.question', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1162,8 +1171,8 @@ _ADDQUESTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2650,
-  serialized_end=2722,
+  serialized_start=2664,
+  serialized_end=2776,
 )
 
 
@@ -1201,8 +1210,8 @@ _NOTIFYBOTSTATUSCHANGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2724,
-  serialized_end=2807,
+  serialized_start=2778,
+  serialized_end=2861,
 )
 
 
@@ -1233,8 +1242,8 @@ _GETSHOPIDBYKEYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2809,
-  serialized_end=2849,
+  serialized_start=2863,
+  serialized_end=2903,
 )
 
 _TELEGRAMMESSAGEINFO.oneofs_by_name['_botName'].fields.append(
@@ -1333,6 +1342,7 @@ _LISTSHOPSRESPONSE.oneofs_by_name['resp'].fields.append(
 _LISTSHOPSRESPONSE.fields_by_name['badChatType'].containing_oneof = _LISTSHOPSRESPONSE.oneofs_by_name['resp']
 _CHANGEUSERROLEREQUEST.fields_by_name['messageInfo'].message_type = _MESSAGEINFORMATION
 _ADDQUESTIONREQUEST.fields_by_name['key'].message_type = _SHOPKEY
+_ADDQUESTIONREQUEST.fields_by_name['msgSource'].message_type = common__pb2._MSGLOCATION
 _NOTIFYBOTSTATUSCHANGEREQUEST.fields_by_name['key'].message_type = _SHOPKEY
 DESCRIPTOR.message_types_by_name['TelegramMessageInfo'] = _TELEGRAMMESSAGEINFO
 DESCRIPTOR.message_types_by_name['MessageInformation'] = _MESSAGEINFORMATION
@@ -1578,8 +1588,8 @@ _CONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2852,
-  serialized_end=3673,
+  serialized_start=2906,
+  serialized_end=3727,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListShops',

@@ -1,5 +1,6 @@
 syntax = "proto3";
 package controller;
+import "common.proto";
 option go_package = "github.com/nikhovas/diploma/go/lib/proto/controller";
 
 
@@ -152,7 +153,8 @@ message ChangeUserRoleRequest {
 
 message AddQuestionRequest {
     ShopKey key = 1;
-    string question = 2;
+    common.MsgLocation msgSource = 2;
+    string question = 3;
 }
 
 message NotifyBotStatusChangeRequest {

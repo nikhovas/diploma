@@ -21,8 +21,6 @@ const _ = grpc.SupportPackageIsVersion7
 type VkServerClient interface {
 	SendSimpleMessage(ctx context.Context, in *SimpleMessageInformation, opts ...grpc.CallOption) (*common.EmptyResponse, error)
 	SendReplyMessage(ctx context.Context, in *ReplyMessageInformation, opts ...grpc.CallOption) (*common.EmptyResponse, error)
-	AddBot(ctx context.Context, in *BotsActionRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error)
-	RemoveBot(ctx context.Context, in *BotsActionRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error)
 }
 
 type vkServerClient struct {
@@ -51,32 +49,12 @@ func (c *vkServerClient) SendReplyMessage(ctx context.Context, in *ReplyMessageI
 	return out, nil
 }
 
-func (c *vkServerClient) AddBot(ctx context.Context, in *BotsActionRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
-	out := new(common.EmptyResponse)
-	err := c.cc.Invoke(ctx, "/consumer_bot.VkServer/AddBot", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *vkServerClient) RemoveBot(ctx context.Context, in *BotsActionRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
-	out := new(common.EmptyResponse)
-	err := c.cc.Invoke(ctx, "/consumer_bot.VkServer/RemoveBot", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // VkServerServer is the server API for VkServer service.
 // All implementations must embed UnimplementedVkServerServer
 // for forward compatibility
 type VkServerServer interface {
 	SendSimpleMessage(context.Context, *SimpleMessageInformation) (*common.EmptyResponse, error)
 	SendReplyMessage(context.Context, *ReplyMessageInformation) (*common.EmptyResponse, error)
-	AddBot(context.Context, *BotsActionRequest) (*common.EmptyResponse, error)
-	RemoveBot(context.Context, *BotsActionRequest) (*common.EmptyResponse, error)
 	mustEmbedUnimplementedVkServerServer()
 }
 
@@ -89,12 +67,6 @@ func (UnimplementedVkServerServer) SendSimpleMessage(context.Context, *SimpleMes
 }
 func (UnimplementedVkServerServer) SendReplyMessage(context.Context, *ReplyMessageInformation) (*common.EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendReplyMessage not implemented")
-}
-func (UnimplementedVkServerServer) AddBot(context.Context, *BotsActionRequest) (*common.EmptyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddBot not implemented")
-}
-func (UnimplementedVkServerServer) RemoveBot(context.Context, *BotsActionRequest) (*common.EmptyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveBot not implemented")
 }
 func (UnimplementedVkServerServer) mustEmbedUnimplementedVkServerServer() {}
 
@@ -145,42 +117,6 @@ func _VkServer_SendReplyMessage_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _VkServer_AddBot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BotsActionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(VkServerServer).AddBot(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/consumer_bot.VkServer/AddBot",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(VkServerServer).AddBot(ctx, req.(*BotsActionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _VkServer_RemoveBot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BotsActionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(VkServerServer).RemoveBot(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/consumer_bot.VkServer/RemoveBot",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(VkServerServer).RemoveBot(ctx, req.(*BotsActionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // VkServer_ServiceDesc is the grpc.ServiceDesc for VkServer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -195,14 +131,6 @@ var VkServer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendReplyMessage",
 			Handler:    _VkServer_SendReplyMessage_Handler,
-		},
-		{
-			MethodName: "AddBot",
-			Handler:    _VkServer_AddBot_Handler,
-		},
-		{
-			MethodName: "RemoveBot",
-			Handler:    _VkServer_RemoveBot_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

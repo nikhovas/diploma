@@ -86,10 +86,8 @@ func (vkLongPullServer *VkLongPullServer) ACheck(ts int, wait int) (ACheckRespon
 	}
 
 	for _, rawUpdateObject := range resp.Updates {
-		updateObject, ok := rawUpdateObject.ToUpdateObject()
-		if ok {
-			final.Updates = append(final.Updates, updateObject)
-		}
+		updateObject, _ := rawUpdateObject.ToUpdateObject()
+		final.Updates = append(final.Updates, updateObject)
 	}
 
 	return final, err

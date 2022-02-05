@@ -1,0 +1,19 @@
+root:
+  bots:
+    meta-service-name:
+      common:
+        enabled-bots: redis-set-string
+      meta-group-id:
+        common:
+          - message-id: consul-int
+          - token: redis-string
+          - shop-id: redis-string
+        meta-user-id:
+          - actions: consul-time-mpsq-queue-string
+          - state-machine: dir
+          - lock: consul-lock
+  common:
+    meta-shop-id:
+      - question-sources: redis-dict-string-string
+      - questions: redis-set-string
+      - qa: redis-dict-string-string

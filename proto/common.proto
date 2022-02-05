@@ -3,3 +3,15 @@ package common;
 option go_package = "github.com/nikhovas/diploma/go/lib/proto/common";
 
 message EmptyResponse {}
+
+message MsgLocation {
+    string service = 1;
+    int64 groupId = 2;
+    int64 userId = 3;
+}
+
+message WaitingQuesionInformation {
+    MsgLocation msgLocation = 1;
+    string question = 2;
+    int64 questionMsgId = 3;
+}

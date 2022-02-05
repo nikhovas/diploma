@@ -1,76 +1,3 @@
-import logging
-import grpc
-
-from aiogram import Bot, Dispatcher, types
-
-from proto.controller import controller_pb2, controller_pb2_grpc
-
-
-API_TOKEN = '1946618862:AAHgQl-2ZQnkYogkYyzPwZYqq50DBZJIZhw'
-QUESTION_MARKER = 'Вопрос: '
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-
-# Initialize bot and dispatcher
-bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot)
-
-
-channel = grpc.aio.insecure_channel('localhost:7777')
-stub = controller_pb2_grpc.ControllerStub(channel)
-
-
-class BotError(Exception):
-    def __init__(self, grpc_resp):
-        self.grpc_resp = grpc_resp
-
-
-def action_decorator(f):
-    async def internal(message: types.Message):
-        cmi = controller_pb2.TelegramMessageInfo(
-            chatId=message.chat.id,
-            isChatPrivate=(message.chat.type == 'private'),
-            userId=message.from_user.id,
-        )
-        try:
-            await f(message, cmi)
-        except BotError as err:
-            await message.answer('asdf')
-
-    return internal
-
-
-def check_resp_for_error(resp):
-    pass
-
-
-def group_only(f):
-    async def internal(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
-        if cmi.isChatPrivate is True:
-            raise BotError(controller_pb2.DefaultResponse(
-                noRoleError=controller_pb2.BadChatType(shouldBePrivate=False)),
-            )
-            # await message.reply('Команда работает только в группе магазина')
-            # return
-        await f(message, cmi)
-
-    return internal
-
-
-def private_only(f):
-    async def internal(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
-        if cmi.isChatPrivate is False:
-            raise BotError(controller_pb2.DefaultResponse(
-                noRoleError=controller_pb2.BadChatType(shouldBePrivate=True)),
-            )
-            # await message.reply('Команда работает только в личных сообщениях')
-            # return
-        await f(message, cmi)
-
-    return internal
-
-
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
     print(message.from_user)
@@ -98,17 +25,13 @@ async def answer_message(message: types.Message, cmi: controller_pb2.TelegramMes
     question = question.strip()
 
     response = await stub.AddQuestionAnswer(
-        controller_pb2.AddQuestionAnswerRequest(question=question, answer=answer),
+        controller_pb2.AddQuestionAnswerRequest(
+            messageInfo=controller_pb2.MessageInformation(telegram=cmi),
+            key=controller_pb2.ShopKey(telegramStaff=controller_pb2.TelegramStaffShopKey(groupId=cmi.chatId)),
+            question=question,
+            answer=answer,
+        ),
     )
-    print("Greeter client received: " + response.message)
-    # check for role
-
-    # add to database
-
-    # send answer to client
-
-    print(question)
-    print(answer)
 
     await message.reply('Ваш ответ зарегестрирован')
 
@@ -140,7 +63,7 @@ async def stop_shop_bot(message: types.Message, cmi: controller_pb2.TelegramMess
         messageInfo=controller_pb2.MessageInformation(telegram=cmi),
         toEnabled=False,
     ))
-    await message.reply('Бот магазина остановлен')
+    await message.reply('🕐 Отправлен запрос на остановку бота')
 
 
 @dp.message_handler(commands=['startshopbot'])
@@ -150,7 +73,7 @@ async def start_shop_bot(message: types.Message, cmi: controller_pb2.TelegramMes
         messageInfo=controller_pb2.MessageInformation(telegram=cmi),
         toEnabled=True,
     ))
-    await message.reply('Бот магазина запущен')
+    await message.reply('🕐 Отправлен запрос на включение бота')
 
 
 @dp.message_handler(commands=['addshop'])
