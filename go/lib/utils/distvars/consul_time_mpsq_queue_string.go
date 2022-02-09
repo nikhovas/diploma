@@ -29,7 +29,7 @@ func (dv *ConsulTimeMpsqQueueString) Pop(ctx context.Context, loopTime time.Dura
 
 	newestTs := 0
 	listLength := 0
-	var result map[int]string
+	result := make(map[int]string)
 	var times []int
 
 	for {
@@ -66,7 +66,7 @@ func (dv *ConsulTimeMpsqQueueString) Pop(ctx context.Context, loopTime time.Dura
 		time.Sleep(loopTime)
 	}
 
-	err = dv.StartFrom.Put(ctx, startFrom)
+	err = dv.StartFrom.Put(ctx, newestTs + 1)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (dv *ConsulTimeMpsqQueueString) GetNewestTimeValue(ctx context.Context) (*i
 
 	for key, _ := range data {
 		ts, _ := strconv.Atoi(key)
-		if ts <= startFrom {
+		if ts < startFrom {
 			_ = dv.Data.Delete(ctx, key)
 		} else {
 			exists = true

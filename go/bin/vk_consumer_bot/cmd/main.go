@@ -1,119 +1,29 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/go-redis/redis/v8"
-	"github.com/golang/protobuf/jsonpb"
-	"github.com/hashicorp/consul/api"
-	consumerActions "github.com/nikhovas/diploma/go/lib/proto/consumer_actions"
 	pb "github.com/nikhovas/diploma/go/lib/proto/consumer_bot"
-	ctrl "github.com/nikhovas/diploma/go/lib/proto/controller"
+	"github.com/nikhovas/diploma/go/lib/utils/clients"
+	"github.com/nikhovas/diploma/go/lib/utils/consts"
+	"github.com/nikhovas/diploma/go/lib/utils/distfs"
+	"github.com/nikhovas/diploma/go/lib/utils/env"
+	"github.com/nikhovas/diploma/go/lib/utils/log"
 	apiServer "github.com/nikhovas/diploma/go/lib/vk/api_server"
-	longPullServer "github.com/nikhovas/diploma/go/lib/vk/long_pull_server"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
-	"log"
 	"net"
-	"strconv"
 	"sync"
 	"time"
+	"vk_consumer_bot/application"
 	"vk_consumer_bot/bots"
 	"vk_consumer_bot/server"
 )
 
-var coordinator *api.KV
 var amqpChannel *amqp.Channel
 var amqpQueue amqp.Queue
-var ctrlClient ctrl.ControllerClient
-
-func GetDataBasePath(groupId int, userId int) string {
-	return fmt.Sprintf("messages/vk-shop-bot/%d/%d", groupId, userId)
-}
-
-func GetActionsBasePath(groupId int, userId int) string {
-	return fmt.Sprintf("%s/actions", GetDataBasePath(groupId, userId))
-}
-
-func GetMessagesKey(groupId int, userId int) string {
-	return fmt.Sprintf("%s/messages", GetDataBasePath(groupId, userId))
-}
-
-func GetMessagePath(groupId int, userId int, messageTs int) string {
-	return fmt.Sprintf("%s/%d", GetMessagesKey(groupId, userId), messageTs)
-}
-
-func callback(groupId int, ts int, update longPullServer.UpdateObject) {
-	ro := update.Object
-
-	var userId int
-	ae := &consumerActions.ActionEvent{
-		UserId: "",
-		BotId:  strconv.Itoa(groupId),
-		Time:   uint64(ts),
-	}
-	userAction := consumerActions.UserAction{
-		Time:   uint64(ts),
-		Object: nil,
-	}
-
-	switch v := ro.(type) {
-	case *longPullServer.NewMessageObject:
-		userAction.Object = &consumerActions.UserAction_NewMessage{
-			NewMessage: &consumerActions.NewMessage{Text: v.Body},
-		}
-
-		userId = v.UserId
-
-	default:
-		fmt.Println("Unsupported message type")
-	}
-
-	ae.UserId = strconv.Itoa(userId)
-	ae.ServiceName = "vk-shop-bot"
-
-	res, err := ctrlClient.GetShopIdByKey(context.Background(), &ctrl.ShopKey{
-		Key: &ctrl.ShopKey_Common{
-			Common: &ctrl.CommonShopKey{
-				CommonKey: &ctrl.CommonShopKey_VkGroupId{
-					VkGroupId: int64(groupId),
-				},
-			},
-		},
-	})
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	ae.ShopId = res.ShopId
-
-	m := jsonpb.Marshaler{}
-	userActionString, _ := m.MarshalToString(&userAction)
-	_, _ = coordinator.Put(&api.KVPair{Key: GetMessagePath(groupId, userId, ts), Value: []byte(userActionString)}, nil)
-
-	aeString, _ := m.MarshalToString(ae)
-	err = amqpChannel.Publish("", amqpQueue.Name, false, false,
-		amqp.Publishing{
-			ContentType: "application/json",
-			Body:        []byte(aeString),
-		})
-	if err != nil {
-		log.Println(err)
-	}
-}
-
-func grpcServer(bot *bots.CombinedBot) {
-	lis, _ := net.Listen("tcp", fmt.Sprintf("localhost:5555"))
-
-	grpcServer := grpc.NewServer()
-	pb.RegisterVkServerServer(grpcServer, server.NewServer(bot))
-	grpcServer.Serve(lis)
-}
 
 func setUpAmqp() {
-	const amqpUrl = "amqp://guest:guest@localhost:5672/"
-	const queueName = "action_events"
+	amqpUrl := env.GetAmqpUrl()
+	queueName := "action_events"
 
 	var ampqConn *amqp.Connection
 	var err error
@@ -129,7 +39,6 @@ func setUpAmqp() {
 
 	if err != nil {
 		panic(err)
-	} else {
 	}
 
 	amqpChannel, err = ampqConn.Channel()
@@ -144,133 +53,58 @@ func setUpAmqp() {
 	}
 }
 
-func redisTryRead(rdb *redis.Client, combinedBot *bots.CombinedBot, runningBots map[int]struct{}) {
-	res, err := rdb.LRange(context.Background(), "/bots/vk/enabled", 0, -1).Result()
-	if err != nil {
-		fmt.Print(err)
-		return
-	}
+func runGrpcServer(bot *bots.CombinedBot) {
+	lis, _ := net.Listen("tcp", env.GetVkConsumerBotGrpcHost())
 
-	newRunningBots := make(map[int]struct{})
-	for _, item := range res {
-		id, _ := strconv.Atoi(item)
-		newRunningBots[id] = struct{}{}
-	}
-
-	toDelete := make([]int, 0)
-	for bot, _ := range runningBots {
-		_, exists := newRunningBots[bot]
-		if !exists {
-			toDelete = append(toDelete, bot)
-		}
-	}
-
-	toCreate := make([]int, 0)
-	for bot, _ := range newRunningBots {
-		_, exists := runningBots[bot]
-		if !exists {
-			toCreate = append(toCreate, bot)
-		}
-	}
-
-	runningBots = newRunningBots
-
-	for _, bot := range toDelete {
-		combinedBot.RemoveBot(bot)
-		_, exists := runningBots[bot]
-		if !exists {
-			toCreate = append(toCreate, bot)
-		}
-	}
-
-	keysToGet := make([]string, 0)
-	for _, bot := range toCreate {
-		path := fmt.Sprintf("bots/data/vk/%d/token", bot)
-		keysToGet = append(keysToGet, path)
-	}
-
-	if len(keysToGet) == 0 {
-		return
-	}
-
-	reqRes, err := rdb.MGet(context.Background(), keysToGet...).Result()
-	if err != nil {
-		fmt.Print(err)
-		return
-	}
-
-	for i, bot := range toCreate {
-		token := reqRes[i]
-		if token == nil {
-			continue
-		}
-
-		tokenStr := token.(string)
-
-		err := combinedBot.AddBot(bot, tokenStr)
-		if err != nil {
-			fmt.Print(err)
-			continue
-		}
-	}
-}
-
-func redisReadWorker(rdb *redis.Client, combinedBot *bots.CombinedBot) {
-	runningBots := make(map[int]struct{})
-
-	for {
-		redisTryRead(rdb, combinedBot, runningBots)
-		time.Sleep(2 * time.Second)
-	}
-}
-
-func createControllerClient() (*grpc.ClientConn, ctrl.ControllerClient) {
-	conn, err := grpc.Dial("localhost:7777", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	grpcServer := grpc.NewServer()
+	pb.RegisterVkServerServer(grpcServer, server.NewServer(bot))
+	err := grpcServer.Serve(lis)
 	if err != nil {
 		panic(err)
 	}
-
-	client := ctrl.NewControllerClient(conn)
-	return conn, client
 }
 
 func main() {
 	const vkApiHost = "http://api.vk.com"
-	const vkApiVersion = "5.89"
+	const vkApiVersion = "5.92"
 
-	var ctrlConn *grpc.ClientConn
-
-	ctrlConn, ctrlClient = createControllerClient()
+	ctrlConn, ctrlClient := clients.CreateControllerClient()
 	defer ctrlConn.Close()
-
-	//const token = "df706c54e7ab475336001dc165d6143bf344211fe84a41a54334d451b583fb8cc247e021d9f2b285d1ed3"
-	//const groupId = 209867018
 
 	setUpAmqp()
 
-	client, _ := api.NewClient(api.DefaultConfig())
-	coordinator = client.KV()
+	consulClient := clients.CreateConsulClient()
 
 	vkApiServer := apiServer.VkApiServer{
 		Host:    vkApiHost,
 		Version: vkApiVersion,
 	}
 
+	rdb := clients.CreateRedisClient()
+	defer rdb.Close()
+
+	vkServiceDistFs := distfs.NewRoot(rdb, consulClient).CdBots().MetaCdServiceName(consts.VkConsumerBotServiceName)
+
+	app := application.Application{
+		Consul:       consulClient,
+		Redis:        rdb,
+		CtrlClient:   ctrlClient,
+		VkDistFsBase: vkServiceDistFs,
+	}
+
 	var bot bots.CombinedBot
-	bot.Init(client.KV(), &vkApiServer, callback, ctrlClient)
+	bot.Init(&app, &vkApiServer, callback)
 
 	var wg sync.WaitGroup
 	wg.Add(3)
-	go bot.Run(&wg)
-	//time.Sleep(3 * time.Second)
-	//bot.AddBot(groupId)
-	time.Sleep(3 * time.Second)
-	go grpcServer(&bot)
 
-	rdb := redis.NewClient(&redis.Options{
-		Addr: ":6379",
-	})
-	go redisReadWorker(rdb, &bot)
+	globalContext := log.NewRootContext()
+
+	go bot.Run(&wg)
+	time.Sleep(3 * time.Second)
+	go runGrpcServer(&bot)
+
+	go redisReadWorker(log.NewContext(globalContext), &app, &bot)
 
 	wg.Wait()
 }

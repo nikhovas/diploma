@@ -15,3 +15,7 @@ func (n *Common) CdMessageId() *distvars.ConsulInt {
 func (n *Common) CdToken() *distvars.RedisString {
 	return n.DirInfo.GetRedisStringChild("token")
 }
+
+func (n *Common) CdNewMsgUniqueId() *distvars.RedisCounter {
+	return n.DirInfo.GetRedisCounterChild("new-msg-unique-id")
+}

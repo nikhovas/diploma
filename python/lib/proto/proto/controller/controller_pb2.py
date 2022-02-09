@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z3github.com/nikhovas/diploma/go/lib/proto/controller',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10\x63ontroller.proto\x12\ncontroller\x1a\x0c\x63ommon.proto\"n\n\x13TelegramMessageInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\x12\x15\n\risChatPrivate\x18\x02 \x01(\x08\x12\x0e\n\x06userId\x18\x03 \x01(\x03\x12\x14\n\x07\x62otName\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\n\n\x08_botName\"Q\n\x12MessageInformation\x12\x33\n\x08telegram\x18\x01 \x01(\x0b\x32\x1f.controller.TelegramMessageInfoH\x00\x42\x06\n\x04info\"=\n\rCommonBotInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12\x0f\n\x07groupId\x18\x03 \x01(\x03\"s\n\x15OptionalCommonBotInfo\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05token\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07groupId\x18\x03 \x01(\x03H\x02\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_tokenB\n\n\x08_groupId\"!\n\x0fTelegramBotInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\"9\n\x17OptionalTelegramBotInfo\x12\x13\n\x06\x63hatId\x18\x01 \x01(\x03H\x00\x88\x01\x01\x42\t\n\x07_chatId\"N\n\x0fPlatformBotInfo\x12/\n\x08telegram\x18\x01 \x01(\x0b\x32\x1b.controller.TelegramBotInfoH\x00\x42\n\n\x08platform\"^\n\x17OptionalPlatformBotInfo\x12\x37\n\x08telegram\x18\x01 \x01(\x0b\x32#.controller.OptionalTelegramBotInfoH\x00\x42\n\n\x08platform\"q\n\x07\x42otInfo\x12\x30\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32\x19.controller.CommonBotInfo\x12\x34\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32\x1b.controller.PlatformBotInfo\"\xb9\x01\n\x0fOptionalBotInfo\x12=\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32!.controller.OptionalCommonBotInfoH\x00\x88\x01\x01\x12\x41\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32#.controller.OptionalPlatformBotInfoH\x01\x88\x01\x01\x42\x10\n\x0e_commonBotInfoB\x12\n\x10_platformBotInfo\"O\n\rCommonShopKey\x12\x0c\n\x02id\x18\x01 \x01(\x03H\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x12\x13\n\tvkGroupId\x18\x03 \x01(\x03H\x00\x42\x0b\n\tcommonKey\"8\n\x14TelegramStaffShopKey\x12\x11\n\x07groupId\x18\x01 \x01(\x03H\x00\x42\r\n\x0btelegramKey\"x\n\x07ShopKey\x12+\n\x06\x63ommon\x18\x01 \x01(\x0b\x32\x19.controller.CommonShopKeyH\x00\x12\x39\n\rtelegramStaff\x18\x02 \x01(\x0b\x32 .controller.TelegramStaffShopKeyH\x00\x42\x05\n\x03key\"\x11\n\x0f\x45mptyOkResponse\"\'\n\x0eNoRoleResponse\x12\x15\n\rrequiredOneOf\x18\x01 \x03(\t\"&\n\x0b\x42\x61\x64\x43hatType\x12\x17\n\x0fshouldBePrivate\x18\x01 \x01(\x08\"\xac\x01\n\x0f\x44\x65\x66\x61ultResponse\x12.\n\x07success\x18\x01 \x01(\x0b\x32\x1b.controller.EmptyOkResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"\xaf\x01\n\x18\x41\x64\x64QuestionAnswerRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12\x10\n\x08question\x18\x03 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x04 \x01(\t\x12\x1a\n\x12\x63heckQuestionInSet\x18\x05 \x01(\x08\"\x81\x01\n\x15\x43hangeBotStateRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x03 \x01(\x08\"g\n\x0e\x41\x64\x64ShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03\x62ot\x18\x02 \x01(\x0b\x32\x13.controller.BotInfo\"j\n\x11\x44\x65leteShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\"\x94\x01\n\x11ModifyShopRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12(\n\x03\x62ot\x18\x04 \x01(\x0b\x32\x1b.controller.OptionalBotInfo\"G\n\x10ListShopsRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\"A\n\x16ListBotSuccessResponse\x12\'\n\x04\x62ots\x18\x01 \x03(\x0b\x32\x19.controller.CommonBotInfo\"\xb5\x01\n\x11ListShopsResponse\x12\x35\n\x07success\x18\x01 \x01(\x0b\x32\".controller.ListBotSuccessResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"\x85\x01\n\x15\x43hangeUserRoleRequest\x12\x33\n\x0bmessageInfo\x18\x01 \x01(\x0b\x32\x1e.controller.MessageInformation\x12\x14\n\x0cmodifyUserId\x18\x02 \x01(\x03\x12\x0c\n\x04role\x18\x03 \x01(\t\x12\x13\n\x0bisAddAction\x18\x04 \x01(\x08\"p\n\x12\x41\x64\x64QuestionRequest\x12 \n\x03key\x18\x01 \x01(\x0b\x32\x13.controller.ShopKey\x12&\n\tmsgSource\x18\x02 \x01(\x0b\x32\x13.common.MsgLocation\x12\x10\n\x08question\x18\x03 \x01(\t\"S\n\x1cNotifyBotStatusChangeRequest\x12 \n\x03key\x18\x01 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x02 \x01(\x08\"(\n\x16GetShopIdByKeyResponse\x12\x0e\n\x06shopId\x18\x01 \x01(\x03\x32\xb5\x06\n\nController\x12J\n\tListShops\x12\x1c.controller.ListShopsRequest\x1a\x1d.controller.ListShopsResponse\"\x00\x12\x44\n\x07\x41\x64\x64Shop\x12\x1a.controller.AddShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nModifyShop\x12\x1d.controller.ModifyShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nDeleteShop\x12\x1d.controller.DeleteShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12X\n\x11\x41\x64\x64QuestionAnswer\x12$.controller.AddQuestionAnswerRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12L\n\x0b\x41\x64\x64Question\x12\x1e.controller.AddQuestionRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeBotState\x12!.controller.ChangeBotStateRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeUserRole\x12!.controller.ChangeUserRoleRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12`\n\x15NotifyBotStatusChange\x12(.controller.NotifyBotStatusChangeRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12K\n\x0eGetShopIdByKey\x12\x13.controller.ShopKey\x1a\".controller.GetShopIdByKeyResponse\"\x00\x42\x35Z3github.com/nikhovas/diploma/go/lib/proto/controllerb\x06proto3'
+  serialized_pb=b'\n\x10\x63ontroller.proto\x12\ncontroller\x1a\x0c\x63ommon.proto\"n\n\x13TelegramMessageInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\x12\x15\n\risChatPrivate\x18\x02 \x01(\x08\x12\x0e\n\x06userId\x18\x03 \x01(\x03\x12\x14\n\x07\x62otName\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\n\n\x08_botName\"Q\n\x12MessageInformation\x12\x33\n\x08telegram\x18\x01 \x01(\x0b\x32\x1f.controller.TelegramMessageInfoH\x00\x42\x06\n\x04info\"=\n\rCommonBotInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12\x0f\n\x07groupId\x18\x03 \x01(\x03\"s\n\x15OptionalCommonBotInfo\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05token\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07groupId\x18\x03 \x01(\x03H\x02\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_tokenB\n\n\x08_groupId\"!\n\x0fTelegramBotInfo\x12\x0e\n\x06\x63hatId\x18\x01 \x01(\x03\"9\n\x17OptionalTelegramBotInfo\x12\x13\n\x06\x63hatId\x18\x01 \x01(\x03H\x00\x88\x01\x01\x42\t\n\x07_chatId\"R\n\x0fPlatformBotInfo\x12\x32\n\x08telegram\x18\x01 \x01(\x0b\x32\x1b.controller.TelegramBotInfoH\x00\x88\x01\x01\x42\x0b\n\t_telegram\"P\n\x17OptionalPlatformBotInfo\x12\x35\n\x08telegram\x18\x01 \x01(\x0b\x32#.controller.OptionalTelegramBotInfo\"q\n\x07\x42otInfo\x12\x30\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32\x19.controller.CommonBotInfo\x12\x34\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32\x1b.controller.PlatformBotInfo\"\xb9\x01\n\x0fOptionalBotInfo\x12=\n\rcommonBotInfo\x18\x01 \x01(\x0b\x32!.controller.OptionalCommonBotInfoH\x00\x88\x01\x01\x12\x41\n\x0fplatformBotInfo\x18\x02 \x01(\x0b\x32#.controller.OptionalPlatformBotInfoH\x01\x88\x01\x01\x42\x10\n\x0e_commonBotInfoB\x12\n\x10_platformBotInfo\":\n\rCommonShopKey\x12\x0c\n\x02id\x18\x01 \x01(\x03H\x00\x12\x0e\n\x04name\x18\x02 \x01(\tH\x00\x42\x0b\n\tcommonKey\"8\n\x14TelegramStaffShopKey\x12\x11\n\x07groupId\x18\x01 \x01(\x03H\x00\x42\r\n\x0btelegramKey\"-\n\x11VkConsumerShopKey\x12\x11\n\x07groupId\x18\x01 \x01(\x03H\x00\x42\x05\n\x03key\"\xad\x01\n\x07ShopKey\x12+\n\x06\x63ommon\x18\x01 \x01(\x0b\x32\x19.controller.CommonShopKeyH\x00\x12\x39\n\rtelegramStaff\x18\x02 \x01(\x0b\x32 .controller.TelegramStaffShopKeyH\x00\x12\x33\n\nvkConsumer\x18\x03 \x01(\x0b\x32\x1d.controller.VkConsumerShopKeyH\x00\x42\x05\n\x03key\"\x11\n\x0f\x45mptyOkResponse\"\'\n\x0eNoRoleResponse\x12\x15\n\rrequiredOneOf\x18\x01 \x03(\t\"&\n\x0b\x42\x61\x64\x43hatType\x12\x17\n\x0fshouldBePrivate\x18\x01 \x01(\x08\"\xac\x01\n\x0f\x44\x65\x66\x61ultResponse\x12.\n\x07success\x18\x01 \x01(\x0b\x32\x1b.controller.EmptyOkResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"\xbd\x01\n\x18\x41\x64\x64QuestionAnswerRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x0bmessageInfo\x18\x02 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x03 \x01(\x0b\x32\x13.controller.ShopKey\x12\x10\n\x08question\x18\x04 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x05 \x01(\t\x12\x1a\n\x12\x63heckQuestionInSet\x18\x06 \x01(\x08\"\x8f\x01\n\x15\x43hangeBotStateRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x0bmessageInfo\x18\x02 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x03 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x04 \x01(\x08\"u\n\x0e\x41\x64\x64ShopRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x0bmessageInfo\x18\x02 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03\x62ot\x18\x03 \x01(\x0b\x32\x13.controller.BotInfo\"x\n\x11\x44\x65leteShopRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x0bmessageInfo\x18\x02 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x03 \x01(\x0b\x32\x13.controller.ShopKey\"\xa2\x01\n\x11ModifyShopRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x0bmessageInfo\x18\x02 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x03 \x01(\x0b\x32\x13.controller.ShopKey\x12(\n\x03\x62ot\x18\x04 \x01(\x0b\x32\x1b.controller.OptionalBotInfo\"U\n\x10ListShopsRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x0bmessageInfo\x18\x02 \x01(\x0b\x32\x1e.controller.MessageInformation\"A\n\x16ListBotSuccessResponse\x12\'\n\x04\x62ots\x18\x01 \x03(\x0b\x32\x19.controller.CommonBotInfo\"\xb5\x01\n\x11ListShopsResponse\x12\x35\n\x07success\x18\x01 \x01(\x0b\x32\".controller.ListBotSuccessResponseH\x00\x12\x31\n\x0bnoRoleError\x18\x02 \x01(\x0b\x32\x1a.controller.NoRoleResponseH\x00\x12.\n\x0b\x62\x61\x64\x43hatType\x18\x03 \x01(\x0b\x32\x17.controller.BadChatTypeH\x00\x42\x06\n\x04resp\"G\n\x07UserKey\x12\x16\n\x0c\x63ommonUserId\x18\x01 \x01(\x03H\x00\x12\x1d\n\x13telegramStaffUserId\x18\x02 \x01(\x03H\x00\x42\x05\n\x03key\"\xca\x01\n\x15\x43hangeUserRoleRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x0bmessageInfo\x18\x02 \x01(\x0b\x32\x1e.controller.MessageInformation\x12 \n\x03key\x18\x03 \x01(\x0b\x32\x13.controller.ShopKey\x12)\n\x0cmodifyUserId\x18\x04 \x01(\x0b\x32\x13.controller.UserKey\x12\x0c\n\x04role\x18\x05 \x01(\t\x12\x13\n\x0bisAddAction\x18\x06 \x01(\x08\"u\n\x12\x41\x64\x64QuestionRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12/\n\x04info\x18\x03 \x01(\x0b\x32!.common.WaitingQuesionInformation\"a\n\x1cNotifyBotStatusChangeRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12 \n\x03key\x18\x02 \x01(\x0b\x32\x13.controller.ShopKey\x12\x11\n\ttoEnabled\x18\x03 \x01(\x08\"(\n\x16GetShopIdByKeyResponse\x12\x0e\n\x06shopId\x18\x01 \x01(\x03\x32\xb5\x06\n\nController\x12J\n\tListShops\x12\x1c.controller.ListShopsRequest\x1a\x1d.controller.ListShopsResponse\"\x00\x12\x44\n\x07\x41\x64\x64Shop\x12\x1a.controller.AddShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nModifyShop\x12\x1d.controller.ModifyShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12J\n\nDeleteShop\x12\x1d.controller.DeleteShopRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12X\n\x11\x41\x64\x64QuestionAnswer\x12$.controller.AddQuestionAnswerRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12L\n\x0b\x41\x64\x64Question\x12\x1e.controller.AddQuestionRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeBotState\x12!.controller.ChangeBotStateRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12R\n\x0e\x43hangeUserRole\x12!.controller.ChangeUserRoleRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12`\n\x15NotifyBotStatusChange\x12(.controller.NotifyBotStatusChangeRequest\x1a\x1b.controller.DefaultResponse\"\x00\x12K\n\x0eGetShopIdByKey\x12\x13.controller.ShopKey\x1a\".controller.GetShopIdByKeyResponse\"\x00\x42\x35Z3github.com/nikhovas/diploma/go/lib/proto/controllerb\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -325,13 +325,13 @@ _PLATFORMBOTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
-      name='platform', full_name='controller.PlatformBotInfo.platform',
+      name='_telegram', full_name='controller.PlatformBotInfo._telegram',
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
   serialized_start=515,
-  serialized_end=593,
+  serialized_end=597,
 )
 
 
@@ -361,14 +361,9 @@ _OPTIONALPLATFORMBOTINFO = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
-    _descriptor.OneofDescriptor(
-      name='platform', full_name='controller.OptionalPlatformBotInfo.platform',
-      index=0, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
   ],
-  serialized_start=595,
-  serialized_end=689,
+  serialized_start=599,
+  serialized_end=679,
 )
 
 
@@ -406,8 +401,8 @@ _BOTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=691,
-  serialized_end=804,
+  serialized_start=681,
+  serialized_end=794,
 )
 
 
@@ -455,8 +450,8 @@ _OPTIONALBOTINFO = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=807,
-  serialized_end=992,
+  serialized_start=797,
+  serialized_end=982,
 )
 
 
@@ -482,13 +477,6 @@ _COMMONSHOPKEY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='vkGroupId', full_name='controller.CommonShopKey.vkGroupId', index=2,
-      number=3, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -506,8 +494,8 @@ _COMMONSHOPKEY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=994,
-  serialized_end=1073,
+  serialized_start=984,
+  serialized_end=1042,
 )
 
 
@@ -543,8 +531,45 @@ _TELEGRAMSTAFFSHOPKEY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1075,
-  serialized_end=1131,
+  serialized_start=1044,
+  serialized_end=1100,
+)
+
+
+_VKCONSUMERSHOPKEY = _descriptor.Descriptor(
+  name='VkConsumerShopKey',
+  full_name='controller.VkConsumerShopKey',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='groupId', full_name='controller.VkConsumerShopKey.groupId', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='key', full_name='controller.VkConsumerShopKey.key',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=1102,
+  serialized_end=1147,
 )
 
 
@@ -570,6 +595,13 @@ _SHOPKEY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='vkConsumer', full_name='controller.ShopKey.vkConsumer', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -587,8 +619,8 @@ _SHOPKEY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1133,
-  serialized_end=1253,
+  serialized_start=1150,
+  serialized_end=1323,
 )
 
 
@@ -612,8 +644,8 @@ _EMPTYOKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1255,
-  serialized_end=1272,
+  serialized_start=1325,
+  serialized_end=1342,
 )
 
 
@@ -644,8 +676,8 @@ _NOROLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1274,
-  serialized_end=1313,
+  serialized_start=1344,
+  serialized_end=1383,
 )
 
 
@@ -676,8 +708,8 @@ _BADCHATTYPE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1315,
-  serialized_end=1353,
+  serialized_start=1385,
+  serialized_end=1423,
 )
 
 
@@ -727,8 +759,8 @@ _DEFAULTRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1356,
-  serialized_end=1528,
+  serialized_start=1426,
+  serialized_end=1598,
 )
 
 
@@ -741,36 +773,43 @@ _ADDQUESTIONANSWERREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='messageInfo', full_name='controller.AddQuestionAnswerRequest.messageInfo', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='uuid', full_name='controller.AddQuestionAnswerRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='key', full_name='controller.AddQuestionAnswerRequest.key', index=1,
+      name='messageInfo', full_name='controller.AddQuestionAnswerRequest.messageInfo', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='question', full_name='controller.AddQuestionAnswerRequest.question', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='key', full_name='controller.AddQuestionAnswerRequest.key', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='answer', full_name='controller.AddQuestionAnswerRequest.answer', index=3,
+      name='question', full_name='controller.AddQuestionAnswerRequest.question', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='checkQuestionInSet', full_name='controller.AddQuestionAnswerRequest.checkQuestionInSet', index=4,
-      number=5, type=8, cpp_type=7, label=1,
+      name='answer', full_name='controller.AddQuestionAnswerRequest.answer', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='checkQuestionInSet', full_name='controller.AddQuestionAnswerRequest.checkQuestionInSet', index=5,
+      number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -787,8 +826,8 @@ _ADDQUESTIONANSWERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1531,
-  serialized_end=1706,
+  serialized_start=1601,
+  serialized_end=1790,
 )
 
 
@@ -801,22 +840,29 @@ _CHANGEBOTSTATEREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='messageInfo', full_name='controller.ChangeBotStateRequest.messageInfo', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='uuid', full_name='controller.ChangeBotStateRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='key', full_name='controller.ChangeBotStateRequest.key', index=1,
+      name='messageInfo', full_name='controller.ChangeBotStateRequest.messageInfo', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='toEnabled', full_name='controller.ChangeBotStateRequest.toEnabled', index=2,
-      number=3, type=8, cpp_type=7, label=1,
+      name='key', full_name='controller.ChangeBotStateRequest.key', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='toEnabled', full_name='controller.ChangeBotStateRequest.toEnabled', index=3,
+      number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -833,8 +879,8 @@ _CHANGEBOTSTATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1709,
-  serialized_end=1838,
+  serialized_start=1793,
+  serialized_end=1936,
 )
 
 
@@ -847,15 +893,22 @@ _ADDSHOPREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='messageInfo', full_name='controller.AddShopRequest.messageInfo', index=0,
-      number=1, type=11, cpp_type=10, label=1,
+      name='uuid', full_name='controller.AddShopRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='messageInfo', full_name='controller.AddShopRequest.messageInfo', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bot', full_name='controller.AddShopRequest.bot', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='bot', full_name='controller.AddShopRequest.bot', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -872,8 +925,8 @@ _ADDSHOPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1840,
-  serialized_end=1943,
+  serialized_start=1938,
+  serialized_end=2055,
 )
 
 
@@ -886,15 +939,22 @@ _DELETESHOPREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='messageInfo', full_name='controller.DeleteShopRequest.messageInfo', index=0,
-      number=1, type=11, cpp_type=10, label=1,
+      name='uuid', full_name='controller.DeleteShopRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='messageInfo', full_name='controller.DeleteShopRequest.messageInfo', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='key', full_name='controller.DeleteShopRequest.key', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='key', full_name='controller.DeleteShopRequest.key', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -911,8 +971,8 @@ _DELETESHOPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1945,
-  serialized_end=2051,
+  serialized_start=2057,
+  serialized_end=2177,
 )
 
 
@@ -925,21 +985,28 @@ _MODIFYSHOPREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='messageInfo', full_name='controller.ModifyShopRequest.messageInfo', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='uuid', full_name='controller.ModifyShopRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='key', full_name='controller.ModifyShopRequest.key', index=1,
+      name='messageInfo', full_name='controller.ModifyShopRequest.messageInfo', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bot', full_name='controller.ModifyShopRequest.bot', index=2,
+      name='key', full_name='controller.ModifyShopRequest.key', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='bot', full_name='controller.ModifyShopRequest.bot', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -957,8 +1024,8 @@ _MODIFYSHOPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2054,
-  serialized_end=2202,
+  serialized_start=2180,
+  serialized_end=2342,
 )
 
 
@@ -971,8 +1038,15 @@ _LISTSHOPSREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='messageInfo', full_name='controller.ListShopsRequest.messageInfo', index=0,
-      number=1, type=11, cpp_type=10, label=1,
+      name='uuid', full_name='controller.ListShopsRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='messageInfo', full_name='controller.ListShopsRequest.messageInfo', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -989,8 +1063,8 @@ _LISTSHOPSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2204,
-  serialized_end=2275,
+  serialized_start=2344,
+  serialized_end=2429,
 )
 
 
@@ -1021,8 +1095,8 @@ _LISTBOTSUCCESSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2277,
-  serialized_end=2342,
+  serialized_start=2431,
+  serialized_end=2496,
 )
 
 
@@ -1072,8 +1146,52 @@ _LISTSHOPSRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2345,
-  serialized_end=2526,
+  serialized_start=2499,
+  serialized_end=2680,
+)
+
+
+_USERKEY = _descriptor.Descriptor(
+  name='UserKey',
+  full_name='controller.UserKey',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='commonUserId', full_name='controller.UserKey.commonUserId', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='telegramStaffUserId', full_name='controller.UserKey.telegramStaffUserId', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='key', full_name='controller.UserKey.key',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=2682,
+  serialized_end=2753,
 )
 
 
@@ -1086,29 +1204,43 @@ _CHANGEUSERROLEREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='messageInfo', full_name='controller.ChangeUserRoleRequest.messageInfo', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='modifyUserId', full_name='controller.ChangeUserRoleRequest.modifyUserId', index=1,
-      number=2, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='role', full_name='controller.ChangeUserRoleRequest.role', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='uuid', full_name='controller.ChangeUserRoleRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='isAddAction', full_name='controller.ChangeUserRoleRequest.isAddAction', index=3,
-      number=4, type=8, cpp_type=7, label=1,
+      name='messageInfo', full_name='controller.ChangeUserRoleRequest.messageInfo', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='key', full_name='controller.ChangeUserRoleRequest.key', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='modifyUserId', full_name='controller.ChangeUserRoleRequest.modifyUserId', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='role', full_name='controller.ChangeUserRoleRequest.role', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='isAddAction', full_name='controller.ChangeUserRoleRequest.isAddAction', index=5,
+      number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1125,8 +1257,8 @@ _CHANGEUSERROLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2529,
-  serialized_end=2662,
+  serialized_start=2756,
+  serialized_end=2958,
 )
 
 
@@ -1139,23 +1271,23 @@ _ADDQUESTIONREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='controller.AddQuestionRequest.key', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='uuid', full_name='controller.AddQuestionRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='msgSource', full_name='controller.AddQuestionRequest.msgSource', index=1,
+      name='key', full_name='controller.AddQuestionRequest.key', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='question', full_name='controller.AddQuestionRequest.question', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='info', full_name='controller.AddQuestionRequest.info', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -1171,8 +1303,8 @@ _ADDQUESTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2664,
-  serialized_end=2776,
+  serialized_start=2960,
+  serialized_end=3077,
 )
 
 
@@ -1185,15 +1317,22 @@ _NOTIFYBOTSTATUSCHANGEREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='controller.NotifyBotStatusChangeRequest.key', index=0,
-      number=1, type=11, cpp_type=10, label=1,
+      name='uuid', full_name='controller.NotifyBotStatusChangeRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='key', full_name='controller.NotifyBotStatusChangeRequest.key', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='toEnabled', full_name='controller.NotifyBotStatusChangeRequest.toEnabled', index=1,
-      number=2, type=8, cpp_type=7, label=1,
+      name='toEnabled', full_name='controller.NotifyBotStatusChangeRequest.toEnabled', index=2,
+      number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1210,8 +1349,8 @@ _NOTIFYBOTSTATUSCHANGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2778,
-  serialized_end=2861,
+  serialized_start=3079,
+  serialized_end=3176,
 )
 
 
@@ -1242,8 +1381,8 @@ _GETSHOPIDBYKEYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2863,
-  serialized_end=2903,
+  serialized_start=3178,
+  serialized_end=3218,
 )
 
 _TELEGRAMMESSAGEINFO.oneofs_by_name['_botName'].fields.append(
@@ -1266,13 +1405,10 @@ _OPTIONALTELEGRAMBOTINFO.oneofs_by_name['_chatId'].fields.append(
   _OPTIONALTELEGRAMBOTINFO.fields_by_name['chatId'])
 _OPTIONALTELEGRAMBOTINFO.fields_by_name['chatId'].containing_oneof = _OPTIONALTELEGRAMBOTINFO.oneofs_by_name['_chatId']
 _PLATFORMBOTINFO.fields_by_name['telegram'].message_type = _TELEGRAMBOTINFO
-_PLATFORMBOTINFO.oneofs_by_name['platform'].fields.append(
+_PLATFORMBOTINFO.oneofs_by_name['_telegram'].fields.append(
   _PLATFORMBOTINFO.fields_by_name['telegram'])
-_PLATFORMBOTINFO.fields_by_name['telegram'].containing_oneof = _PLATFORMBOTINFO.oneofs_by_name['platform']
+_PLATFORMBOTINFO.fields_by_name['telegram'].containing_oneof = _PLATFORMBOTINFO.oneofs_by_name['_telegram']
 _OPTIONALPLATFORMBOTINFO.fields_by_name['telegram'].message_type = _OPTIONALTELEGRAMBOTINFO
-_OPTIONALPLATFORMBOTINFO.oneofs_by_name['platform'].fields.append(
-  _OPTIONALPLATFORMBOTINFO.fields_by_name['telegram'])
-_OPTIONALPLATFORMBOTINFO.fields_by_name['telegram'].containing_oneof = _OPTIONALPLATFORMBOTINFO.oneofs_by_name['platform']
 _BOTINFO.fields_by_name['commonBotInfo'].message_type = _COMMONBOTINFO
 _BOTINFO.fields_by_name['platformBotInfo'].message_type = _PLATFORMBOTINFO
 _OPTIONALBOTINFO.fields_by_name['commonBotInfo'].message_type = _OPTIONALCOMMONBOTINFO
@@ -1289,20 +1425,24 @@ _COMMONSHOPKEY.fields_by_name['id'].containing_oneof = _COMMONSHOPKEY.oneofs_by_
 _COMMONSHOPKEY.oneofs_by_name['commonKey'].fields.append(
   _COMMONSHOPKEY.fields_by_name['name'])
 _COMMONSHOPKEY.fields_by_name['name'].containing_oneof = _COMMONSHOPKEY.oneofs_by_name['commonKey']
-_COMMONSHOPKEY.oneofs_by_name['commonKey'].fields.append(
-  _COMMONSHOPKEY.fields_by_name['vkGroupId'])
-_COMMONSHOPKEY.fields_by_name['vkGroupId'].containing_oneof = _COMMONSHOPKEY.oneofs_by_name['commonKey']
 _TELEGRAMSTAFFSHOPKEY.oneofs_by_name['telegramKey'].fields.append(
   _TELEGRAMSTAFFSHOPKEY.fields_by_name['groupId'])
 _TELEGRAMSTAFFSHOPKEY.fields_by_name['groupId'].containing_oneof = _TELEGRAMSTAFFSHOPKEY.oneofs_by_name['telegramKey']
+_VKCONSUMERSHOPKEY.oneofs_by_name['key'].fields.append(
+  _VKCONSUMERSHOPKEY.fields_by_name['groupId'])
+_VKCONSUMERSHOPKEY.fields_by_name['groupId'].containing_oneof = _VKCONSUMERSHOPKEY.oneofs_by_name['key']
 _SHOPKEY.fields_by_name['common'].message_type = _COMMONSHOPKEY
 _SHOPKEY.fields_by_name['telegramStaff'].message_type = _TELEGRAMSTAFFSHOPKEY
+_SHOPKEY.fields_by_name['vkConsumer'].message_type = _VKCONSUMERSHOPKEY
 _SHOPKEY.oneofs_by_name['key'].fields.append(
   _SHOPKEY.fields_by_name['common'])
 _SHOPKEY.fields_by_name['common'].containing_oneof = _SHOPKEY.oneofs_by_name['key']
 _SHOPKEY.oneofs_by_name['key'].fields.append(
   _SHOPKEY.fields_by_name['telegramStaff'])
 _SHOPKEY.fields_by_name['telegramStaff'].containing_oneof = _SHOPKEY.oneofs_by_name['key']
+_SHOPKEY.oneofs_by_name['key'].fields.append(
+  _SHOPKEY.fields_by_name['vkConsumer'])
+_SHOPKEY.fields_by_name['vkConsumer'].containing_oneof = _SHOPKEY.oneofs_by_name['key']
 _DEFAULTRESPONSE.fields_by_name['success'].message_type = _EMPTYOKRESPONSE
 _DEFAULTRESPONSE.fields_by_name['noRoleError'].message_type = _NOROLERESPONSE
 _DEFAULTRESPONSE.fields_by_name['badChatType'].message_type = _BADCHATTYPE
@@ -1340,9 +1480,17 @@ _LISTSHOPSRESPONSE.fields_by_name['noRoleError'].containing_oneof = _LISTSHOPSRE
 _LISTSHOPSRESPONSE.oneofs_by_name['resp'].fields.append(
   _LISTSHOPSRESPONSE.fields_by_name['badChatType'])
 _LISTSHOPSRESPONSE.fields_by_name['badChatType'].containing_oneof = _LISTSHOPSRESPONSE.oneofs_by_name['resp']
+_USERKEY.oneofs_by_name['key'].fields.append(
+  _USERKEY.fields_by_name['commonUserId'])
+_USERKEY.fields_by_name['commonUserId'].containing_oneof = _USERKEY.oneofs_by_name['key']
+_USERKEY.oneofs_by_name['key'].fields.append(
+  _USERKEY.fields_by_name['telegramStaffUserId'])
+_USERKEY.fields_by_name['telegramStaffUserId'].containing_oneof = _USERKEY.oneofs_by_name['key']
 _CHANGEUSERROLEREQUEST.fields_by_name['messageInfo'].message_type = _MESSAGEINFORMATION
+_CHANGEUSERROLEREQUEST.fields_by_name['key'].message_type = _SHOPKEY
+_CHANGEUSERROLEREQUEST.fields_by_name['modifyUserId'].message_type = _USERKEY
 _ADDQUESTIONREQUEST.fields_by_name['key'].message_type = _SHOPKEY
-_ADDQUESTIONREQUEST.fields_by_name['msgSource'].message_type = common__pb2._MSGLOCATION
+_ADDQUESTIONREQUEST.fields_by_name['info'].message_type = common__pb2._WAITINGQUESIONINFORMATION
 _NOTIFYBOTSTATUSCHANGEREQUEST.fields_by_name['key'].message_type = _SHOPKEY
 DESCRIPTOR.message_types_by_name['TelegramMessageInfo'] = _TELEGRAMMESSAGEINFO
 DESCRIPTOR.message_types_by_name['MessageInformation'] = _MESSAGEINFORMATION
@@ -1356,6 +1504,7 @@ DESCRIPTOR.message_types_by_name['BotInfo'] = _BOTINFO
 DESCRIPTOR.message_types_by_name['OptionalBotInfo'] = _OPTIONALBOTINFO
 DESCRIPTOR.message_types_by_name['CommonShopKey'] = _COMMONSHOPKEY
 DESCRIPTOR.message_types_by_name['TelegramStaffShopKey'] = _TELEGRAMSTAFFSHOPKEY
+DESCRIPTOR.message_types_by_name['VkConsumerShopKey'] = _VKCONSUMERSHOPKEY
 DESCRIPTOR.message_types_by_name['ShopKey'] = _SHOPKEY
 DESCRIPTOR.message_types_by_name['EmptyOkResponse'] = _EMPTYOKRESPONSE
 DESCRIPTOR.message_types_by_name['NoRoleResponse'] = _NOROLERESPONSE
@@ -1369,6 +1518,7 @@ DESCRIPTOR.message_types_by_name['ModifyShopRequest'] = _MODIFYSHOPREQUEST
 DESCRIPTOR.message_types_by_name['ListShopsRequest'] = _LISTSHOPSREQUEST
 DESCRIPTOR.message_types_by_name['ListBotSuccessResponse'] = _LISTBOTSUCCESSRESPONSE
 DESCRIPTOR.message_types_by_name['ListShopsResponse'] = _LISTSHOPSRESPONSE
+DESCRIPTOR.message_types_by_name['UserKey'] = _USERKEY
 DESCRIPTOR.message_types_by_name['ChangeUserRoleRequest'] = _CHANGEUSERROLEREQUEST
 DESCRIPTOR.message_types_by_name['AddQuestionRequest'] = _ADDQUESTIONREQUEST
 DESCRIPTOR.message_types_by_name['NotifyBotStatusChangeRequest'] = _NOTIFYBOTSTATUSCHANGEREQUEST
@@ -1458,6 +1608,13 @@ TelegramStaffShopKey = _reflection.GeneratedProtocolMessageType('TelegramStaffSh
   # @@protoc_insertion_point(class_scope:controller.TelegramStaffShopKey)
   })
 _sym_db.RegisterMessage(TelegramStaffShopKey)
+
+VkConsumerShopKey = _reflection.GeneratedProtocolMessageType('VkConsumerShopKey', (_message.Message,), {
+  'DESCRIPTOR' : _VKCONSUMERSHOPKEY,
+  '__module__' : 'controller_pb2'
+  # @@protoc_insertion_point(class_scope:controller.VkConsumerShopKey)
+  })
+_sym_db.RegisterMessage(VkConsumerShopKey)
 
 ShopKey = _reflection.GeneratedProtocolMessageType('ShopKey', (_message.Message,), {
   'DESCRIPTOR' : _SHOPKEY,
@@ -1550,6 +1707,13 @@ ListShopsResponse = _reflection.GeneratedProtocolMessageType('ListShopsResponse'
   })
 _sym_db.RegisterMessage(ListShopsResponse)
 
+UserKey = _reflection.GeneratedProtocolMessageType('UserKey', (_message.Message,), {
+  'DESCRIPTOR' : _USERKEY,
+  '__module__' : 'controller_pb2'
+  # @@protoc_insertion_point(class_scope:controller.UserKey)
+  })
+_sym_db.RegisterMessage(UserKey)
+
 ChangeUserRoleRequest = _reflection.GeneratedProtocolMessageType('ChangeUserRoleRequest', (_message.Message,), {
   'DESCRIPTOR' : _CHANGEUSERROLEREQUEST,
   '__module__' : 'controller_pb2'
@@ -1588,8 +1752,8 @@ _CONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2906,
-  serialized_end=3727,
+  serialized_start=3221,
+  serialized_end=4042,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListShops',

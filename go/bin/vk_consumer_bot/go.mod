@@ -7,8 +7,8 @@ require (
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/golang/protobuf v1.5.2
 	github.com/hashicorp/consul/api v1.12.0
-	github.com/nikhovas/diploma v0.0.0-20220202191500-c92d217be354
 	github.com/nikhovas/diploma/go/lib/proto v0.0.0-00010101000000-000000000000
+	github.com/nikhovas/diploma/go/lib/utils v0.0.0-00010101000000-000000000000
 	github.com/nikhovas/diploma/go/lib/vk v0.0.0-00010101000000-000000000000
 	github.com/rabbitmq/amqp091-go v1.2.0
 	google.golang.org/grpc v1.44.0
@@ -20,6 +20,7 @@ require (
 	github.com/dchest/siphash v1.1.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.9.0 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hashicorp/go-hclog v0.12.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.0.0 // indirect
@@ -39,5 +40,6 @@ require (
 
 replace (
 	github.com/nikhovas/diploma/go/lib/proto => ../../lib/proto
+	github.com/nikhovas/diploma/go/lib/utils => ../../lib/utils
 	github.com/nikhovas/diploma/go/lib/vk => ../../lib/vk
 )

@@ -15,6 +15,7 @@ message ActionEvent {
 message NewMessage {
 	string text = 1;
     optional int64 replied = 2;
+    uint64 id = 3;
 }
 
 message NewMessageBatch {
@@ -25,10 +26,11 @@ message Typing {}
 
 
 message UserAction {
+    string uuid = 1;
     oneof object {
-        Typing typing = 1;
-        NewMessage newMessage = 2;
-        NewMessageBatch newMessageBatch = 3;
+        Typing typing = 2;
+        NewMessage newMessage = 3;
+        NewMessageBatch newMessageBatch = 4;
     }
-    uint64 time = 4;
+    uint64 time = 5;
 }

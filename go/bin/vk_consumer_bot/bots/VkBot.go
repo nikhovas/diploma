@@ -14,6 +14,8 @@ type VkBot struct {
 
 	VkLongPullServer *longPullServer.VkLongPullServer
 	VkApiServer      *apiServer.VkApiServer
+
+	currentMessageId uint64
 }
 
 func (vkBot *VkBot) Init(token string, groupId int, vkApiServer *apiServer.VkApiServer) error {
@@ -56,6 +58,6 @@ func (vkBot *VkBot) GetUpdates() (objects []longPullServer.UpdateObject, err err
 	return
 }
 
-func (vkBot *VkBot) SendMessage(userId int, text string) (int, error) {
-	return vkBot.VkApiServer.MMessagesSend(vkBot.AccessToken, vkBot.GroupId, userId, text)
+func (vkBot *VkBot) SendMessage(userId int, text string, replyTo *int, uniqueId uint64) (int, error) {
+	return vkBot.VkApiServer.MMessagesSend(vkBot.AccessToken, vkBot.GroupId, userId, text, uniqueId, replyTo)
 }

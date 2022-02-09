@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z5github.com/nikhovas/diploma/go/lib/proto/consumer_bot',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63onsumer_bot.proto\x12\x0c\x63onsumer_bot\x1a\x0c\x63ommon.proto\"R\n\x18SimpleMessageInformation\x12(\n\x0bmsgLocation\x18\x01 \x01(\x0b\x32\x13.common.MsgLocation\x12\x0c\n\x04text\x18\x02 \x01(\t\"\x87\x01\n\x17ReplyMessageInformation\x12(\n\x0bmsgLocation\x18\x01 \x01(\x0b\x32\x13.common.MsgLocation\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x16\n\x0ereplyMessageId\x18\x03 \x01(\x04\x12\x1c\n\x14replyUnsupportedText\x18\x04 \x01(\t2\xb4\x01\n\x08VkServer\x12T\n\x11SendSimpleMessage\x12&.consumer_bot.SimpleMessageInformation\x1a\x15.common.EmptyResponse\"\x00\x12R\n\x10SendReplyMessage\x12%.consumer_bot.ReplyMessageInformation\x1a\x15.common.EmptyResponse\"\x00\x42\x37Z5github.com/nikhovas/diploma/go/lib/proto/consumer_botb\x06proto3'
+  serialized_pb=b'\n\x12\x63onsumer_bot.proto\x12\x0c\x63onsumer_bot\x1a\x0c\x63ommon.proto\"R\n\x18SimpleMessageInformation\x12(\n\x0bmsgLocation\x18\x01 \x01(\x0b\x32\x13.common.MsgLocation\x12\x0c\n\x04text\x18\x02 \x01(\t\"\x87\x01\n\x17ReplyMessageInformation\x12(\n\x0bmsgLocation\x18\x01 \x01(\x0b\x32\x13.common.MsgLocation\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x16\n\x0ereplyMessageId\x18\x03 \x01(\x04\x12\x1c\n\x14replyUnsupportedText\x18\x04 \x01(\t\"^\n\x18SendSimpleMessageRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x34\n\x04info\x18\x02 \x01(\x0b\x32&.consumer_bot.SimpleMessageInformation\"\\\n\x17SendReplyMessageRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x33\n\x04info\x18\x02 \x01(\x0b\x32%.consumer_bot.ReplyMessageInformation2\xb4\x01\n\x08VkServer\x12T\n\x11SendSimpleMessage\x12&.consumer_bot.SendSimpleMessageRequest\x1a\x15.common.EmptyResponse\"\x00\x12R\n\x10SendReplyMessage\x12%.consumer_bot.SendReplyMessageRequest\x1a\x15.common.EmptyResponse\"\x00\x42\x37Z5github.com/nikhovas/diploma/go/lib/proto/consumer_botb\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -118,10 +118,92 @@ _REPLYMESSAGEINFORMATION = _descriptor.Descriptor(
   serialized_end=270,
 )
 
+
+_SENDSIMPLEMESSAGEREQUEST = _descriptor.Descriptor(
+  name='SendSimpleMessageRequest',
+  full_name='consumer_bot.SendSimpleMessageRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uuid', full_name='consumer_bot.SendSimpleMessageRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='info', full_name='consumer_bot.SendSimpleMessageRequest.info', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=272,
+  serialized_end=366,
+)
+
+
+_SENDREPLYMESSAGEREQUEST = _descriptor.Descriptor(
+  name='SendReplyMessageRequest',
+  full_name='consumer_bot.SendReplyMessageRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uuid', full_name='consumer_bot.SendReplyMessageRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='info', full_name='consumer_bot.SendReplyMessageRequest.info', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=368,
+  serialized_end=460,
+)
+
 _SIMPLEMESSAGEINFORMATION.fields_by_name['msgLocation'].message_type = common__pb2._MSGLOCATION
 _REPLYMESSAGEINFORMATION.fields_by_name['msgLocation'].message_type = common__pb2._MSGLOCATION
+_SENDSIMPLEMESSAGEREQUEST.fields_by_name['info'].message_type = _SIMPLEMESSAGEINFORMATION
+_SENDREPLYMESSAGEREQUEST.fields_by_name['info'].message_type = _REPLYMESSAGEINFORMATION
 DESCRIPTOR.message_types_by_name['SimpleMessageInformation'] = _SIMPLEMESSAGEINFORMATION
 DESCRIPTOR.message_types_by_name['ReplyMessageInformation'] = _REPLYMESSAGEINFORMATION
+DESCRIPTOR.message_types_by_name['SendSimpleMessageRequest'] = _SENDSIMPLEMESSAGEREQUEST
+DESCRIPTOR.message_types_by_name['SendReplyMessageRequest'] = _SENDREPLYMESSAGEREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SimpleMessageInformation = _reflection.GeneratedProtocolMessageType('SimpleMessageInformation', (_message.Message,), {
@@ -138,6 +220,20 @@ ReplyMessageInformation = _reflection.GeneratedProtocolMessageType('ReplyMessage
   })
 _sym_db.RegisterMessage(ReplyMessageInformation)
 
+SendSimpleMessageRequest = _reflection.GeneratedProtocolMessageType('SendSimpleMessageRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SENDSIMPLEMESSAGEREQUEST,
+  '__module__' : 'consumer_bot_pb2'
+  # @@protoc_insertion_point(class_scope:consumer_bot.SendSimpleMessageRequest)
+  })
+_sym_db.RegisterMessage(SendSimpleMessageRequest)
+
+SendReplyMessageRequest = _reflection.GeneratedProtocolMessageType('SendReplyMessageRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SENDREPLYMESSAGEREQUEST,
+  '__module__' : 'consumer_bot_pb2'
+  # @@protoc_insertion_point(class_scope:consumer_bot.SendReplyMessageRequest)
+  })
+_sym_db.RegisterMessage(SendReplyMessageRequest)
+
 
 DESCRIPTOR._options = None
 
@@ -148,15 +244,15 @@ _VKSERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=273,
-  serialized_end=453,
+  serialized_start=463,
+  serialized_end=643,
   methods=[
   _descriptor.MethodDescriptor(
     name='SendSimpleMessage',
     full_name='consumer_bot.VkServer.SendSimpleMessage',
     index=0,
     containing_service=None,
-    input_type=_SIMPLEMESSAGEINFORMATION,
+    input_type=_SENDSIMPLEMESSAGEREQUEST,
     output_type=common__pb2._EMPTYRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -166,7 +262,7 @@ _VKSERVER = _descriptor.ServiceDescriptor(
     full_name='consumer_bot.VkServer.SendReplyMessage',
     index=1,
     containing_service=None,
-    input_type=_REPLYMESSAGEINFORMATION,
+    input_type=_SENDREPLYMESSAGEREQUEST,
     output_type=common__pb2._EMPTYRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

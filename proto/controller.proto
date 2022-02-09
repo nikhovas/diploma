@@ -38,15 +38,11 @@ message OptionalTelegramBotInfo {
 }
 
 message PlatformBotInfo {
-    oneof platform {
-        TelegramBotInfo telegram = 1;
-    }
+    optional TelegramBotInfo telegram = 1;
 }
 
 message OptionalPlatformBotInfo {
-    oneof platform {
-        OptionalTelegramBotInfo telegram = 1;
-    }
+    OptionalTelegramBotInfo telegram = 1;
 }
 
 message BotInfo {
@@ -63,7 +59,6 @@ message CommonShopKey {
     oneof commonKey {
         int64 id = 1;
         string name = 2;
-        int64 vkGroupId = 3;
     };
 }
 
@@ -73,10 +68,17 @@ message TelegramStaffShopKey {
     }
 }
 
+message VkConsumerShopKey {
+    oneof key {
+        int64 groupId = 1;
+    }
+}
+
 message ShopKey {
     oneof key {
         CommonShopKey common = 1;
         TelegramStaffShopKey telegramStaff = 2;
+        VkConsumerShopKey vkConsumer = 3;
     }
 }
 
@@ -99,37 +101,43 @@ message DefaultResponse {
 }
 
 message AddQuestionAnswerRequest {
-    MessageInformation messageInfo = 1;
-    ShopKey key = 2;
-    string question = 3;
-    string answer = 4;
-    bool checkQuestionInSet = 5;
+    string uuid = 1;
+    MessageInformation messageInfo = 2;
+    ShopKey key = 3;
+    string question = 4;
+    string answer = 5;
+    bool checkQuestionInSet = 6;
 }
 
 message ChangeBotStateRequest {
-    MessageInformation messageInfo = 1;
-    ShopKey key = 2;
-    bool toEnabled = 3;
+    string uuid = 1;
+    MessageInformation messageInfo = 2;
+    ShopKey key = 3;
+    bool toEnabled = 4;
 }
 
 message AddShopRequest {
-    MessageInformation messageInfo = 1;
-    BotInfo bot = 2;
+    string uuid = 1;
+    MessageInformation messageInfo = 2;
+    BotInfo bot = 3;
 }
 
 message DeleteShopRequest {
-    MessageInformation messageInfo = 1;
-    ShopKey key = 2;
+    string uuid = 1;
+    MessageInformation messageInfo = 2;
+    ShopKey key = 3;
 }
 
 message ModifyShopRequest {
-    MessageInformation messageInfo = 1;
-    ShopKey key = 2;
+    string uuid = 1;
+    MessageInformation messageInfo = 2;
+    ShopKey key = 3;
     OptionalBotInfo bot = 4;
 }
 
 message ListShopsRequest {
-    MessageInformation messageInfo = 1;
+    string uuid = 1;
+    MessageInformation messageInfo = 2;
 }
 
 message ListBotSuccessResponse {
@@ -144,22 +152,32 @@ message ListShopsResponse {
     }
 }
 
+message UserKey {
+    oneof key {
+        int64 commonUserId = 1;
+        int64 telegramStaffUserId = 2;
+    }
+}
+
 message ChangeUserRoleRequest {
-    MessageInformation messageInfo = 1;
-    int64 modifyUserId = 2;
-    string role = 3;
-    bool isAddAction = 4;
+    string uuid = 1;
+    MessageInformation messageInfo = 2;
+    ShopKey key = 3;
+    UserKey modifyUserId = 4;
+    string role = 5;
+    bool isAddAction = 6;
 }
 
 message AddQuestionRequest {
-    ShopKey key = 1;
-    common.MsgLocation msgSource = 2;
-    string question = 3;
+    string uuid = 1;
+    ShopKey key = 2;
+    common.WaitingQuesionInformation info = 3;
 }
 
 message NotifyBotStatusChangeRequest {
-    ShopKey key = 1;
-    bool toEnabled = 2;
+    string uuid = 1;
+    ShopKey key = 2;
+    bool toEnabled = 3;
 }
 
 message GetShopIdByKeyResponse {

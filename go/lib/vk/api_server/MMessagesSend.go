@@ -11,6 +11,7 @@ func (vkApiServer *VkApiServer) MMessagesSend(
 	groupId int,
 	peerId int,
 	message string,
+	uniqueId uint64,
 	replyMessageId *int,
 ) (int, error) {
 	var resp mMessagesSendResponse
@@ -20,6 +21,7 @@ func (vkApiServer *VkApiServer) MMessagesSend(
 		"message":      message,
 		"peer_id":      strconv.Itoa(peerId),
 		"group_id":     strconv.Itoa(groupId),
+		"random_id":    strconv.Itoa(int(uniqueId)),
 	}
 	if replyMessageId != nil {
 		query["reply_to"] = strconv.Itoa(*replyMessageId)

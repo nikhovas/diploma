@@ -88,3 +88,10 @@ func (metaDir *MetaDir) GetConsulTimeMpsqQueueString(nodeName interface{}) *Cons
 		},
 	}
 }
+
+func (metaDir *MetaDir) GetRedisCounterChild(nodeName interface{}) *RedisCounter {
+	return &RedisCounter{
+		Storage: metaDir.Redis,
+		Path:    metaDir.GetChildPath(nodeName),
+	}
+}

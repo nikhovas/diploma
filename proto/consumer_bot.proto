@@ -15,7 +15,17 @@ message ReplyMessageInformation {
     string replyUnsupportedText = 4;
 }
 
+message SendSimpleMessageRequest {
+    string uuid = 1;
+    SimpleMessageInformation info = 2;
+}
+
+message SendReplyMessageRequest {
+    string uuid = 1;
+    ReplyMessageInformation info = 2;
+}
+
 service VkServer {
-    rpc SendSimpleMessage(SimpleMessageInformation) returns (common.EmptyResponse) {}
-    rpc SendReplyMessage(ReplyMessageInformation) returns (common.EmptyResponse) {}
+    rpc SendSimpleMessage(SendSimpleMessageRequest) returns (common.EmptyResponse) {}
+    rpc SendReplyMessage(SendReplyMessageRequest) returns (common.EmptyResponse) {}
 }

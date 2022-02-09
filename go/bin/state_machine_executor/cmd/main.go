@@ -2,13 +2,10 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"github.com/golang/protobuf/jsonpb"
 	actions "github.com/nikhovas/diploma/go/lib/proto/consumer_actions"
-	cb "github.com/nikhovas/diploma/go/lib/proto/consumer_bot"
-	ctrl "github.com/nikhovas/diploma/go/lib/proto/controller"
-	qw "github.com/nikhovas/diploma/go/lib/proto/question_worker"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"github.com/nikhovas/diploma/go/lib/utils/clients"
 	"log"
 	"state_machine_executor/application"
 	messageProcess "state_machine_executor/message_process"
@@ -30,67 +27,31 @@ func ReadQueue(a *application.Application) error {
 				continue
 			}
 
-			aep := &messageProcess.ActionEventProcessor{
-				Application: a,
-				ActionEvent: &ae,
-			}
 			a.ReadQueueWg.Add(1)
 			go func() {
-				aep.Process(&a.ReadQueueWg)
+				messageProcess.Process(context.Background(), &a.ReadQueueWg, a, &ae)
 			}()
 		}
 	}
 }
 
-func createControllerClient() (*grpc.ClientConn, ctrl.ControllerClient) {
-	conn, err := grpc.Dial("localhost:7777", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		panic(err)
-	}
-
-	client := ctrl.NewControllerClient(conn)
-	return conn, client
-}
-
-func createQwClient() (*grpc.ClientConn, qw.QuestionWorkerClient) {
-	conn, err := grpc.Dial("localhost:7777", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		panic(err)
-	}
-
-	client := qw.NewQuestionWorkerClient(conn)
-	return conn, client
-}
-
-func createVkServerClient() (*grpc.ClientConn, cb.VkServerClient) {
-	conn, err := grpc.Dial("localhost:5555", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		panic(err)
-	}
-
-	client := cb.NewVkServerClient(conn)
-	return conn, client
-}
-
 func main() {
 	var app application.Application
 
-	ctrlConn, ctrlClient := createControllerClient()
+	ctrlConn, ctrlClient := clients.CreateControllerClient()
 	defer ctrlConn.Close()
-	vksConn, vksClient := createVkServerClient()
+	vksConn, vksClient := clients.CreateConsumerBotClient()
 	defer vksConn.Close()
-	qwConn, qwClient := createQwClient()
+	qwConn, qwClient := clients.CreateQuestionWorkerClient()
 	defer qwConn.Close()
 
 	app.VksClient = vksClient
 	app.ControlClient = ctrlClient
 	app.QwClient = qwClient
+	app.ConsulClient = clients.CreateConsulClient()
+	app.RedisClient = clients.CreateRedisClient()
 
 	app.Init()
-
-	if err := app.SetUpCoordinator(); err != nil {
-		log.Fatal(err)
-	}
 
 	if err := app.SetUpAmqp(); err != nil {
 		log.Fatal(err)

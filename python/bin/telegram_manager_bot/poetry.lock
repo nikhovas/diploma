@@ -587,7 +587,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-protobuf"
-version = "3.19.8"
+version = "3.19.9"
 description = "Typing stubs for protobuf"
 category = "main"
 optional = false
@@ -1257,8 +1257,8 @@ types-futures = [
     {file = "types_futures-3.3.8-py3-none-any.whl", hash = "sha256:d6e97ec51d56b96debfbf1dea32ebec22c1687f16d2547ea0a34b48db45df205"},
 ]
 types-protobuf = [
-    {file = "types-protobuf-3.19.8.tar.gz", hash = "sha256:5ff1a5b7d0f36e3600ad1a3d4b55ba6c446cef2ef82d25f06a0aa43912345fb4"},
-    {file = "types_protobuf-3.19.8-py3-none-any.whl", hash = "sha256:1364327ebfb4360b36bd62b55fb32f704a516c8c26d82bad566938a23e644eca"},
+    {file = "types-protobuf-3.19.9.tar.gz", hash = "sha256:f6708390348aa748e5f0fad0af2ea64552adafeab76b8d405eecb9ea510f1285"},
+    {file = "types_protobuf-3.19.9-py3-none-any.whl", hash = "sha256:bb223a56ee733ab64e7a76facce2fb51c17a2fa88c2e68661cd6a9b0ecd25b0b"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},

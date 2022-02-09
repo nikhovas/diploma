@@ -1,51 +1,76 @@
 package messageProcess
 
 import (
+	"bytes"
+	"context"
 	"fmt"
-	"github.com/hashicorp/consul/api"
-	"state_machine_executor/utils"
+	"github.com/golang/protobuf/jsonpb"
+	actions "github.com/nikhovas/diploma/go/lib/proto/consumer_actions"
+	"github.com/nikhovas/diploma/go/lib/utils/distfs/bots/meta_service_name/meta_group_id"
+	"github.com/nikhovas/diploma/go/lib/utils/distvars"
+	"state_machine_executor/application"
+	configExamples "state_machine_executor/config_examples"
+	stateMachine "state_machine_executor/state_machine"
+	"state_machine_executor/state_machine/distributedStorage"
+	"time"
 )
 
-func (aep *ActionEventProcessor) ProcessLockedPart(messagesKey string) int {
-	lockKey := utils.GetLockKey(vkShopBot, aep.ActionEvent.BotId, aep.ActionEvent.UserId)
-
-	lock, err := aep.Application.ConsulClient.LockOpts(&api.LockOptions{
-		Key:         lockKey,
-		LockTryOnce: true,
-	})
+func ProcessLockedPart(
+	ctx context.Context,
+	app *application.Application,
+	userDir *meta_group_id.MetaUserId,
+	ae *actions.ActionEvent,
+) {
+	lockVar := userDir.GetLock()
+	locked, err := lockVar.TryLock()
 	if err != nil {
 		panic(err)
+	} else if !locked {
+		return
 	}
 
-	ch, err := lock.Lock(nil)
-	if err != nil {
-		panic(err)
-	}
-
-	// no lock
-	if ch == nil {
-		return 0
-	}
-
-	defer func(lock *api.Lock) {
+	defer func(lock *distvars.ConsulLock) {
 		err := lock.Unlock()
 		if err != nil {
-			// logging
+			fmt.Println(err)
 		}
-	}(lock)
+	}(lockVar)
 
-	newestTs, userActionList, err := aep.GetAllUserActions(messagesKey)
+	actionsVar := userDir.CdActions()
+
+	actionStrings, err := actionsVar.Pop(context.Background(), 5*time.Second)
 	if err != nil {
-		panic(err)
+		return
+	}
+
+	var userActionList []*actions.UserAction
+	for _, actionString := range actionStrings {
+		var action actions.UserAction
+		if err = jsonpb.Unmarshal(bytes.NewReader([]byte(actionString)), &action); err != nil {
+			panic(err)
+		}
+		userActionList = append(userActionList, &action)
 	}
 
 	messages := MessageGenerator(userActionList)
-
-	for _, msg := range messages {
-		fmt.Println(msg)
+	externalStorage := distributedStorage.ConsulStorage{
+		Storage:      app.ConsulClient.KV(),
+		DataBasePath: userDir.GetStateMachinePath(),
 	}
 
-	aep.RunStateMachine(aep.Application, messages)
+	sm := stateMachine.StateMachine{}
+	sm.Init(
+		app,
+		configExamples.QuestionsOnlyInternal.States,
+		ae.ServiceName,
+		ae.BotId,
+		int(ae.ShopId),
+		ae.UserId,
+		configExamples.QuestionsOnlyInternal.Data,
+		&externalStorage,
+		userDir.GetStateMachinePath(),
+	)
 
-	return newestTs
+	sm.Process(ctx, app, messages)
+	sm.Finish()
 }

@@ -1,6 +1,7 @@
 import asyncio
 from telegram_manager_bot import telegram
 from telegram_manager_bot.server import grpc_server
+from telegram_manager_bot.telegram import commands
 
 
 if __name__ == '__main__':

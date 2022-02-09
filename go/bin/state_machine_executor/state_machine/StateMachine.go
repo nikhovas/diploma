@@ -2,12 +2,12 @@ package stateMachine
 
 import (
 	"context"
-	"fmt"
 	"state_machine_executor/application"
 	"state_machine_executor/state_machine/localStorage"
 	"state_machine_executor/state_machine/states"
 	"state_machine_executor/state_machine/storageInterfaces"
 	"state_machine_executor/utils"
+	"strconv"
 )
 
 type StateMachine struct {
@@ -27,25 +27,23 @@ func (sm *StateMachine) Init(
 	userId string,
 	storageDescription map[string]localStorage.DataElement,
 	externalStorage storageInterfaces.IStorage,
+	userIdStateMachinePath string,
 ) {
 	sm.application = application
 	sm.states = states
 
-	sm.dataBasePath = fmt.Sprintf("%s/state-machine", utils.GetDataBasePath(botService, groupId, userId))
+	sm.dataBasePath = userIdStateMachinePath
 
 	storageDescription["botService"] = localStorage.DataElement{Memory: "const", Type: "string", Default: botService}
-	storageDescription["shopId"] = localStorage.DataElement{Memory: "const", Type: "int", Default: shopId}
+	storageDescription["shopId"] = localStorage.DataElement{Memory: "const", Type: "string", Default: strconv.Itoa(shopId)}
 	storageDescription["userId"] = localStorage.DataElement{Memory: "const", Type: "string", Default: userId}
 	storageDescription["state"] = localStorage.DataElement{Memory: "long", Type: "string", Default: "initial"}
 	storageDescription["message"] = localStorage.DataElement{Memory: "short", Type: "string", Default: ""}
+	storageDescription["messageId"] = localStorage.DataElement{Memory: "short", Type: "string", Default: ""}
 	storageDescription["groupId"] = localStorage.DataElement{Memory: "const", Type: "string", Default: groupId}
 	sm.storage.KvStorage.Init(storageDescription, externalStorage)
 
 	sm.externalStorage = externalStorage
-}
-
-func (sm *StateMachine) GetDataBasePath() string {
-	return sm.dataBasePath
 }
 
 func (sm *StateMachine) Finish() {
@@ -55,9 +53,9 @@ func (sm *StateMachine) Finish() {
 	}
 }
 
-func (sm *StateMachine) Process(ctx context.Context, app *application.Application, newMessages []string) {
+func (sm *StateMachine) Process(ctx context.Context, app *application.Application, newMessages []utils.MessageInfo) {
 	for _, msg := range newMessages {
-		sm.storage.MessageDeque.PushBack(msg)
+		sm.storage.MessageDeque.PushBack(&msg)
 	}
 
 	currentState := sm.storage.KvStorage.Get("state")

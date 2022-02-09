@@ -19,8 +19,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type VkServerClient interface {
-	SendSimpleMessage(ctx context.Context, in *SimpleMessageInformation, opts ...grpc.CallOption) (*common.EmptyResponse, error)
-	SendReplyMessage(ctx context.Context, in *ReplyMessageInformation, opts ...grpc.CallOption) (*common.EmptyResponse, error)
+	SendSimpleMessage(ctx context.Context, in *SendSimpleMessageRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error)
+	SendReplyMessage(ctx context.Context, in *SendReplyMessageRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error)
 }
 
 type vkServerClient struct {
@@ -31,7 +31,7 @@ func NewVkServerClient(cc grpc.ClientConnInterface) VkServerClient {
 	return &vkServerClient{cc}
 }
 
-func (c *vkServerClient) SendSimpleMessage(ctx context.Context, in *SimpleMessageInformation, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
+func (c *vkServerClient) SendSimpleMessage(ctx context.Context, in *SendSimpleMessageRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
 	out := new(common.EmptyResponse)
 	err := c.cc.Invoke(ctx, "/consumer_bot.VkServer/SendSimpleMessage", in, out, opts...)
 	if err != nil {
@@ -40,7 +40,7 @@ func (c *vkServerClient) SendSimpleMessage(ctx context.Context, in *SimpleMessag
 	return out, nil
 }
 
-func (c *vkServerClient) SendReplyMessage(ctx context.Context, in *ReplyMessageInformation, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
+func (c *vkServerClient) SendReplyMessage(ctx context.Context, in *SendReplyMessageRequest, opts ...grpc.CallOption) (*common.EmptyResponse, error) {
 	out := new(common.EmptyResponse)
 	err := c.cc.Invoke(ctx, "/consumer_bot.VkServer/SendReplyMessage", in, out, opts...)
 	if err != nil {
@@ -53,8 +53,8 @@ func (c *vkServerClient) SendReplyMessage(ctx context.Context, in *ReplyMessageI
 // All implementations must embed UnimplementedVkServerServer
 // for forward compatibility
 type VkServerServer interface {
-	SendSimpleMessage(context.Context, *SimpleMessageInformation) (*common.EmptyResponse, error)
-	SendReplyMessage(context.Context, *ReplyMessageInformation) (*common.EmptyResponse, error)
+	SendSimpleMessage(context.Context, *SendSimpleMessageRequest) (*common.EmptyResponse, error)
+	SendReplyMessage(context.Context, *SendReplyMessageRequest) (*common.EmptyResponse, error)
 	mustEmbedUnimplementedVkServerServer()
 }
 
@@ -62,10 +62,10 @@ type VkServerServer interface {
 type UnimplementedVkServerServer struct {
 }
 
-func (UnimplementedVkServerServer) SendSimpleMessage(context.Context, *SimpleMessageInformation) (*common.EmptyResponse, error) {
+func (UnimplementedVkServerServer) SendSimpleMessage(context.Context, *SendSimpleMessageRequest) (*common.EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendSimpleMessage not implemented")
 }
-func (UnimplementedVkServerServer) SendReplyMessage(context.Context, *ReplyMessageInformation) (*common.EmptyResponse, error) {
+func (UnimplementedVkServerServer) SendReplyMessage(context.Context, *SendReplyMessageRequest) (*common.EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendReplyMessage not implemented")
 }
 func (UnimplementedVkServerServer) mustEmbedUnimplementedVkServerServer() {}
@@ -82,7 +82,7 @@ func RegisterVkServerServer(s grpc.ServiceRegistrar, srv VkServerServer) {
 }
 
 func _VkServer_SendSimpleMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SimpleMessageInformation)
+	in := new(SendSimpleMessageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -94,13 +94,13 @@ func _VkServer_SendSimpleMessage_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: "/consumer_bot.VkServer/SendSimpleMessage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(VkServerServer).SendSimpleMessage(ctx, req.(*SimpleMessageInformation))
+		return srv.(VkServerServer).SendSimpleMessage(ctx, req.(*SendSimpleMessageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _VkServer_SendReplyMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReplyMessageInformation)
+	in := new(SendReplyMessageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func _VkServer_SendReplyMessage_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/consumer_bot.VkServer/SendReplyMessage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(VkServerServer).SendReplyMessage(ctx, req.(*ReplyMessageInformation))
+		return srv.(VkServerServer).SendReplyMessage(ctx, req.(*SendReplyMessageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

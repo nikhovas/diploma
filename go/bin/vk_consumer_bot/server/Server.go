@@ -12,32 +12,37 @@ type Server struct {
 	Bot *bots.CombinedBot
 }
 
-func (s *Server) SendSimpleMessage(ctx context.Context, information *consumerBot.SimpleMessageInformation) (*common.EmptyResponse, error) {
-	s.Bot.SendMessage(int(information.MessageDestination.GroupId), int(information.MessageDestination.UserId), information.Text)
-	return &common.EmptyResponse{}, nil
-}
-
-func (s *Server) SendReplyMessage(ctx context.Context, information *consumerBot.ReplyMessageInformation) (*common.EmptyResponse, error) {
-	s.Bot.SendMessage(int(information.MessageDestination.GroupId), int(information.MessageDestination.UserId), information.Text)
-	return &common.EmptyResponse{}, nil
-}
-
-func (s *Server) AddBot(ctx context.Context, request *consumerBot.BotsActionRequest) (*common.EmptyResponse, error) {
-	tokenPointer := request.Token
-	token := ""
-	if tokenPointer != nil {
-		token = *tokenPointer
-	}
-
-	if err := s.Bot.AddBot(int(request.GroupId), token); err != nil {
+func (s *Server) SendSimpleMessage(
+	ctx context.Context,
+	information *consumerBot.SendSimpleMessageRequest,
+) (*common.EmptyResponse, error) {
+	_, err := s.Bot.SendMessage(
+		int(information.Info.MsgLocation.GroupId),
+		int(information.Info.MsgLocation.UserId),
+		information.Info.Text,
+		nil,
+	)
+	if err != nil {
 		return nil, err
 	}
-
 	return &common.EmptyResponse{}, nil
 }
 
-func (s *Server) RemoveBot(ctx context.Context, request *consumerBot.BotsActionRequest) (*common.EmptyResponse, error) {
-	s.Bot.RemoveBot(int(request.GroupId))
+func (s *Server) SendReplyMessage(
+	ctx context.Context,
+	information *consumerBot.SendReplyMessageRequest,
+) (*common.EmptyResponse, error) {
+	replyMsg := int(information.Info.ReplyMessageId)
+
+	_, err := s.Bot.SendMessage(
+		int(information.Info.MsgLocation.GroupId),
+		int(information.Info.MsgLocation.UserId),
+		information.Info.Text,
+		&replyMsg,
+	)
+	if err != nil {
+		return nil, err
+	}
 	return &common.EmptyResponse{}, nil
 }
 

@@ -1,5 +1,7 @@
+import logging
 import ssl
 
+import gensim
 import nltk
 from string import punctuation
 import gensim.downloader as api
@@ -7,6 +9,7 @@ import pymorphy2
 from nltk.corpus import stopwords
 
 from service_types import Text, Qa
+gensim.logger.setLevel(logging.ERROR)
 
 
 class Model:

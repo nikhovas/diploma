@@ -7,8 +7,8 @@ authors = ["Nikolay Vasilev <vasilev.nk@phystech.edu>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 poetry-grpc-plugin = "^0.1.1"
-proto = {path = "../../lib/proto"}
 aiogram = "^2.19"
+proto = {path = "../../lib/proto"}
 
 [tool.poetry.dev-dependencies]
 

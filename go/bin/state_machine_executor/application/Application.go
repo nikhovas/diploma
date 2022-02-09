@@ -2,6 +2,7 @@ package application
 
 import (
 	"context"
+	"github.com/go-redis/redis/v8"
 	consulApi "github.com/hashicorp/consul/api"
 	consumerBot "github.com/nikhovas/diploma/go/lib/proto/consumer_bot"
 	"github.com/nikhovas/diploma/go/lib/proto/controller"
@@ -13,6 +14,7 @@ import (
 
 type Application struct {
 	ConsulClient     *consulApi.Client
+	RedisClient      *redis.Client
 	AmqpInputChannel *amqp.Channel
 	AmqpInputQueue   amqp.Queue
 	Semaphore        *semaphore.Weighted

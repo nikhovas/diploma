@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z9github.com/nikhovas/diploma/go/lib/proto/comsumer_actions',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16\x63onsumer_actions.proto\x12\x10\x63omsumer_actions\"r\n\x0b\x41\x63tionEvent\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\r\n\x05\x62otId\x18\x02 \x01(\t\x12\x0e\n\x06shopId\x18\x03 \x01(\x03\x12\x0c\n\x04time\x18\x04 \x01(\x04\x12\x13\n\x0bserviceName\x18\x05 \x01(\t\x12\x11\n\tneedOrder\x18\x06 \x01(\x08\"<\n\nNewMessage\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x14\n\x07replied\x18\x02 \x01(\x03H\x00\x88\x01\x01\x42\n\n\x08_replied\"D\n\x0fNewMessageBatch\x12\x31\n\x0bnewMessages\x18\x01 \x03(\x0b\x32\x1c.comsumer_actions.NewMessage\"\x08\n\x06Typing\"\xc2\x01\n\nUserAction\x12*\n\x06typing\x18\x01 \x01(\x0b\x32\x18.comsumer_actions.TypingH\x00\x12\x32\n\nnewMessage\x18\x02 \x01(\x0b\x32\x1c.comsumer_actions.NewMessageH\x00\x12<\n\x0fnewMessageBatch\x18\x03 \x01(\x0b\x32!.comsumer_actions.NewMessageBatchH\x00\x12\x0c\n\x04time\x18\x04 \x01(\x04\x42\x08\n\x06objectB;Z9github.com/nikhovas/diploma/go/lib/proto/comsumer_actionsb\x06proto3'
+  serialized_pb=b'\n\x16\x63onsumer_actions.proto\x12\x10\x63omsumer_actions\"r\n\x0b\x41\x63tionEvent\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\r\n\x05\x62otId\x18\x02 \x01(\t\x12\x0e\n\x06shopId\x18\x03 \x01(\x03\x12\x0c\n\x04time\x18\x04 \x01(\x04\x12\x13\n\x0bserviceName\x18\x05 \x01(\t\x12\x11\n\tneedOrder\x18\x06 \x01(\x08\"H\n\nNewMessage\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x14\n\x07replied\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\n\n\x02id\x18\x03 \x01(\x04\x42\n\n\x08_replied\"D\n\x0fNewMessageBatch\x12\x31\n\x0bnewMessages\x18\x01 \x03(\x0b\x32\x1c.comsumer_actions.NewMessage\"\x08\n\x06Typing\"\xd0\x01\n\nUserAction\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12*\n\x06typing\x18\x02 \x01(\x0b\x32\x18.comsumer_actions.TypingH\x00\x12\x32\n\nnewMessage\x18\x03 \x01(\x0b\x32\x1c.comsumer_actions.NewMessageH\x00\x12<\n\x0fnewMessageBatch\x18\x04 \x01(\x0b\x32!.comsumer_actions.NewMessageBatchH\x00\x12\x0c\n\x04time\x18\x05 \x01(\x04\x42\x08\n\x06objectB;Z9github.com/nikhovas/diploma/go/lib/proto/comsumer_actionsb\x06proto3'
 )
 
 
@@ -114,6 +114,13 @@ _NEWMESSAGE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='comsumer_actions.NewMessage.id', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -132,7 +139,7 @@ _NEWMESSAGE = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=160,
-  serialized_end=220,
+  serialized_end=232,
 )
 
 
@@ -163,8 +170,8 @@ _NEWMESSAGEBATCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=222,
-  serialized_end=290,
+  serialized_start=234,
+  serialized_end=302,
 )
 
 
@@ -188,8 +195,8 @@ _TYPING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=292,
-  serialized_end=300,
+  serialized_start=304,
+  serialized_end=312,
 )
 
 
@@ -202,29 +209,36 @@ _USERACTION = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='typing', full_name='comsumer_actions.UserAction.typing', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='uuid', full_name='comsumer_actions.UserAction.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='newMessage', full_name='comsumer_actions.UserAction.newMessage', index=1,
+      name='typing', full_name='comsumer_actions.UserAction.typing', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='newMessageBatch', full_name='comsumer_actions.UserAction.newMessageBatch', index=2,
+      name='newMessage', full_name='comsumer_actions.UserAction.newMessage', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='comsumer_actions.UserAction.time', index=3,
-      number=4, type=4, cpp_type=4, label=1,
+      name='newMessageBatch', full_name='comsumer_actions.UserAction.newMessageBatch', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='comsumer_actions.UserAction.time', index=4,
+      number=5, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -246,8 +260,8 @@ _USERACTION = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=303,
-  serialized_end=497,
+  serialized_start=315,
+  serialized_end=523,
 )
 
 _NEWMESSAGE.oneofs_by_name['_replied'].fields.append(

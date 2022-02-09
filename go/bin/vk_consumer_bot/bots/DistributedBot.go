@@ -1,109 +1,77 @@
 package bots
 
 import (
-	"fmt"
-	consulApi "github.com/hashicorp/consul/api"
+	"context"
+	"github.com/nikhovas/diploma/go/lib/utils/distfs/bots"
+	"github.com/nikhovas/diploma/go/lib/utils/distfs/bots/meta_service_name"
+	"github.com/nikhovas/diploma/go/lib/utils/distvars"
 	apiServer "github.com/nikhovas/diploma/go/lib/vk/api_server"
 	longPullServer "github.com/nikhovas/diploma/go/lib/vk/long_pull_server"
-	"log"
 	"math/big"
-	"strconv"
+	"vk_consumer_bot/application"
 )
 
 type DistributedBot struct {
 	VkBot
-	coordinator *consulApi.KV
-}
-
-func (bot *DistributedBot) GetCoordinatorBasePath() string {
-	return fmt.Sprintf("services/vk-shop-bot/%d", bot.GroupId)
-}
-
-func (bot *DistributedBot) GetStKvKey() string {
-	return fmt.Sprintf("%s/ts", bot.GetCoordinatorBasePath())
-}
-
-func (bot *DistributedBot) GetToken() string {
-	return fmt.Sprintf("%s/token", bot.GetCoordinatorBasePath())
+	app             *application.Application
+	BotDistFsBase   *meta_service_name.MetaGroupId
+	tokenDistFs     *distvars.RedisString
+	messageIdDistFs *distvars.ConsulInt
+	newMsgUniqueId  *distvars.RedisCounter
 }
 
 func (bot *DistributedBot) GetTokenValue() (string, error) {
-	kv, _, err := bot.coordinator.Get(bot.GetToken(), nil)
+	token, err := bot.tokenDistFs.Get(context.Background())
 	if err != nil {
-		return "", err
-	}
-	if kv == nil {
+		return token, err
+	} else if token == "" {
 		return "", big.ErrNaN{}
 	}
-
-	return string(kv.Value), err
+	return token, nil
 }
 
-func (bot *DistributedBot) Init(token string, groupId int, vkApiServer *apiServer.VkApiServer, coordinator *consulApi.KV) error {
+func (bot *DistributedBot) Init(
+	groupId int,
+	vkApiServer *apiServer.VkApiServer,
+	app *application.Application,
+	vkServiceDistFs *bots.MetaServiceName,
+) error {
 	bot.GroupId = groupId
-	bot.coordinator = coordinator
+	bot.app = app
 	var err error
 
-	if token == "" {
-		token, err = bot.GetTokenValue()
-		if err != nil {
-			return err
-		}
-	} else {
-		_, _ = bot.coordinator.Put(&consulApi.KVPair{Key: bot.GetToken(), Value: []byte(token)}, nil)
+	bot.BotDistFsBase = vkServiceDistFs.MetaCdGroupId(groupId)
+	bot.tokenDistFs = bot.BotDistFsBase.CdCommon().CdToken()
+	bot.messageIdDistFs = bot.BotDistFsBase.CdCommon().CdMessageId()
+	bot.newMsgUniqueId = bot.BotDistFsBase.CdCommon().CdNewMsgUniqueId()
+
+	token, err := bot.GetTokenValue()
+	if err != nil {
+		return err
 	}
 
 	return bot.VkBot.Init(token, groupId, vkApiServer)
 }
 
-func (bot *DistributedBot) Authorize() (err error) {
-	err = bot.VkBot.Authorize()
+func (bot *DistributedBot) Authorize() error {
+	err := bot.VkBot.Authorize()
 	if err != nil {
-		return
+		return err
 	}
 
-	stKv := &consulApi.KVPair{Key: bot.GetStKvKey(), Value: []byte(strconv.Itoa(bot.CurrentTs)), ModifyIndex: 0}
-
-	var changed bool
-	changed, _, err = bot.coordinator.CAS(stKv, nil)
+	bot.CurrentTs, _, err = bot.messageIdDistFs.SwapIfGreater(context.Background(), bot.CurrentTs)
 	if err != nil {
-		panic(err)
-	}
-	if changed {
-		return
+		return err
 	}
 
-	stop := false
-	for !stop {
-		stKv, _, err = bot.coordinator.Get(bot.GetStKvKey(), nil)
-		coordinatorSt, _ := strconv.Atoi(string(stKv.Value))
-		if bot.CurrentTs <= coordinatorSt {
-			bot.CurrentTs = coordinatorSt
-			stop = true
-		} else {
-			stKv = &consulApi.KVPair{Key: stKv.Key, Value: []byte(strconv.Itoa(bot.CurrentTs)), ModifyIndex: stKv.ModifyIndex}
-			stop, _, err = bot.coordinator.CAS(stKv, nil)
-		}
-	}
-
-	//bot.CurrentTs, err = strconv.Atoi(string(stKv.Value))
-	return
-}
-
-func CleanKv(kv *consulApi.KVPair) *consulApi.KVPair {
-	return &consulApi.KVPair{Key: kv.Key, Value: kv.Value, ModifyIndex: kv.ModifyIndex}
+	return nil
 }
 
 func (bot *DistributedBot) GetUpdates() (updTs int, updates []longPullServer.UpdateObject, err error) {
-	stValueNodeKey := fmt.Sprintf("services/vk-shop-bot/%d/ts", bot.GroupId)
-	stKv, _, err := bot.coordinator.Get(stValueNodeKey, nil)
+	var startedFromTs int
+	startedFromTs, _, err = bot.messageIdDistFs.Get(context.Background())
 	if err != nil {
-		return
-	}
-
-	startedFromTs, err := strconv.Atoi(string(stKv.Value))
-	if err != nil {
-		return
+		return 0, []longPullServer.UpdateObject{}, err
 	}
 
 	if bot.VkBot.CurrentTs < startedFromTs {
@@ -111,31 +79,21 @@ func (bot *DistributedBot) GetUpdates() (updTs int, updates []longPullServer.Upd
 	}
 
 	updates, err = bot.VkBot.GetUpdates()
+	realStartFromTs := bot.CurrentTs - len(updates)
 
-	realStartFromTs := startedFromTs
-
-	stKv.Value = []byte(strconv.Itoa(bot.CurrentTs))
-
-	for {
-		stKv = CleanKv(stKv)
-		success, _, err := bot.coordinator.CAS(stKv, nil)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		if success {
-			break
-		}
-
-		stKv, _, err = bot.coordinator.Get(stValueNodeKey, nil)
-		var newTsValue int
-		newTsValue, err = strconv.Atoi(string(stKv.Value))
-		if bot.CurrentTs <= newTsValue {
-			return 0, []longPullServer.UpdateObject{}, nil
-		}
+	_, shouldReadFrom, err := bot.messageIdDistFs.SwapIfGreater(context.Background(), bot.CurrentTs)
+	if bot.CurrentTs <= shouldReadFrom {
+		return 0, []longPullServer.UpdateObject{}, nil
+	} else {
+		return realStartFromTs, updates[(realStartFromTs - shouldReadFrom):], nil
 	}
+}
 
-	updates = updates[(realStartFromTs - startedFromTs):]
-	updTs = realStartFromTs
-	return
+func (bot *DistributedBot) SendMessage(userId int, text string, replyTo *int) (int, error) {
+	//sendingMsgId := atomic.AddUint64(&vkBot.currentMessageId, 1)
+	incr, err := bot.newMsgUniqueId.Incr(context.Background())
+	if err != nil {
+		return 0, err
+	}
+	return bot.VkBot.VkApiServer.MMessagesSend(bot.VkBot.AccessToken, bot.VkBot.GroupId, userId, text, uint64(incr), replyTo)
 }

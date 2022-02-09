@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z2github.com/nikhovas/diploma/go/lib/proto/staff_bot',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0fstaff_bot.proto\x12\tstaff_bot\x1a\x0c\x63ommon.proto\"7\n\x12NewQuestionRequest\x12\x0f\n\x07groupId\x18\x01 \x01(\x03\x12\x10\n\x08question\x18\x02 \x01(\t\"H\n$NotifyBotStatusChangeTelegramRequest\x12\x0f\n\x07groupId\x18\x01 \x01(\x03\x12\x0f\n\x07\x65nabled\x18\x02 \x01(\x08\x32\xc8\x01\n\x10TelegramStaffBot\x12I\n\x0fSendNewQuestion\x12\x1d.staff_bot.NewQuestionRequest\x1a\x15.common.EmptyResponse\"\x00\x12i\n\x1dNotifyBotStatusTelegramChange\x12/.staff_bot.NotifyBotStatusChangeTelegramRequest\x1a\x15.common.EmptyResponse\"\x00\x42\x34Z2github.com/nikhovas/diploma/go/lib/proto/staff_botb\x06proto3'
+  serialized_pb=b'\n\x0fstaff_bot.proto\x12\tstaff_bot\x1a\x0c\x63ommon.proto\"E\n\x12NewQuestionRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x0f\n\x07groupId\x18\x02 \x01(\x03\x12\x10\n\x08question\x18\x03 \x01(\t\"V\n$NotifyBotStatusChangeTelegramRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x0f\n\x07groupId\x18\x02 \x01(\x03\x12\x0f\n\x07\x65nabled\x18\x03 \x01(\x08\x32\xc8\x01\n\x10TelegramStaffBot\x12I\n\x0fSendNewQuestion\x12\x1d.staff_bot.NewQuestionRequest\x1a\x15.common.EmptyResponse\"\x00\x12i\n\x1dNotifyBotStatusTelegramChange\x12/.staff_bot.NotifyBotStatusChangeTelegramRequest\x1a\x15.common.EmptyResponse\"\x00\x42\x34Z2github.com/nikhovas/diploma/go/lib/proto/staff_botb\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
 
@@ -36,15 +36,22 @@ _NEWQUESTIONREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='groupId', full_name='staff_bot.NewQuestionRequest.groupId', index=0,
-      number=1, type=3, cpp_type=2, label=1,
+      name='uuid', full_name='staff_bot.NewQuestionRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='groupId', full_name='staff_bot.NewQuestionRequest.groupId', index=1,
+      number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='question', full_name='staff_bot.NewQuestionRequest.question', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='question', full_name='staff_bot.NewQuestionRequest.question', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -62,7 +69,7 @@ _NEWQUESTIONREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=44,
-  serialized_end=99,
+  serialized_end=113,
 )
 
 
@@ -75,15 +82,22 @@ _NOTIFYBOTSTATUSCHANGETELEGRAMREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='groupId', full_name='staff_bot.NotifyBotStatusChangeTelegramRequest.groupId', index=0,
-      number=1, type=3, cpp_type=2, label=1,
+      name='uuid', full_name='staff_bot.NotifyBotStatusChangeTelegramRequest.uuid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='groupId', full_name='staff_bot.NotifyBotStatusChangeTelegramRequest.groupId', index=1,
+      number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='enabled', full_name='staff_bot.NotifyBotStatusChangeTelegramRequest.enabled', index=1,
-      number=2, type=8, cpp_type=7, label=1,
+      name='enabled', full_name='staff_bot.NotifyBotStatusChangeTelegramRequest.enabled', index=2,
+      number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -100,8 +114,8 @@ _NOTIFYBOTSTATUSCHANGETELEGRAMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=101,
-  serialized_end=173,
+  serialized_start=115,
+  serialized_end=201,
 )
 
 DESCRIPTOR.message_types_by_name['NewQuestionRequest'] = _NEWQUESTIONREQUEST
@@ -132,8 +146,8 @@ _TELEGRAMSTAFFBOT = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=176,
-  serialized_end=376,
+  serialized_start=204,
+  serialized_end=404,
   methods=[
   _descriptor.MethodDescriptor(
     name='SendNewQuestion',

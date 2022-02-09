@@ -3,6 +3,9 @@ package utils
 import (
 	"encoding/json"
 	"net/http"
+	"io"
+	"log"
+	"fmt"
 )
 
 func SendGetRequest(url string, query map[string]string, response interface{}) error {
@@ -11,11 +14,11 @@ func SendGetRequest(url string, query map[string]string, response interface{}) e
 		return err
 	}
 
-	//toString := false
+	toString := false
 
 	q := req.URL.Query()
 	for k, v := range query {
-		//if k == "message" {
+		//if k == "reply_to" {
 		//	toString = true
 		//}
 		q.Add(k, v)
@@ -27,14 +30,14 @@ func SendGetRequest(url string, query map[string]string, response interface{}) e
 		return err
 	}
 
-	//if toString {
-	//	bodyBytes, err := io.ReadAll(resp.Body)
-	//	if err != nil {
-	//		log.Fatal(err)
-	//	}
-	//	bodyString := string(bodyBytes)
-	//	fmt.Println(bodyString)
-	//}
+	if toString {
+		bodyBytes, err := io.ReadAll(resp.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+		bodyString := string(bodyBytes)
+		fmt.Println(bodyString)
+	}
 
 	return json.NewDecoder(resp.Body).Decode(response)
 }

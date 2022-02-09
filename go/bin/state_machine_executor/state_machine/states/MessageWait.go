@@ -5,6 +5,8 @@ import (
 	"state_machine_executor/application"
 	"state_machine_executor/state_machine/actions"
 	"state_machine_executor/state_machine/localStorage"
+	"state_machine_executor/utils"
+	"strconv"
 )
 
 type MessageWait struct {
@@ -17,8 +19,10 @@ func (s *MessageWait) Process(ctx context.Context, app *application.Application,
 		return ls.KvStorage.Get("state").(string), true
 	}
 
-	msg := ls.MessageDeque.PopFront().(string)
-	ls.KvStorage.Set("message", msg)
+	data := ls.MessageDeque.PopFront()
+	msg := data.(*utils.MessageInfo)
+	ls.KvStorage.Set("message", msg.Text)
+	ls.KvStorage.Set("messageId", strconv.Itoa(msg.Id))
 
 	if s.MessageToStack {
 		actions.MessageToStackFunc(ls, nil, nil)

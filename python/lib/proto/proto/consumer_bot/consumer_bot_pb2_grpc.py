@@ -17,12 +17,12 @@ class VkServerStub(object):
         """
         self.SendSimpleMessage = channel.unary_unary(
                 '/consumer_bot.VkServer/SendSimpleMessage',
-                request_serializer=consumer__bot__pb2.SimpleMessageInformation.SerializeToString,
+                request_serializer=consumer__bot__pb2.SendSimpleMessageRequest.SerializeToString,
                 response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
         self.SendReplyMessage = channel.unary_unary(
                 '/consumer_bot.VkServer/SendReplyMessage',
-                request_serializer=consumer__bot__pb2.ReplyMessageInformation.SerializeToString,
+                request_serializer=consumer__bot__pb2.SendReplyMessageRequest.SerializeToString,
                 response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
 
@@ -47,12 +47,12 @@ def add_VkServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SendSimpleMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.SendSimpleMessage,
-                    request_deserializer=consumer__bot__pb2.SimpleMessageInformation.FromString,
+                    request_deserializer=consumer__bot__pb2.SendSimpleMessageRequest.FromString,
                     response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
             'SendReplyMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.SendReplyMessage,
-                    request_deserializer=consumer__bot__pb2.ReplyMessageInformation.FromString,
+                    request_deserializer=consumer__bot__pb2.SendReplyMessageRequest.FromString,
                     response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
     }
@@ -77,7 +77,7 @@ class VkServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/consumer_bot.VkServer/SendSimpleMessage',
-            consumer__bot__pb2.SimpleMessageInformation.SerializeToString,
+            consumer__bot__pb2.SendSimpleMessageRequest.SerializeToString,
             common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -94,7 +94,7 @@ class VkServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/consumer_bot.VkServer/SendReplyMessage',
-            consumer__bot__pb2.ReplyMessageInformation.SerializeToString,
+            consumer__bot__pb2.SendReplyMessageRequest.SerializeToString,
             common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

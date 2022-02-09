@@ -15,6 +15,9 @@ func (a *Application) SetUpAmqp() error {
 	for i := 0; i < 50; i++ {
 		ampqConn, err = amqp.Dial(amqpUrl)
 		if err != nil {
+			panic(err)
+		}
+		if err != nil {
 			time.Sleep(10 * time.Second)
 		} else {
 			break

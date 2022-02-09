@@ -15,6 +15,6 @@ class QuestionWorkerServer(question_worker_pb2_grpc.QuestionWorkerServicer):
             answerDistance=answer_distance,
         )
 
-    async def AddQuestion(self, request, context):
+    async def AddQuestion(self, request: question_worker_pb2.AddQuestionRequest, context):
         await self.processor.add(request.question, request.answer, request.basePath)
         return question_worker_pb2.AddQuestionResponse()
