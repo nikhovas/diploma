@@ -7,11 +7,11 @@ import (
 	"control/modules/consumers/vk"
 	"control/modules/kernel"
 	"control/modules/staff/telegram"
-	"fmt"
 	ctrlProto "github.com/nikhovas/diploma/go/lib/proto/controller"
 	"github.com/nikhovas/diploma/go/lib/utils/clients"
 	"github.com/nikhovas/diploma/go/lib/utils/consts"
 	"github.com/nikhovas/diploma/go/lib/utils/distfs"
+	"github.com/nikhovas/diploma/go/lib/utils/env"
 	"google.golang.org/grpc"
 	"net"
 
@@ -19,11 +19,10 @@ import (
 )
 
 func createServerSocket() net.Listener {
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:7777"))
+	lis, err := net.Listen("tcp", env.GetControllerGrpcHost())
 	if err != nil {
 		panic(err)
 	}
-
 	return lis
 }
 
@@ -36,7 +35,6 @@ func main() {
 	defer cbConn.Close()
 	redisDb := clients.CreateRedisClient()
 	sqlDb := clients.CreateSqlConn()
-	lis := createServerSocket()
 
 	grpcCoreServer := grpc.NewServer()
 	distFsRoot := distfs.NewRoot(redisDb, nil)
@@ -64,7 +62,7 @@ func main() {
 			},
 		},
 	)
-	err := grpcCoreServer.Serve(lis)
+	err := grpcCoreServer.Serve(createServerSocket())
 	if err != nil {
 		panic(err)
 	}

@@ -1,0 +1,8 @@
+queue_worker:
+  vk_api_token: f4cf21556a0203809789e04a39dece2ca512de7fdb2d0d6d9f1b9120d189c67cb5318630dae932103a448
+dist_queue:
+  url: amqp://guest:guest@localhost:5672/
+  name: vk_products_updater
+server:
+  host: localhost
+  port: 9876

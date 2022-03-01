@@ -31,3 +31,9 @@ func (n *Root) CdCommon() *Common {
 		DirInfo: n.DirInfo.GetChild("common"),
 	}
 }
+
+func (n *Root) CdProducts() *Products {
+	return &Products{
+		DirInfo: n.DirInfo.GetChild("products"),
+	}
+}

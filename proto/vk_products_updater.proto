@@ -1,0 +1,15 @@
+syntax = "proto3";
+package vk_products_getter;
+import "common.proto";
+option go_package = "github.com/nikhovas/diploma/go/lib/proto/vk_products_updater";
+
+message UpdateProductsRequest {
+    string uuid = 1;
+    int64 vk_group_id = 2;
+    bool is_user_request = 3;
+    optional string worker_token = 4;
+}
+
+service VkProductsUpdater {
+    rpc UpdateProducts(UpdateProductsRequest) returns (common.EmptyResponse) {}
+}

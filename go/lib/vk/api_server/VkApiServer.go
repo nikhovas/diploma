@@ -7,6 +7,13 @@ type VkApiServer struct {
 	Version string
 }
 
+func NewVkApiServer() *VkApiServer {
+	return &VkApiServer{
+		Host:    "http://api.vk.com",
+		Version: "5.92",
+	}
+}
+
 func (vkApiServer *VkApiServer) GetMethodUrl(methodGroup string, methodName string) string {
 	return vkApiServer.Host + "/method/" + methodGroup + "." + methodName
 }

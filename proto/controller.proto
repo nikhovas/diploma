@@ -62,9 +62,15 @@ message CommonShopKey {
     };
 }
 
+message TelegramStaffNameAndUserShopKey {
+    int64 userId = 1;
+    string shopName = 2;
+}
+
 message TelegramStaffShopKey {
     oneof telegramKey {
         int64 groupId = 1;
+        TelegramStaffNameAndUserShopKey nameAndUser = 2;
     }
 }
 

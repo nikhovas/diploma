@@ -15,6 +15,7 @@ import (
 	"sync/atomic"
 	"time"
 	"vk_consumer_bot/application"
+	"vk_consumer_bot/localUtils"
 )
 
 type BotWrapper struct {
@@ -120,7 +121,15 @@ func (cb *CombinedBot) AddBot(ctx context.Context, groupId int) error {
 
 	log.Log(ctx, "Send notify message for %d", groupId)
 	_, _ = cb.app.CtrlClient.NotifyBotStatusChange(context.Background(), &ctrl.NotifyBotStatusChangeRequest{
-		Key:       &ctrl.ShopKey{Key: &ctrl.ShopKey_Common{Common: &ctrl.CommonShopKey{CommonKey: &ctrl.CommonShopKey_VkGroupId{VkGroupId: int64(groupId)}}}},
+		Key: &ctrl.ShopKey{
+			Key: &ctrl.ShopKey_VkConsumer{
+				VkConsumer: &ctrl.VkConsumerShopKey{
+					Key: &ctrl.VkConsumerShopKey_GroupId{
+						GroupId: int64(groupId),
+					},
+				},
+			},
+		},
 		ToEnabled: true,
 	})
 
@@ -144,7 +153,7 @@ func (cb *CombinedBot) RemoveBot(groupId int) {
 	cb.bots.Del(groupId)
 
 	_, _ = cb.app.CtrlClient.NotifyBotStatusChange(context.Background(), &ctrl.NotifyBotStatusChangeRequest{
-		Key:       &ctrl.ShopKey{Key: &ctrl.ShopKey_Common{Common: &ctrl.CommonShopKey{CommonKey: &ctrl.CommonShopKey_VkGroupId{VkGroupId: int64(groupId)}}}},
+		Key:       localUtils.NewVkGroupIdShopKey(groupId),
 		ToEnabled: false,
 	})
 }

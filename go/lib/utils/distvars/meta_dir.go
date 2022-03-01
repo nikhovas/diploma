@@ -95,3 +95,10 @@ func (metaDir *MetaDir) GetRedisCounterChild(nodeName interface{}) *RedisCounter
 		Path:    metaDir.GetChildPath(nodeName),
 	}
 }
+
+func (metaDir *MetaDir) GetRedisTimeFlag(nodeName interface{}) *RedisTimeFlag {
+	return &RedisTimeFlag{
+		Storage: metaDir.Redis,
+		Path:    metaDir.GetChildPath(nodeName),
+	}
+}

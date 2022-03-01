@@ -7,6 +7,7 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/hashicorp/consul/api v1.12.0
 	github.com/nikhovas/diploma/go/lib/proto v0.0.0-00010101000000-000000000000
+	github.com/rabbitmq/amqp091-go v1.3.0
 	google.golang.org/grpc v1.44.0
 )
 

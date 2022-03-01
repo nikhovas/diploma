@@ -19,3 +19,11 @@ func (n *Common) CdToken() *distvars.RedisString {
 func (n *Common) CdNewMsgUniqueId() *distvars.RedisCounter {
 	return n.DirInfo.GetRedisCounterChild("new-msg-unique-id")
 }
+
+func (n *Common) CdGoods() *distvars.RedisDictStringString {
+	return n.DirInfo.GetRedisDictStringStringChild("goods")
+}
+
+func (n *Common) CdGoodsUpdated() *distvars.RedisTimeFlag {
+	return n.DirInfo.GetRedisTimeFlag("goods-updated")
+}

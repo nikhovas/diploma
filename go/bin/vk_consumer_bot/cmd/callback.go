@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/jsonpb"
 	consumerActions "github.com/nikhovas/diploma/go/lib/proto/consumer_actions"
-	ctrl "github.com/nikhovas/diploma/go/lib/proto/controller"
 	"github.com/nikhovas/diploma/go/lib/utils/consts"
 	longPullServer "github.com/nikhovas/diploma/go/lib/vk/long_pull_server"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"log"
 	"strconv"
 	"vk_consumer_bot/application"
+	"vk_consumer_bot/localUtils"
 )
 
 func callback(
@@ -51,15 +51,10 @@ func callback(
 	ae.UserId = strconv.Itoa(userId)
 	ae.ServiceName = consts.VkConsumerBotServiceName
 
-	res, err := app.CtrlClient.GetShopIdByKey(context.Background(), &ctrl.ShopKey{
-		Key: &ctrl.ShopKey_Common{
-			Common: &ctrl.CommonShopKey{
-				CommonKey: &ctrl.CommonShopKey_VkGroupId{
-					VkGroupId: int64(groupId),
-				},
-			},
-		},
-	})
+	res, err := app.CtrlClient.GetShopIdByKey(
+		context.Background(),
+		localUtils.NewVkGroupIdShopKey(groupId),
+	)
 	if err != nil {
 		log.Println(err)
 		return

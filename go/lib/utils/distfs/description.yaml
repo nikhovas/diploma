@@ -8,6 +8,7 @@ root:
           - message-id: consul-int
           - token: redis-string
           - shop-id: redis-string
+          - goods: redis-dict-string-string
         meta-user-id:
           - actions: consul-time-mpsq-queue-string
           - state-machine: dir

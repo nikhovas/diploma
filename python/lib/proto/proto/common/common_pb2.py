@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z/github.com/nikhovas/diploma/go/lib/proto/common',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0c\x63ommon.proto\x12\x06\x63ommon\"\x0f\n\rEmptyResponse\"?\n\x0bMsgLocation\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x0f\n\x07groupId\x18\x02 \x01(\x03\x12\x0e\n\x06userId\x18\x03 \x01(\x03\"n\n\x19WaitingQuesionInformation\x12(\n\x0bmsgLocation\x18\x01 \x01(\x0b\x32\x13.common.MsgLocation\x12\x10\n\x08question\x18\x02 \x01(\t\x12\x15\n\rquestionMsgId\x18\x03 \x01(\x03\x42\x31Z/github.com/nikhovas/diploma/go/lib/proto/commonb\x06proto3'
+  serialized_pb=b'\n\x0c\x63ommon.proto\x12\x06\x63ommon\"\x0f\n\rEmptyResponse\"?\n\x0bMsgLocation\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x0f\n\x07groupId\x18\x02 \x01(\x03\x12\x0e\n\x06userId\x18\x03 \x01(\x03\"n\n\x19WaitingQuesionInformation\x12(\n\x0bmsgLocation\x18\x01 \x01(\x0b\x32\x13.common.MsgLocation\x12\x10\n\x08question\x18\x02 \x01(\t\x12\x15\n\rquestionMsgId\x18\x03 \x01(\x03\"F\n\x07Product\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0b\n\x03url\x18\x04 \x01(\tB1Z/github.com/nikhovas/diploma/go/lib/proto/commonb\x06proto3'
 )
 
 
@@ -141,10 +141,64 @@ _WAITINGQUESIONINFORMATION = _descriptor.Descriptor(
   serialized_end=216,
 )
 
+
+_PRODUCT = _descriptor.Descriptor(
+  name='Product',
+  full_name='common.Product',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='common.Product.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='title', full_name='common.Product.title', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='common.Product.description', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='url', full_name='common.Product.url', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=218,
+  serialized_end=288,
+)
+
 _WAITINGQUESIONINFORMATION.fields_by_name['msgLocation'].message_type = _MSGLOCATION
 DESCRIPTOR.message_types_by_name['EmptyResponse'] = _EMPTYRESPONSE
 DESCRIPTOR.message_types_by_name['MsgLocation'] = _MSGLOCATION
 DESCRIPTOR.message_types_by_name['WaitingQuesionInformation'] = _WAITINGQUESIONINFORMATION
+DESCRIPTOR.message_types_by_name['Product'] = _PRODUCT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 EmptyResponse = _reflection.GeneratedProtocolMessageType('EmptyResponse', (_message.Message,), {
@@ -167,6 +221,13 @@ WaitingQuesionInformation = _reflection.GeneratedProtocolMessageType('WaitingQue
   # @@protoc_insertion_point(class_scope:common.WaitingQuesionInformation)
   })
 _sym_db.RegisterMessage(WaitingQuesionInformation)
+
+Product = _reflection.GeneratedProtocolMessageType('Product', (_message.Message,), {
+  'DESCRIPTOR' : _PRODUCT,
+  '__module__' : 'common_pb2'
+  # @@protoc_insertion_point(class_scope:common.Product)
+  })
+_sym_db.RegisterMessage(Product)
 
 
 DESCRIPTOR._options = None

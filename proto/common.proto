@@ -15,3 +15,10 @@ message WaitingQuesionInformation {
     string question = 2;
     int64 questionMsgId = 3;
 }
+
+message Product {
+    int64 id = 1;
+    string title = 2;
+    string description = 3;
+    string url = 4;
+}

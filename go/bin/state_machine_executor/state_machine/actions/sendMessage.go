@@ -36,13 +36,16 @@ func SendMessageFunc(
 
 	_, err := app.VksClient.SendSimpleMessage(
 		ctx,
-		&consumer_bot.SimpleMessageInformation{
-			MsgLocation: &common.MsgLocation{
-				Service: botService,
-				GroupId: int64(groupId),
-				UserId:  int64(userId),
+		&consumer_bot.SendSimpleMessageRequest{
+			Uuid: "",
+			Info: &consumer_bot.SimpleMessageInformation{
+				MsgLocation: &common.MsgLocation{
+					Service: botService,
+					GroupId: int64(groupId),
+					UserId:  int64(userId),
+				},
+				Text: textKey,
 			},
-			Text: textKey,
 		},
 	)
 	if err != nil {
