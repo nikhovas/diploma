@@ -5,6 +5,7 @@ description = ""
 authors = ["Nikolay Vasilev <vasilev.nk@phystech.edu>"]
 
 [tool.poetry.dependencies]
+setuptools = "*"
 python = "^3.9"
 nltk = "^3.6.7"
 gensim = "^4.1.2"

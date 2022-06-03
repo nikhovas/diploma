@@ -1,0 +1,40 @@
+@startuml
+Package VKGroupBot {
+    Agent VKGroupBotSendMessage as "Send message"
+    Agent VKGroupBotReceiveMessage as "Receive message"
+}
+
+Package StateMachine {
+    Agent StateMachineQuestionAnswer as "QuestionAnswer"
+}
+
+Package Controller {
+    Agent ControllerGetQuestionAnswer  as "Get question answer"
+    Agent ControllerBadQuestionReceive as "BadQuestionReceive"
+}
+
+Package TelegramSupportBot {
+}
+
+Controller -> TelegramSupportBot
+
+Queue CustomerEventsQueue #A9DCDF
+
+Package NeuralQuestionProcessor {
+    Agent QuestionAnswerer
+    Agent QuestionAdder
+}
+
+StateMachineQuestionAnswer --> ControllerBadQuestionReceive : "no answer"
+
+VKGroupBotReceiveMessage --> CustomerEventsQueue
+CustomerEventsQueue --> StateMachine
+
+StateMachine --> VKGroupBotSendMessage
+
+StateMachineQuestionAnswer --> QuestionAnswerer
+
+ControllerGetQuestionAnswer --> VKGroupBotSendMessage
+ControllerGetQuestionAnswer --> QuestionAdder
+
+@enduml

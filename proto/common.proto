@@ -22,3 +22,12 @@ message Product {
     string description = 3;
     string url = 4;
 }
+
+message Order {
+    int64 id = 1;
+    int64 shopId = 2;
+    bool selfPickup = 3;
+    string address = 4;
+    repeated string item = 5;
+    string userId = 6;
+}

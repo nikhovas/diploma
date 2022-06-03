@@ -4,8 +4,7 @@ go 1.17
 
 require (
 	github.com/Masterminds/squirrel v1.5.2
-	github.com/go-redis/redis/v8 v8.11.4
-	github.com/hashicorp/go-multierror v1.1.1
+	github.com/golang/protobuf v1.5.2
 	github.com/lib/pq v1.10.4
 	github.com/nikhovas/diploma/go/lib/proto v0.0.0-00010101000000-000000000000
 	github.com/nikhovas/diploma/go/lib/utils v0.0.0-00010101000000-000000000000
@@ -17,12 +16,12 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.9.0 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/go-redis/redis/v8 v8.11.4 // indirect
 	github.com/hashicorp/consul/api v1.12.0 // indirect
-	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hashicorp/go-hclog v0.12.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.0.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.0 // indirect
 	github.com/hashicorp/serf v0.9.6 // indirect

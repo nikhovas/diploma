@@ -2,31 +2,47 @@ package application
 
 import (
 	"context"
-	"github.com/go-redis/redis/v8"
-	consulApi "github.com/hashicorp/consul/api"
-	consumerBot "github.com/nikhovas/diploma/go/lib/proto/consumer_bot"
-	"github.com/nikhovas/diploma/go/lib/proto/controller"
-	questionWorker "github.com/nikhovas/diploma/go/lib/proto/question_worker"
-	amqp "github.com/rabbitmq/amqp091-go"
-	"golang.org/x/sync/semaphore"
+	"github.com/nikhovas/diploma/go/lib/utils/foundation"
+	"state_machine_executor/coremodules"
+	"state_machine_executor/modules/eventobserver"
+	"state_machine_executor/modules/eventsqueuereader"
 	"sync"
 )
 
 type Application struct {
-	ConsulClient     *consulApi.Client
-	RedisClient      *redis.Client
-	AmqpInputChannel *amqp.Channel
-	AmqpInputQueue   amqp.Queue
-	Semaphore        *semaphore.Weighted
-	Context          context.Context
-	ReadQueueWg      sync.WaitGroup
-
-	ControlClient controller.ControllerClient
-	QwClient      questionWorker.QuestionWorkerClient
-	VksClient     consumerBot.VkServerClient
+	CoreModules      *coremodules.CoreModules
+	EventsQueueReader     foundation.Module
+	EventObserver         *eventobserver.EventObserver
 }
 
-func (a *Application) Init() {
-	a.Semaphore = semaphore.NewWeighted(int64(2000))
-	a.Context = context.TODO()
+func FromConfig(config Config) *Application {
+	coreModules := coremodules.FromConfig(coremodules.Config{
+		ConsumerMessageSender: config.ConsumerMessageSender,
+		OrdersQueueWriter:     config.OrdersQueueWriter,
+		EventsQueueWriter:     config.EventsQueueWriter,
+	})
+	eventObserver := eventobserver.FromConfig(config.EventObserver, coreModules)
+
+	return &Application{
+		CoreModules: coreModules      ,
+		EventsQueueReader: eventsqueuereader.FromConfig(
+			config.EventsQueueReader,
+			&coreModules.ReadQueueWg,
+			coreModules,
+			eventObserver,
+		),
+		EventObserver:     eventObserver,
+	}
+}
+
+func (app *Application) Run(ctx context.Context, wg *sync.WaitGroup) {
+	app.CoreModules.Run(ctx, wg)
+	app.EventsQueueReader.Run(ctx, wg)
+	app.EventObserver.Run(ctx, wg)
+}
+
+func (app *Application) Stop() {
+	app.CoreModules.Stop()
+	app.EventsQueueReader.Stop()
+	app.EventObserver.Stop()
 }

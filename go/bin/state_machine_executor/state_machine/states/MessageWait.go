@@ -2,7 +2,7 @@ package states
 
 import (
 	"context"
-	"state_machine_executor/application"
+	"state_machine_executor/coremodules"
 	"state_machine_executor/state_machine/actions"
 	"state_machine_executor/state_machine/localStorage"
 	"state_machine_executor/utils"
@@ -14,7 +14,7 @@ type MessageWait struct {
 	Next           string
 }
 
-func (s *MessageWait) Process(ctx context.Context, app *application.Application, ls *localStorage.Storage) (string, bool) {
+func (s *MessageWait) Process(ctx context.Context, cm *coremodules.CoreModules, ls *localStorage.Storage) (string, bool) {
 	if ls.MessageDeque.Len() == 0 {
 		return ls.KvStorage.Get("state").(string), true
 	}

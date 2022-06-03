@@ -1,0 +1,10 @@
+consumer-message-sender:
+  exchange-name: customer_messages
+orders-queue-writer:
+  exchange-name: orders
+events-queue-writer:
+  queue-name: action_events
+events-queue-reader:
+  queue-reader:
+    queue-name: action_events
+    max-workers: 0

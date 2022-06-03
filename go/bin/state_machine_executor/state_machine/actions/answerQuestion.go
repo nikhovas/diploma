@@ -7,7 +7,7 @@ import (
 	ctrl "github.com/nikhovas/diploma/go/lib/proto/controller"
 	qw "github.com/nikhovas/diploma/go/lib/proto/question_worker"
 	"github.com/nikhovas/diploma/go/lib/utils/distfs"
-	"state_machine_executor/application"
+	"state_machine_executor/coremodules"
 	"state_machine_executor/state_machine/localStorage"
 	"strconv"
 )
@@ -20,7 +20,11 @@ func NewAnswerQuestion(genericAction *GenericAction) ActionInterface {
 	return &AnswerQuestion{GenericAction: *genericAction}
 }
 
-func (a *AnswerQuestion) Run(ctx context.Context, app *application.Application, storage *localStorage.Storage) {
+func (a *AnswerQuestion) Run(ctx context.Context, cm *coremodules.CoreModules, storage *localStorage.Storage) {
+	AnswerQuestionInternalFunc(ctx, cm, storage)
+}
+
+func AnswerQuestionInternalFunc(ctx context.Context, cm *coremodules.CoreModules, storage *localStorage.Storage) {
 	message := storage.KvStorage.Get("message").(string)
 	previousQuestions := storage.KvStorage.Get("previousQuestions").([]string)
 	previousQuestions = append(previousQuestions, message)
@@ -28,9 +32,9 @@ func (a *AnswerQuestion) Run(ctx context.Context, app *application.Application, 
 
 	shopId, _ := strconv.Atoi(storage.KvStorage.Get("shopId").(string))
 
-	path := distfs.NewRoot(app.RedisClient, app.ConsulClient).CdCommon().MetaCdShopId(shopId).CdQa().Path
+	path := distfs.NewRoot(cm.RedisClient, cm.ConsulClient).CdCommon().MetaCdShopId(shopId).CdQa().Path
 
-	answer, err := app.QwClient.GetQuestionAnswer(ctx, &qw.GetQuestionAnswerRequest{
+	answer, err := cm.QwClient.GetQuestionAnswer(ctx, &qw.GetQuestionAnswerRequest{
 		Question:          message,
 		PreviousQuestions: previousQuestions,
 		BasePath:          path,
@@ -47,19 +51,20 @@ func (a *AnswerQuestion) Run(ctx context.Context, app *application.Application, 
 		groupId, _ := strconv.Atoi(storage.KvStorage.Get("groupId").(string))
 		userId, _ := strconv.Atoi(storage.KvStorage.Get("userId").(string))
 		messageId, _ := strconv.Atoi(storage.KvStorage.Get("messageId").(string))
-		sendQuestionToStaff(ctx, app, message, shopId, botService, groupId, userId, messageId)
+		sendQuestionToStaff(ctx, cm, message, shopId, botService, groupId, userId, messageId)
 
 		toUserText := "На ваш вопрос на данный момент нет ответа. Вопрос отправлен оператору."
-		SendMessageFunc(ctx, app, storage, map[string]string{"text": toUserText}, Returns{})
+		storage.KvStorage.Set("metaField", toUserText)
+		SendMessageFunc(ctx, cm, storage, map[string]string{"text": "metaField"}, Returns{})
 	} else {
-		SendMessageFunc(ctx, app, storage, map[string]string{"text": questionAnswer}, Returns{})
+		storage.KvStorage.Set("metaField", questionAnswer)
+		SendMessageFunc(ctx, cm, storage, map[string]string{"text": "metaField"}, Returns{})
 	}
-
 }
 
 func sendQuestionToStaff(
 	ctx context.Context,
-	app *application.Application,
+	cm *coremodules.CoreModules,
 	question string,
 	shopId int,
 	service string,
@@ -67,7 +72,7 @@ func sendQuestionToStaff(
 	userId int,
 	messageId int,
 ) {
-	_, err := app.ControlClient.AddQuestion(ctx, &ctrl.AddQuestionRequest{
+	_, err := cm.ControlClient.AddQuestion(ctx, &ctrl.AddQuestionRequest{
 		Key: &ctrl.ShopKey{
 			Key: &ctrl.ShopKey_Common{
 				Common: &ctrl.CommonShopKey{

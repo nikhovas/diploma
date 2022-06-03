@@ -8,12 +8,11 @@ import (
 	apiServer "github.com/nikhovas/diploma/go/lib/vk/api_server"
 	longPullServer "github.com/nikhovas/diploma/go/lib/vk/long_pull_server"
 	"math/big"
-	"vk_consumer_bot/application"
 )
 
 type DistributedBot struct {
 	VkBot
-	app             *application.Application
+	//app             *application.Application
 	BotDistFsBase   *meta_service_name.MetaGroupId
 	tokenDistFs     *distvars.RedisString
 	messageIdDistFs *distvars.ConsulInt
@@ -33,11 +32,9 @@ func (bot *DistributedBot) GetTokenValue() (string, error) {
 func (bot *DistributedBot) Init(
 	groupId int,
 	vkApiServer *apiServer.VkApiServer,
-	app *application.Application,
 	vkServiceDistFs *bots.MetaServiceName,
 ) error {
 	bot.GroupId = groupId
-	bot.app = app
 	var err error
 
 	bot.BotDistFsBase = vkServiceDistFs.MetaCdGroupId(groupId)

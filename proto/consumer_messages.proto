@@ -1,0 +1,16 @@
+syntax = "proto3";
+package consumer_messages;
+import "common.proto";
+option go_package = "github.com/nikhovas/diploma/go/lib/proto/consumer_messages";
+
+message ReplyBlock {
+    uint64 replyMessageId = 1;
+    string replyUnsupportedText = 2;
+}
+
+message MessageToConsumer {
+    string uuid = 1;
+    common.MsgLocation msgLocation = 2;
+    string text = 3;
+    optional ReplyBlock reply = 4;
+}

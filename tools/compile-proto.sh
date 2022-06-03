@@ -7,7 +7,7 @@ join_by_char() {
 }
 
 
-proto_files=("common" "consumer_actions" "consumer_bot" "controller" "question_worker" "staff_bot" "vk_products_updater")
+proto_files=("common" "consumer_actions" "consumer_bot" "consumer_messages" "controller" "question_worker" "staff_bot" "vk_products_updater")
 joined=$(join_by_char "${proto_files[@]}")
 
 

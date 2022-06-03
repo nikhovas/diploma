@@ -17,3 +17,7 @@ func (dv *MetaShopId) CdQuestions() *distvars.RedisStringSet {
 func (dv *MetaShopId) CdQa() *distvars.RedisDictStringString {
 	return dv.DirInfo.GetRedisDictStringStringChild("qa")
 }
+
+func (dv *MetaShopId) CdShopItems() *distvars.RedisString {
+	return dv.DirInfo.GetRedisStringChild("shop-items")
+}

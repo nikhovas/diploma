@@ -25,6 +25,11 @@ class TelegramStaffBotStub(object):
                 request_serializer=staff__bot__pb2.NotifyBotStatusChangeTelegramRequest.SerializeToString,
                 response_deserializer=common__pb2.EmptyResponse.FromString,
                 )
+        self.NotifyNewOrder = channel.unary_unary(
+                '/staff_bot.TelegramStaffBot/NotifyNewOrder',
+                request_serializer=staff__bot__pb2.NotifyNewOrderRequest.SerializeToString,
+                response_deserializer=common__pb2.EmptyResponse.FromString,
+                )
 
 
 class TelegramStaffBotServicer(object):
@@ -42,6 +47,12 @@ class TelegramStaffBotServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def NotifyNewOrder(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_TelegramStaffBotServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +64,11 @@ def add_TelegramStaffBotServicer_to_server(servicer, server):
             'NotifyBotStatusTelegramChange': grpc.unary_unary_rpc_method_handler(
                     servicer.NotifyBotStatusTelegramChange,
                     request_deserializer=staff__bot__pb2.NotifyBotStatusChangeTelegramRequest.FromString,
+                    response_serializer=common__pb2.EmptyResponse.SerializeToString,
+            ),
+            'NotifyNewOrder': grpc.unary_unary_rpc_method_handler(
+                    servicer.NotifyNewOrder,
+                    request_deserializer=staff__bot__pb2.NotifyNewOrderRequest.FromString,
                     response_serializer=common__pb2.EmptyResponse.SerializeToString,
             ),
     }
@@ -95,6 +111,23 @@ class TelegramStaffBot(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/staff_bot.TelegramStaffBot/NotifyBotStatusTelegramChange',
             staff__bot__pb2.NotifyBotStatusChangeTelegramRequest.SerializeToString,
+            common__pb2.EmptyResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def NotifyNewOrder(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/staff_bot.TelegramStaffBot/NotifyNewOrder',
+            staff__bot__pb2.NotifyNewOrderRequest.SerializeToString,
             common__pb2.EmptyResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

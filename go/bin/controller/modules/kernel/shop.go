@@ -30,7 +30,7 @@ func (kernel *Kernel) ListShops(ctx context.Context, r sq.BaseRunner, userId int
 
 func (kernel *Kernel) AddShop(ctx context.Context, r sq.BaseRunner, userId int, botInfo *ctrlProto.BotInfo) (int, error) {
 	rows, err := sq.Insert("shop").Columns("name", "creator").Values(botInfo.CommonBotInfo.Name, userId).
-		Suffix("returning id").RunWith(r).QueryContext(ctx)
+		Suffix("returning id").PlaceholderFormat(sq.Dollar).RunWith(r).QueryContext(ctx)
 	if err != nil {
 		return 0, err
 	} else if !rows.Next() {

@@ -3,6 +3,7 @@
 # source: question_worker.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -13,200 +14,14 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='question_worker.proto',
-  package='question_worker',
-  syntax='proto3',
-  serialized_options=b'Z8github.com/nikhovas/diploma/go/lib/proto/question_worker',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x15question_worker.proto\x12\x0fquestion_worker\"g\n\x18GetQuestionAnswerRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x10\n\x08question\x18\x02 \x01(\t\x12\x19\n\x11previousQuestions\x18\x03 \x03(\t\x12\x10\n\x08\x62\x61sePath\x18\x04 \x01(\t\"]\n\x19GetQuestionAnswerResponse\x12\x0e\n\x06\x61nswer\x18\x01 \x01(\t\x12\x18\n\x10repeatedDistance\x18\x02 \x01(\x02\x12\x16\n\x0e\x61nswerDistance\x18\x03 \x01(\x02\"V\n\x12\x41\x64\x64QuestionRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x10\n\x08question\x18\x02 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x03 \x01(\t\x12\x10\n\x08\x62\x61sePath\x18\x04 \x01(\t\"\x15\n\x13\x41\x64\x64QuestionResponse2\xda\x01\n\x0eQuestionWorker\x12l\n\x11GetQuestionAnswer\x12).question_worker.GetQuestionAnswerRequest\x1a*.question_worker.GetQuestionAnswerResponse\"\x00\x12Z\n\x0b\x41\x64\x64Question\x12#.question_worker.AddQuestionRequest\x1a$.question_worker.AddQuestionResponse\"\x00\x42:Z8github.com/nikhovas/diploma/go/lib/proto/question_workerb\x06proto3'
-)
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15question_worker.proto\x12\x0fquestion_worker\"g\n\x18GetQuestionAnswerRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x10\n\x08question\x18\x02 \x01(\t\x12\x19\n\x11previousQuestions\x18\x03 \x03(\t\x12\x10\n\x08\x62\x61sePath\x18\x04 \x01(\t\"]\n\x19GetQuestionAnswerResponse\x12\x0e\n\x06\x61nswer\x18\x01 \x01(\t\x12\x18\n\x10repeatedDistance\x18\x02 \x01(\x02\x12\x16\n\x0e\x61nswerDistance\x18\x03 \x01(\x02\"V\n\x12\x41\x64\x64QuestionRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\x12\x10\n\x08question\x18\x02 \x01(\t\x12\x0e\n\x06\x61nswer\x18\x03 \x01(\t\x12\x10\n\x08\x62\x61sePath\x18\x04 \x01(\t\"\x15\n\x13\x41\x64\x64QuestionResponse2\xda\x01\n\x0eQuestionWorker\x12l\n\x11GetQuestionAnswer\x12).question_worker.GetQuestionAnswerRequest\x1a*.question_worker.GetQuestionAnswerResponse\"\x00\x12Z\n\x0b\x41\x64\x64Question\x12#.question_worker.AddQuestionRequest\x1a$.question_worker.AddQuestionResponse\"\x00\x42:Z8github.com/nikhovas/diploma/go/lib/proto/question_workerb\x06proto3')
 
 
 
-
-_GETQUESTIONANSWERREQUEST = _descriptor.Descriptor(
-  name='GetQuestionAnswerRequest',
-  full_name='question_worker.GetQuestionAnswerRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='uuid', full_name='question_worker.GetQuestionAnswerRequest.uuid', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='question', full_name='question_worker.GetQuestionAnswerRequest.question', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='previousQuestions', full_name='question_worker.GetQuestionAnswerRequest.previousQuestions', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='basePath', full_name='question_worker.GetQuestionAnswerRequest.basePath', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=42,
-  serialized_end=145,
-)
-
-
-_GETQUESTIONANSWERRESPONSE = _descriptor.Descriptor(
-  name='GetQuestionAnswerResponse',
-  full_name='question_worker.GetQuestionAnswerResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='answer', full_name='question_worker.GetQuestionAnswerResponse.answer', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='repeatedDistance', full_name='question_worker.GetQuestionAnswerResponse.repeatedDistance', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='answerDistance', full_name='question_worker.GetQuestionAnswerResponse.answerDistance', index=2,
-      number=3, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=147,
-  serialized_end=240,
-)
-
-
-_ADDQUESTIONREQUEST = _descriptor.Descriptor(
-  name='AddQuestionRequest',
-  full_name='question_worker.AddQuestionRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='uuid', full_name='question_worker.AddQuestionRequest.uuid', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='question', full_name='question_worker.AddQuestionRequest.question', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='answer', full_name='question_worker.AddQuestionRequest.answer', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='basePath', full_name='question_worker.AddQuestionRequest.basePath', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=242,
-  serialized_end=328,
-)
-
-
-_ADDQUESTIONRESPONSE = _descriptor.Descriptor(
-  name='AddQuestionResponse',
-  full_name='question_worker.AddQuestionResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=330,
-  serialized_end=351,
-)
-
-DESCRIPTOR.message_types_by_name['GetQuestionAnswerRequest'] = _GETQUESTIONANSWERREQUEST
-DESCRIPTOR.message_types_by_name['GetQuestionAnswerResponse'] = _GETQUESTIONANSWERRESPONSE
-DESCRIPTOR.message_types_by_name['AddQuestionRequest'] = _ADDQUESTIONREQUEST
-DESCRIPTOR.message_types_by_name['AddQuestionResponse'] = _ADDQUESTIONRESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
+_GETQUESTIONANSWERREQUEST = DESCRIPTOR.message_types_by_name['GetQuestionAnswerRequest']
+_GETQUESTIONANSWERRESPONSE = DESCRIPTOR.message_types_by_name['GetQuestionAnswerResponse']
+_ADDQUESTIONREQUEST = DESCRIPTOR.message_types_by_name['AddQuestionRequest']
+_ADDQUESTIONRESPONSE = DESCRIPTOR.message_types_by_name['AddQuestionResponse']
 GetQuestionAnswerRequest = _reflection.GeneratedProtocolMessageType('GetQuestionAnswerRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETQUESTIONANSWERREQUEST,
   '__module__' : 'question_worker_pb2'
@@ -235,42 +50,19 @@ AddQuestionResponse = _reflection.GeneratedProtocolMessageType('AddQuestionRespo
   })
 _sym_db.RegisterMessage(AddQuestionResponse)
 
+_QUESTIONWORKER = DESCRIPTOR.services_by_name['QuestionWorker']
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-DESCRIPTOR._options = None
-
-_QUESTIONWORKER = _descriptor.ServiceDescriptor(
-  name='QuestionWorker',
-  full_name='question_worker.QuestionWorker',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=354,
-  serialized_end=572,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='GetQuestionAnswer',
-    full_name='question_worker.QuestionWorker.GetQuestionAnswer',
-    index=0,
-    containing_service=None,
-    input_type=_GETQUESTIONANSWERREQUEST,
-    output_type=_GETQUESTIONANSWERRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='AddQuestion',
-    full_name='question_worker.QuestionWorker.AddQuestion',
-    index=1,
-    containing_service=None,
-    input_type=_ADDQUESTIONREQUEST,
-    output_type=_ADDQUESTIONRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_QUESTIONWORKER)
-
-DESCRIPTOR.services_by_name['QuestionWorker'] = _QUESTIONWORKER
-
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'Z8github.com/nikhovas/diploma/go/lib/proto/question_worker'
+  _GETQUESTIONANSWERREQUEST._serialized_start=42
+  _GETQUESTIONANSWERREQUEST._serialized_end=145
+  _GETQUESTIONANSWERRESPONSE._serialized_start=147
+  _GETQUESTIONANSWERRESPONSE._serialized_end=240
+  _ADDQUESTIONREQUEST._serialized_start=242
+  _ADDQUESTIONREQUEST._serialized_end=328
+  _ADDQUESTIONRESPONSE._serialized_start=330
+  _ADDQUESTIONRESPONSE._serialized_end=351
+  _QUESTIONWORKER._serialized_start=354
+  _QUESTIONWORKER._serialized_end=572
 # @@protoc_insertion_point(module_scope)

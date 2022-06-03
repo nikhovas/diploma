@@ -1,0 +1,8 @@
+database-sync:
+  update-time-interval: 60
+queue-reader:
+  queue-reader:
+    exchange-name: orders
+    queue-name: telegram-admin-orders
+telegram-sender:
+  token: 1946618862:AAHgQl-2ZQnkYogkYyzPwZYqq50DBZJIZhw

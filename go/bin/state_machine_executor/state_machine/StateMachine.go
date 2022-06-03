@@ -2,7 +2,8 @@ package stateMachine
 
 import (
 	"context"
-	"state_machine_executor/application"
+	"fmt"
+	"state_machine_executor/coremodules"
 	"state_machine_executor/state_machine/localStorage"
 	"state_machine_executor/state_machine/states"
 	"state_machine_executor/state_machine/storageInterfaces"
@@ -11,7 +12,7 @@ import (
 )
 
 type StateMachine struct {
-	application     *application.Application
+	cm *coremodules.CoreModules
 	states          map[string]states.IState
 	dataBasePath    string
 	storage         localStorage.Storage
@@ -19,7 +20,7 @@ type StateMachine struct {
 }
 
 func (sm *StateMachine) Init(
-	application *application.Application,
+	cm *coremodules.CoreModules,
 	states map[string]states.IState,
 	botService string,
 	groupId string,
@@ -29,7 +30,7 @@ func (sm *StateMachine) Init(
 	externalStorage storageInterfaces.IStorage,
 	userIdStateMachinePath string,
 ) {
-	sm.application = application
+	sm.cm = cm
 	sm.states = states
 
 	sm.dataBasePath = userIdStateMachinePath
@@ -53,7 +54,7 @@ func (sm *StateMachine) Finish() {
 	}
 }
 
-func (sm *StateMachine) Process(ctx context.Context, app *application.Application, newMessages []utils.MessageInfo) {
+func (sm *StateMachine) Process(ctx context.Context, cm *coremodules.CoreModules, newMessages []utils.MessageInfo) {
 	for _, msg := range newMessages {
 		sm.storage.MessageDeque.PushBack(&msg)
 	}
@@ -62,7 +63,15 @@ func (sm *StateMachine) Process(ctx context.Context, app *application.Applicatio
 	breakContext := false
 
 	for !breakContext {
-		currentState, breakContext = sm.states[currentState.(string)].Process(ctx, app, &sm.storage)
+		state, exists := sm.states[currentState.(string)]
+		if !exists {
+			state = sm.states["initial"]
+			fmt.Printf("No state with name %s, using inital state", currentState.(string))
+		}
+
+		fmt.Printf("Executing state: %s", currentState)
+		currentState, breakContext = state.Process(ctx, cm, &sm.storage)
 		sm.storage.KvStorage.Set("state", currentState)
+		fmt.Printf("New state: %s", currentState)
 	}
 }

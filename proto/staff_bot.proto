@@ -16,7 +16,14 @@ message NotifyBotStatusChangeTelegramRequest {
     bool enabled = 3;
 }
 
+message NotifyNewOrderRequest {
+    string uuid = 1;
+    int64 groupId = 2;
+    common.Order order = 3;
+}
+
 service TelegramStaffBot {
     rpc SendNewQuestion(NewQuestionRequest) returns (common.EmptyResponse) {}
     rpc NotifyBotStatusTelegramChange(NotifyBotStatusChangeTelegramRequest) returns (common.EmptyResponse) {}
+    rpc NotifyNewOrder(NotifyNewOrderRequest) returns (common.EmptyResponse) {}
 }

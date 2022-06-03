@@ -1,0 +1,9 @@
+events-queue-writer:
+  queue-name: action_events
+grpc-server:
+  host: localhost
+  port: 5555
+read-messages-to-send:
+  queue-reader:
+    exchange-name: customer_messages
+    queue-name: vk_customer_messages

@@ -1,16 +1,12 @@
-# syntax=docker/dockerfile:1
-FROM golang:1.16-alpine
-
-WORKDIR /app
-
-COPY go.mod ./
-COPY go.sum ./
+FROM golang:1.17.2-alpine AS base
+WORKDIR /src
+COPY . .
+WORKDIR /src/bin/vk_consumer_bot
 RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -o /bin/app cmd/main.go
 
-COPY *.go ./
-
-RUN go build -o /docker-gs-ping
-
-EXPOSE 8080
-
-CMD [ "/docker-gs-ping" ]
+FROM alpine:latest
+WORKDIR /bin
+COPY --from=0 /src/bin/vk_consumer_bot/config/config.docker.yaml config/config.yaml
+COPY --from=0 /bin/app app
+ENTRYPOINT ./app

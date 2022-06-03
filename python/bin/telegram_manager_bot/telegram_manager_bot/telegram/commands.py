@@ -9,8 +9,8 @@ def shop_key_from_chat(chat_id):
 
 @decorators.action('add_question', '\n', 2)
 @decorators.group_only
-async def add_question(message: types.Message, cmi: controller_pb2.TelegramMessageInfo, question: str, answer: str):
-    stub.AddQuestionAnswer(controller_pb2.AddQuestionAnswerRequest(
+async def add_question(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, question: str, answer: str):
+    response = await stub.AddQuestionAnswer(controller_pb2.AddQuestionAnswerRequest(
         uuid='',
         messageInfo=controller_pb2.MessageInformation(telegram=cmi),
         key=shop_key_from_chat(cmi.chatId),
@@ -22,23 +22,44 @@ async def add_question(message: types.Message, cmi: controller_pb2.TelegramMessa
     await message.reply('Ваш вопрос добавлен')
 
 
+@decorators.action('list_shops', ' ', 0)
+@decorators.private_only
+async def list_shops(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
+    response = await stub.ListShops(controller_pb2.ListShopsRequest(
+        uuid=uuid,
+        messageInfo=controller_pb2.MessageInformation(telegram=cmi),
+    ))
+
+    if response.success is not None:
+        result_text = '**Ваши боты**\n'
+        for bot in response.success.bots:
+            result_text += f'* {bot.name}\n'
+
+        await message.answer(result_text, parse_mode='Markdown')
+    else:
+        await message.answer('Прозошла ошибка')
+
+
 @decorators.action('add_shop', ' ', 3)
 @decorators.private_only
-async def add_shop(message: types.Message, cmi: controller_pb2.TelegramMessageInfo, name, vk_token, vk_group_id):
+async def add_shop(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, name, vk_token, vk_group_id):
     vk_group_id = int(vk_group_id)
 
     response = await stub.AddShop(controller_pb2.AddShopRequest(
+        uuid=uuid,
         messageInfo=controller_pb2.MessageInformation(telegram=cmi),
-        bot=controller_pb2.BotInfo(name=name, token=vk_token, groupId=vk_group_id),
-        platformBotInfo=controller_pb2.PlatformBotInfo(platform=controller_pb2.TelegramBotInfo(chatId=0))
+        bot=controller_pb2.BotInfo(
+            commonBotInfo=controller_pb2.CommonBotInfo(name=name, token=vk_token, groupId=vk_group_id),
+            platformBotInfo=controller_pb2.PlatformBotInfo(telegram=controller_pb2.TelegramBotInfo(chatId=0)),
+        )
     ))
 
-    await message.reply('Бот магазина добавлен')
+    await message.answer('Бот магазина добавлен')
 
 
 @decorators.action('answer')
 @decorators.group_only
-async def answer_message(message: types.Message, cmi: controller_pb2.TelegramMessageInfo, text: str):
+async def answer_message(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, text: str):
     text = text.strip()
     reply_msg = message.reply_to_message
     if reply_msg is None:
@@ -65,43 +86,33 @@ async def answer_message(message: types.Message, cmi: controller_pb2.TelegramMes
     await message.reply('Ваш ответ зарегестрирован')
 
 
-@dp.message_handler(commands=['deleteshop'])
 @decorators.action('delete_shop', ' ', 1)
 @decorators.private_only
-async def delete_shop(message: types.Message, cmi: controller_pb2.TelegramMessageInfo, shop_name):
+async def delete_shop(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, shop_name):
     # check for role
 
     # start
 
     # send answer to client
 
-    await message.reply('Бот магазина запущен')
+    await message.answer('Бот магазина запущен')
 
 
-@dp.message_handler(commands=['modifyshop'])
-@decorators.action_decorator
+@decorators.action('modify_shop', ' ')
 @decorators.private_only
-async def modify_shop(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
+async def modify_shop(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, *args):
     # check for role
 
     # start
 
     # send answer to client
 
-    await message.reply('Бот магазина запущен')
+    await message.answer('Бот магазина запущен')
 
 
-@dp.message_handler(commands=['register_group'])
-@decorators.action_decorator
+@decorators.action('register_group', ' ', 1)
 @decorators.group_only
-async def register_shop_group(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
-    try:
-        tokens = message.text.split(' ')
-        shop_name = tokens[1]
-    except Exception:
-        await message.reply('Ошибка')
-        return
-
+async def register_shop_group(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, shop_name):
     response = await stub.ModifyShop(controller_pb2.ModifyShopRequest(
         messageInfo=controller_pb2.MessageInformation(telegram=cmi),
         key=controller_pb2.ShopKey(name=shop_name),
@@ -117,28 +128,30 @@ async def register_shop_group(message: types.Message, cmi: controller_pb2.Telegr
     await message.reply('Ваш вопрос добавлен')
 
 
-@dp.message_handler(commands=['startshopbot'])
-@decorators.action_decorator
-async def start_shop_bot(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
+@decorators.action('start_shop_bot', ' ', 0)
+@decorators.group_only
+async def start_shop_bot(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
     response = await stub.ChangeBotState(controller_pb2.ChangeBotStateRequest(
         messageInfo=controller_pb2.MessageInformation(telegram=cmi),
+        key=controller_pb2.ShopKey(telegramStaff=controller_pb2.TelegramStaffShopKey(groupId=message.chat.id)),
         toEnabled=True,
     ))
     await message.reply('🕐 Отправлен запрос на включение бота')
 
 
-@dp.message_handler(commands=['stopshopbot'])
-@decorators.action('stop_shop_bot')
-async def stop_shop_bot(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
+@decorators.action('stop_shop_bot', ' ', 0)
+@decorators.group_only
+async def stop_shop_bot(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
     response = await stub.ChangeBotState(controller_pb2.ChangeBotStateRequest(
         messageInfo=controller_pb2.MessageInformation(telegram=cmi),
+        key=controller_pb2.ShopKey(telegramStaff=controller_pb2.TelegramStaffShopKey(groupId=message.chat.id)),
         toEnabled=False,
     ))
     await message.reply('🕐 Отправлен запрос на остановку бота')
 
 
 @dp.message_handler(commands=['start', 'help'])
-async def send_welcome(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
+async def send_welcome(uuid, message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
     print(message.from_user)
     print(message.chat)
     await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")

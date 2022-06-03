@@ -1,3 +1,5 @@
+import uuid
+
 from typing import Optional
 
 from aiogram import types
@@ -13,6 +15,8 @@ class BotError(Exception):
 def action(cmd_name: str, separator: Optional[str] = None, args_count: Optional[int] = None):
     def decorator(f):
         async def internal(message: types.Message):
+            uuid_value = str(uuid.uuid4())
+
             cmi = controller_pb2.TelegramMessageInfo(
                 chatId=message.chat.id,
                 isChatPrivate=(message.chat.type == 'private'),
@@ -38,7 +42,7 @@ def action(cmd_name: str, separator: Optional[str] = None, args_count: Optional[
                 tokens = [message.text[len(cmd_name) + 1:]]
 
             try:
-                await f(message, cmi, *tokens)
+                await f(uuid_value, message, cmi, *tokens)
             except BotError as err:
                 await message.answer('asdf')
 
@@ -53,22 +57,22 @@ def check_resp_for_error(resp):
 
 
 def group_only(f):
-    async def internal(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
+    async def internal(uuid_value, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, *args, **kwargs):
         if cmi.isChatPrivate is True:
             raise BotError(controller_pb2.DefaultResponse(
                 noRoleError=controller_pb2.BadChatType(shouldBePrivate=False)),
             )
-        await f(message, cmi)
+        await f(uuid_value, message, cmi, *args, **kwargs)
 
     return internal
 
 
 def private_only(f):
-    async def internal(message: types.Message, cmi: controller_pb2.TelegramMessageInfo):
+    async def internal(uuid_value, message: types.Message, cmi: controller_pb2.TelegramMessageInfo, *args, **kwargs):
         if cmi.isChatPrivate is False:
             raise BotError(controller_pb2.DefaultResponse(
                 noRoleError=controller_pb2.BadChatType(shouldBePrivate=True)),
             )
-        await f(message, cmi)
+        await f(uuid_value, message, cmi, *args, **kwargs)
 
     return internal

@@ -2,7 +2,7 @@ package actions
 
 import (
 	"context"
-	"state_machine_executor/application"
+	"state_machine_executor/coremodules"
 	"state_machine_executor/state_machine/localStorage"
 	"state_machine_executor/utils"
 	"strconv"
@@ -16,7 +16,7 @@ func NewMessageToStack(genericAction *GenericAction) ActionInterface {
 	return &MessageToStack{GenericAction: *genericAction}
 }
 
-func (a *MessageToStack) Run(ctx context.Context, application *application.Application, storage *localStorage.Storage) {
+func (a *MessageToStack) Run(ctx context.Context, cm *coremodules.CoreModules, storage *localStorage.Storage) {
 	MessageToStackFunc(storage, a.Arguments, a.Return)
 }
 

@@ -4,4 +4,5 @@ var ActionBuilders = map[string]func(genericAction *GenericAction) ActionInterfa
 	"sendMessage":    NewSendMessage,
 	"answerQuestion": NewAnswerQuestion,
 	"messageToStack": NewMessageToStack,
+	//"classifyMessage": NewMessageClassifier,
 }

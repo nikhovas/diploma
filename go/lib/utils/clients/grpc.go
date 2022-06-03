@@ -65,6 +65,19 @@ func CreateSqlConn() *sql.DB {
 	return db
 }
 
+type SqlDatabaseConfig struct {
+	Driver string
+	Host string
+	Port int
+	User string
+	Password string
+	Database string
+}
+
+func CreateSqlConnFromConfig() *sql.DB {
+	return nil
+}
+
 func CreateConsulClient() *consulApi.Client {
 	client, _ := consulApi.NewClient(consulApi.DefaultConfig())
 	return client

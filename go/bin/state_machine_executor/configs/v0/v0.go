@@ -54,6 +54,9 @@ func (s *MessageWaitState) ToInternal() *states.MessageWait {
 type State struct {
 	ActionStateData      *ActionState      `json:"actionStateData"`
 	MessageWaitStateData *MessageWaitState `json:"messageWaitStateData"`
+	MessageClassifierStateData *states.MessageClassifier
+	CheckOrderStateData *states.CheckOrder
+	ConfirmOrderStateData *states.ConfirmOrder
 }
 
 func (s *State) ToInternal() states.IState {
@@ -61,6 +64,12 @@ func (s *State) ToInternal() states.IState {
 		return s.ActionStateData.ToInternal()
 	} else if s.MessageWaitStateData != nil {
 		return s.MessageWaitStateData.ToInternal()
+	} else if s.MessageClassifierStateData != nil {
+		return s.MessageClassifierStateData
+	} else if s.CheckOrderStateData != nil {
+		return s.CheckOrderStateData
+	} else if s.ConfirmOrderStateData != nil {
+		return s.ConfirmOrderStateData
 	} else {
 		return nil
 	}
@@ -98,7 +107,7 @@ type Model struct {
 }
 
 func (m *Model) ToInternal() stateMachine.Model {
-	newData := make(map[string]localStorage.DataElement, 4)
+	newData := make(map[string]localStorage.DataElement)
 	for key, value := range m.Data {
 		newData[key] = value.ToInternal()
 	}

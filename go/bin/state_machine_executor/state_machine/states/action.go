@@ -2,7 +2,7 @@ package states
 
 import (
 	"context"
-	"state_machine_executor/application"
+	"state_machine_executor/coremodules"
 	"state_machine_executor/state_machine/actions"
 	"state_machine_executor/state_machine/localStorage"
 )
@@ -25,10 +25,10 @@ func NewAction(actionElements []actions.GenericAction, next string) *Action {
 
 }
 
-func (s *Action) Process(ctx context.Context, app *application.Application, ls *localStorage.Storage) (string, bool) {
+func (s *Action) Process(ctx context.Context, cm *coremodules.CoreModules, ls *localStorage.Storage) (string, bool) {
 	for _, action := range s.Actions {
 		if action != nil {
-			action.Run(ctx, app, ls)
+			action.Run(ctx, cm, ls)
 		}
 	}
 
